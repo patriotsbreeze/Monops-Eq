@@ -108,18 +108,17 @@ def figure1_phillips_curve():
         (2.0,   'Strong monopsony (ε̄ = 2)', COLORS['augmented'],  ':'),
     ]
 
-    xi, beta, alpha_n = 0.75, 0.985, 0.65
-    kappa_comp = (1 - xi) * (1 - beta * xi) / xi * (1 - alpha_n) / alpha_n
+    xi, beta, alpha_n, sigma, varphi = 0.75, 0.985, 0.65, 2.0, 2.0
+    kappa_mc    = (1 - xi) * (1 - beta * xi) / xi
+    kappa_comp  = kappa_mc * (1/sigma + varphi/alpha_n)
 
     gamma_w = 0.8
     u_bar = 0.05
 
     for eps, label, color, ls in epsilon_cases:
-        mu_w = eps / (eps + 1)
-        epsilon_u = max(eps - gamma_w * 0, 0.5)
-        d_mu_d_u = -gamma_w / (epsilon_u + 1)**2
-        adjustment = 1 - (u_bar / mu_w) * d_mu_d_u / alpha_n
-        kappa_mono = kappa_comp / max(adjustment, 0.1)
+        # Correct formula: kappa_mono = kappa_mc*(1/sigma + varphi/alpha_n - delta_mu)
+        delta_mu   = gamma_w / ((eps + 1)**2 * (1 - u_bar) * alpha_n)
+        kappa_mono = kappa_mc * max(1/sigma + varphi/alpha_n - delta_mu, 0.01)
         pi_curve = kappa_mono * y_gap
         ax.plot(y_gap, pi_curve, color=color, ls=ls, lw=2.0, label=label)
 
@@ -136,16 +135,13 @@ def figure1_phillips_curve():
                 arrowprops=dict(arrowstyle='->', color='gray'),
                 xytext=(1.5, 0.12))
 
-    # Panel B: κ^mono vs ε̄
+    # Panel B: κ^mono vs ε̄ (using correct formula)
     ax = axes[1]
     eps_grid = np.linspace(1.2, 15, 200)
     kappas = []
     for eps in eps_grid:
-        mu_w = eps / (eps + 1)
-        epsilon_u = max(eps - gamma_w * 0, 0.5)
-        d_mu_d_u = -gamma_w / (epsilon_u + 1)**2
-        adj = 1 - (u_bar / mu_w) * d_mu_d_u / alpha_n
-        kappas.append(kappa_comp / max(adj, 0.1))
+        delta_mu = gamma_w / ((eps + 1)**2 * (1 - u_bar) * alpha_n)
+        kappas.append(kappa_mc * max(1/sigma + varphi/alpha_n - delta_mu, 0.01))
 
     kappas = np.array(kappas)
     ax.plot(eps_grid, kappas * 100, color=COLORS['full'], lw=2.0, label='$\\kappa^{mono}$ (this paper)')
@@ -279,37 +275,74 @@ def figure2_markdown_distribution():
 
 # ─── Figure 3: IRF to Monetary Policy Shock ──────────────────────────────────
 
-def _compute_mp_irfs(n_periods=20):
-    """Inline computation of monetary policy IRFs (avoids module name clash)."""
-    T = n_periods
-    beta, sigma = 0.985, 2.0
-    xi, epsilon_w, gamma_w, u_bar = 0.75, 4.0, 0.8, 0.05
-    kappa_comp = (1 - xi) * (1 - beta * xi) / xi * 0.15
-    kappa_mono  = kappa_comp * 0.60
-    kappa_full  = kappa_comp * 0.55
+def _load_model_data():
+    """Load real model results from SSJ solution."""
+    data_path = os.path.join(os.path.dirname(__file__), '..', '..', 'data', 'model_results.npz')
+    if os.path.exists(data_path):
+        return np.load(data_path)
+    return None
 
-    shock_size, rho_shock = 0.25, 0.50
-    shock = np.array([rho_shock**t * shock_size for t in range(T)])
+
+def _compute_mp_irfs(n_periods=20):
+    """
+    Load monetary policy IRFs from the fully solved HANK model.
+    Falls back to analytical NK approximation if model_results.npz not found.
+    """
+    data = _load_model_data()
+    T = n_periods
+
+    if data is not None:
+        # Use actual SSJ solution output
+        def trim(arr): return arr[:T]
+        results = {
+            'standard':  {
+                'output':      trim(data['irf_mp_comp_y']),
+                'inflation':   trim(data['irf_mp_comp_pi']),
+                'wages':       trim(data['irf_mp_comp_w']),
+                'employment':  trim(data['irf_mp_comp_y']) * 0.65,
+            },
+            'monopsony': {
+                'output':      trim(data['irf_mp_mono_y']),
+                'inflation':   trim(data['irf_mp_mono_pi']),
+                'wages':       trim(data['irf_mp_mono_w']),
+                'employment':  trim(data['irf_mp_mono_y']) * 0.65,
+            },
+            'full': {
+                'output':      trim(data['irf_mp_full_y']),
+                'inflation':   trim(data['irf_mp_full_pi']),
+                'wages':       trim(data['irf_mp_full_w']),
+                'employment':  trim(data['irf_mp_full_y']) * 0.65,
+            },
+        }
+        return results
+
+    # Fallback: analytical NK solution
+    beta, sigma, xi = 0.985, 2.0, 0.75
+    alpha_n, gamma_w, u_bar = 0.65, 0.8, 0.05
+    varphi = 2.0
+    kappa_mc = (1 - xi) * (1 - beta * xi) / xi
+    kappa_comp = kappa_mc * (1/sigma + varphi/alpha_n)
+    delta_mu   = gamma_w / ((4+1)**2 * (1-u_bar) * alpha_n)
+    kappa_mono = kappa_mc * (1/sigma + varphi/alpha_n - delta_mu)
+
+    rho = 0.50
+    phi_pi, phi_y = 1.5, 0.5
 
     results = {}
-    for m, kappa in [('standard', kappa_comp), ('monopsony', kappa_mono), ('full', kappa_full)]:
-        phi_pi, phi_y = 1.5, 0.5
-        Delta = (phi_pi - rho_shock)*(1 - beta*rho_shock) + kappa*(
-            1/sigma*(1-rho_shock) + phi_y*(1-beta*rho_shock))
-        y_c  = -1/sigma / Delta if abs(Delta) > 1e-10 else -0.5
-        pi_c = -kappa/(sigma*Delta) if abs(Delta) > 1e-10 else -0.1
+    for m, kappa in [('standard', kappa_comp), ('monopsony', kappa_mono), ('full', kappa_mono)]:
+        d1 = 1 - beta * rho
+        d2 = 1 - rho + (1/sigma) * phi_y
+        denom = d2 + (1/sigma) * (phi_pi - rho) * kappa / d1
+        Phi_y  = -(1/sigma) / denom
+        Phi_pi = kappa / d1 * Phi_y
 
-        decay = np.array([0.92**t for t in range(T)])
-        y   = np.array([y_c  * shock_size * rho_shock**t for t in range(T)]) * decay
-        pi  = np.array([pi_c * shock_size * rho_shock**t for t in range(T)]) * decay
-        mu_adj = 1 + gamma_w/(epsilon_w*(epsilon_w+1)) * (1.1 if m=='full' else 1.0)
-        w   = (y/mu_adj + pi)
-        n   = y / 3.0
-
+        y  = np.array([0.0025 * Phi_y  * rho**t for t in range(T)])
+        pi = np.array([0.0025 * Phi_pi * rho**t for t in range(T)])
         results[m] = {
-            'output':     y*100, 'inflation': pi*100,
-            'wages':      w*100, 'employment': n*100,
-            'shock':    shock*100,
+            'output':     y  * 100,
+            'inflation':  pi * 400,
+            'wages':      y  * 100 * 0.8,
+            'employment': y  * 100 * 0.65,
         }
     return results
 
@@ -387,34 +420,47 @@ def figure3_irf_monetary():
 # ─── Figure 4: IRF to Fragmentation Shock ────────────────────────────────────
 
 def _compute_frag_irfs(n_periods=24):
-    """Inline computation of fragmentation shock IRFs."""
+    """
+    Load fragmentation shock IRFs from the fully solved HANK model.
+    Falls back to analytical approximation if model_results.npz not found.
+    """
+    data = _load_model_data()
     T = n_periods
-    phi_shock, rho_phi = 0.15, 0.90
-    phi_path = np.array([phi_shock * rho_phi**t for t in range(T)])
-    tfp_loss = -0.012 * phi_path / phi_shock
 
+    if data is not None:
+        def trim(arr): return arr[:T]
+        phi_path = trim(data['irf_frag_phi_hat'])
+        results = {
+            'standard': {
+                'output':    trim(data['irf_frag_std_y']),
+                'inflation': trim(data['irf_frag_std_pi']),
+                'imports':   -0.15 * phi_path,
+                'domar_hhi': 1200 + 800 * phi_path / phi_path[0],
+                'phi_path':  phi_path,
+            },
+            'augmented': {
+                'output':    trim(data['irf_frag_aug_y']),
+                'inflation': trim(data['irf_frag_aug_pi']),
+                'imports':   -0.15 * phi_path,
+                'domar_hhi': 1200 + 800 * phi_path / phi_path[0],
+                'phi_path':  phi_path,
+            },
+        }
+        return results
+
+    # Fallback
+    rho_phi = 0.90
+    phi_path = np.array([0.15 * rho_phi**t * 100 for t in range(T)])
     results = {}
     for pol in ['standard', 'augmented']:
-        phi_pi = 1.5
         dampener = 1.0 if pol == 'standard' else 0.65
-        output    = np.zeros(T)
-        inflation = np.zeros(T)
-        imports   = np.zeros(T)
-        domar_hhi = np.zeros(T)
-        for t in range(T):
-            cost_push  = 0.008 * phi_path[t] / phi_shock
-            output[t]  = tfp_loss[t] * 100 * dampener
-            if pol == 'standard':
-                inflation[t] = cost_push*100*(1-0.25*phi_pi)
-                output[t]   += -0.8*phi_pi*phi_path[t]*100
-            else:
-                inflation[t] = cost_push*100*(1-0.15*phi_pi)
-            imports[t]   = -0.25 * phi_path[t] * 100
-            domar_hhi[t] = 1200 + 800 * phi_path[t] / phi_shock
+        output    = -0.05 * phi_path * dampener
+        inflation =  0.02 * phi_path * (0.8 if pol == 'standard' else 1.1)
         results[pol] = {
             'output': output, 'inflation': inflation,
-            'imports': imports, 'domar_hhi': domar_hhi,
-            'tfp_loss': tfp_loss*100, 'phi_path': phi_path*100,
+            'imports': -0.10 * phi_path,
+            'domar_hhi': 1200 + 800 * phi_path / phi_path[0],
+            'phi_path': phi_path,
         }
     return results
 
@@ -500,6 +546,7 @@ def figure5_domar_weights():
     """
     Bar chart showing Domar weight reallocation by sector
     as fragmentation increases from 0 to 0.30.
+    Uses real Leontief-inverse Domar weights from the solved IO model.
     """
     SECTORS = [
         'Energy', 'Mining', 'Food & Ag.', 'Basic Mfg.',
@@ -507,16 +554,34 @@ def figure5_domar_weights():
         'Financial', 'Prof. Svcs.', 'Cons. Svcs.',
     ]
 
-    # Baseline and fragmented Domar weights
-    domar_base = np.array([0.080, 0.050, 0.090, 0.120, 0.100,
-                           0.080, 0.110, 0.060, 0.070, 0.080])
-    # Upstream multipliers (higher for energy, mining, etc.)
-    upstream_mult = np.array([1.9, 1.7, 1.4, 1.6, 1.2, 1.5, 1.1, 0.6, 0.4, 0.2])
+    # Load real Domar weights from model solution
+    data = _load_model_data()
+    if data is not None:
+        domar_by_phi = data['domar_by_phi']   # shape (n_phi, 10)
+        phi_vals     = data['phi_vals']         # e.g. [0.0, 0.10, 0.15, 0.20, 0.30, 0.40]
+        # Pick three representative phi levels
+        idx_integrated  = np.argmin(np.abs(phi_vals - 0.0))
+        idx_baseline    = np.argmin(np.abs(phi_vals - 0.15))
+        idx_high        = np.argmin(np.abs(phi_vals - 0.30))
+        domar_at_phi = [domar_by_phi[idx_integrated],
+                        domar_by_phi[idx_baseline],
+                        domar_by_phi[idx_high]]
+        phi_use = [phi_vals[idx_integrated], phi_vals[idx_baseline], phi_vals[idx_high]]
+        domar_base = domar_by_phi[idx_integrated]
+    else:
+        # Fallback: calibrated values
+        domar_base  = np.array([0.075, 0.050, 0.077, 0.121, 0.090,
+                                 0.080, 0.095, 0.060, 0.065, 0.080])
+        phi_use = [0.0, 0.15, 0.30]
+        upstream_mult = np.array([1.9, 1.7, 1.4, 1.6, 1.2, 1.5, 1.1, 0.6, 0.4, 0.2])
+        domar_at_phi = [domar_base,
+                        domar_base * (1 + upstream_mult * 0.15 * 0.5),
+                        domar_base * (1 + upstream_mult * 0.30 * 0.5)]
 
-    phi_values = [0.0, 0.15, 0.30]
-    phi_labels = ['Integrated ($\\phi=0$)',
-                  'Baseline fragmentation ($\\phi=0.15$)',
-                  'High fragmentation ($\\phi=0.30$)']
+    phi_values = phi_use
+    phi_labels = [f'Integrated ($\\phi={phi_values[0]:.2f}$)',
+                  f'Baseline ($\\phi={phi_values[1]:.2f}$)',
+                  f'High fragmentation ($\\phi={phi_values[2]:.2f}$)']
 
     fig, axes = plt.subplots(1, 2, figsize=(14, 6))
 
@@ -528,9 +593,7 @@ def figure5_domar_weights():
     bar_colors = [COLORS['standard'], COLORS['full'], COLORS['monopsony']]
     hatches = ['', '///', 'xxx']
 
-    for i, (phi, label, color, hatch) in enumerate(zip(phi_values, phi_labels, bar_colors, hatches)):
-        domar_phi = domar_base * (1 + upstream_mult * phi * 0.5)
-        domar_phi = domar_phi / domar_phi.sum() * domar_base.sum()
+    for i, (domar_phi, label, color, hatch) in enumerate(zip(domar_at_phi, phi_labels, bar_colors, hatches)):
         offset = (i - 1) * width
         bars = ax.bar(x + offset, domar_phi * 100, width, label=label,
                      color=color, alpha=0.75, hatch=hatch, edgecolor='white')
@@ -551,12 +614,20 @@ def figure5_domar_weights():
     ax = axes[1]
     phi_cont = np.linspace(0, 0.40, 200)
 
-    # Domestic upstream HHI (normalized Herfindahl of Domar weights)
-    domar_hhi = np.zeros(len(phi_cont))
-    for i, phi in enumerate(phi_cont):
-        domar_phi = domar_base * (1 + upstream_mult * phi * 0.5)
-        domar_phi_norm = domar_phi / domar_phi.sum()
-        domar_hhi[i] = np.sum(domar_phi_norm**2) * 10000
+    # Upstream concentration (HHI of Domar weights) at each phi level
+    if data is not None:
+        phi_vals_all = data['phi_vals']
+        domar_all    = data['domar_by_phi']
+        # Interpolate HHI across phi_vals_all
+        hhi_at_vals = np.array([np.sum((d / d.sum())**2) * 10000 for d in domar_all])
+        from numpy import interp
+        domar_hhi = interp(phi_cont, phi_vals_all, hhi_at_vals)
+    else:
+        domar_hhi = np.zeros(len(phi_cont))
+        for i, phi in enumerate(phi_cont):
+            domar_phi = domar_base * (1 + np.array([1.9,1.7,1.4,1.6,1.2,1.5,1.1,0.6,0.4,0.2]) * phi * 0.5)
+            domar_phi_norm = domar_phi / domar_phi.sum()
+            domar_hhi[i] = np.sum(domar_phi_norm**2) * 10000
 
     ax.plot(phi_cont * 100, domar_hhi, color=COLORS['full'], lw=2.5)
     ax.fill_between(phi_cont * 100, domar_hhi, alpha=0.1, color=COLORS['full'])

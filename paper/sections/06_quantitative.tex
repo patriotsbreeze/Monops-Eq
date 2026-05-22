@@ -108,31 +108,28 @@ policy shock across three model variants: (i) the standard competitive NK
 model with integrated trade, (ii) the monopsony-only model, and (iii) the
 full model with monopsony and fragmentation.
 
-\paragraph{Inflation persistence.}
-Under the standard model, the inflation response to combined supply shocks
-has a half-life of 8 quarters---broadly consistent with pre-2020 experience.
-The monopsony-only model raises the half-life to 12 quarters (the flatter
-Phillips curve implies slower mean reversion). The full model produces a
-half-life of 15 quarters, matching the observed persistence of U.S.\ core
-inflation in 2021--2023. The additional persistence from fragmentation arises
-because the IO network amplification extends the duration of upstream cost
-pressures.
+\paragraph{Monetary policy transmission.}
+Figure~\ref{fig:fig3} shows impulse responses to a 25bp monetary policy shock
+across three model variants: the standard competitive NK model, the
+monopsony-only model, and the full model with both monopsony and fragmentation.
+The full model generates a slightly more muted inflation response and a
+marginally smaller output trough than the competitive benchmark, consistent
+with the NKPC flattening from Proposition~1. A key comparison is HANK vs.\
+the representative-agent (RANK) version: the aggregate consumption Jacobian
+$\mathbf{G}^{C,r}$ is $-0.137$ at impact in HANK vs.\ $-0.495$ in RANK.
+This reflects MPC heterogeneity: constrained hand-to-mouth households
+(approximately 29\% of all households by our MPC calibration) are less
+responsive to the direct intertemporal channel, while remaining highly
+responsive to the wage income channel captured by $\mathbf{G}^{C,we}$.
 
 \paragraph{Output resilience.}
-A key stylized fact of 2022--2023 is that unemployment remained low despite
-aggressive rate hikes. The full model reproduces this: the countercyclical
-markdown channel implies that when demand falls (rate hike), firms compress
-wages further rather than cutting employment---maintaining headcount at the
-cost of lower real wages. This is consistent with the observed decline in
-the wage share and the ``mysterious'' resilience of employment documented by
-\citet{domash2022}.
-
-\paragraph{Quantitative fit.}
-The full model generates a peak inflation of 2.4\% above target (annualized),
-compared with 2.3\% in the data. The output gap trough is $-1.0\%$ vs.
-$-0.8\%$ in the data (CBO estimates). The standard model underpredicts peak
-inflation by 35\% and overpredicts the output gap trough by 60\%, confirming
-the quantitative importance of the novel channels.
+The countercyclical markdown channel implies that when demand falls, firms
+compress wages rather than cutting employment---maintaining headcount at the
+cost of lower real wages. This mechanism provides a structural explanation
+for the ``mysterious'' resilience of employment during 2022--2023 documented
+by \citet{domash2022}: rather than cutting jobs, firms took larger markdowns,
+consistent with the fall in the labour share of income documented in
+\citet{rinz2022labor}.
 
 \subsection{Exercise 2: A Tariff War Scenario}
 \label{sec:exercise2}
@@ -162,12 +159,15 @@ for service sectors, implying a significant increase in inequality even in
 the short run.
 
 \paragraph{Policy comparison.}
-Under the standard Taylor rule, the central bank raises rates aggressively
-in response to the cost-push inflation, producing a cumulative output loss
-of 4.2\% over 8 quarters. Under the augmented rule (with $\phi_\phi^* = -0.20$),
-the rate response is more muted: the output loss is 2.8\%, a 33\% improvement,
-while the inflation overshoot is only modestly larger (0.3pp). The welfare
-gain from the augmented rule is substantial.
+Figure~\ref{fig:fig4} shows the fragmentation shock IRFs. Under the standard
+Taylor rule, the central bank tightens in response to cost-push inflation,
+deepening the output loss. Under the augmented rule ($\phi_\phi^* = -0.22$),
+the rate response is more accommodative: the rule correctly identifies the
+supply-side origin of the inflation and partially absorbs it, achieving a
+smaller output trough with a modest inflation overshoot. The welfare gain from
+this reallocation of the policy mix---0.06\% at baseline $\sigma_\phi = 0.05$,
+rising to $\approx 1\%$ at $\sigma_\phi = 0.20$---is the quantitative
+counterpart of Proposition~3.
 
 \subsection{Exercise 3: Cross-Country Heterogeneity}
 \label{sec:exercise3}
@@ -183,12 +183,16 @@ labor market concentration (United States: HHI 3,800; United Kingdom: 2,800)
 required substantially larger rate increases for a given disinflation target
 than more competitive labor markets (Germany: 1,900; Sweden: 1,900).
 
-\paragraph{Fed vs.\ ECB divergence.}
-The model provides a structural explanation for why the Federal Reserve raised
-rates by 525bp while the ECB raised by 450bp to achieve similar disinflation.
-In our calibration, the U.S.\ Phillips curve slope ($\kappa^{mono}_{US} = 0.029$)
-is flatter than the Euro Area slope ($\kappa^{mono}_{EA} = 0.038$) due to
-higher U.S.\ labor market concentration, implying a sacrifice ratio 31\% higher
-in the U.S. The model predicts a rate differential of $31\% \times 450\text{bp}
-= 140\text{bp}$, close to the observed 75bp differential. The residual gap
-is attributable to differential fiscal support and energy price exposure.
+\paragraph{Cross-country implications.}
+The model provides qualitative guidance on cross-country heterogeneity. Countries
+with lower values of $\bar\varepsilon$ (higher monopsony concentration) face
+flatter Phillips curves and higher sacrifice ratios. For the US--Euro Area
+comparison: the US Herfindahl-Hirschman Index in labour markets averages
+approximately 4,000 vs.\ 2,800 for major Euro Area economies
+\citep{azar2022labor}. Translating via the structural link $\bar\varepsilon
+\approx f(\mathrm{HHI})$ implies a modestly flatter US Phillips curve slope.
+Figure~\ref{fig:fig6} shows the model-implied sacrifice ratio as a function
+of $\bar\varepsilon$ alongside this cross-country comparison. We caution that
+the level differences in $\bar\varepsilon$ across countries are imprecisely
+estimated; the model provides a structural framework for this comparison rather
+than a precise quantitative prediction.

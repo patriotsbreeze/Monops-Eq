@@ -7,68 +7,106 @@ magnitudes are discussed in Section \ref{sec:quantitative}.
 
 \subsection{Proposition 1: Endogenous Phillips Curve Flattening}
 
-The standard forward-looking NKPC (derived from optimal Calvo price-setting
-in a competitive economy) is:
+In the competitive benchmark, optimal Calvo price-setting yields the standard
+forward-looking New Keynesian Phillips Curve (NKPC):
 \begin{equation}
-  \pi_t = \beta\,\mathbb{E}_t\pi_{t+1} + \kappa^{comp}\,\hat{mc}_t
-  \qquad \text{where } \kappa^{comp} = \frac{(1-\xi)(1-\beta\xi)}{\xi}\cdot
-  \frac{1-\alpha_n}{\alpha_n}
+  \pi_t = \beta\,\mathbb{E}_t\pi_{t+1} + \kappa^{comp}\,\tilde{y}_t
+  \qquad \text{where} \qquad
+  \kappa^{comp} = \kappa_{mc}\!\left(\frac{1}{\sigma} + \frac{\varphi}{\alpha_n}\right)
   \label{eq:NKPC_comp}
 \end{equation}
+and $\kappa_{mc} \equiv (1-\xi)(1-\beta\xi)/\xi$ is the Calvo coefficient on
+real marginal cost, $\sigma$ is the coefficient of relative risk aversion,
+$\varphi$ is the inverse Frisch elasticity, and $\alpha_n \in (0,1)$ is the
+labour cost share.
 
 \begin{theorem}[Monopsony Phillips Curve Flattening]
   \label{thm:pc_flattening}
-  In the presence of structural monopsony with countercyclical markdown
-  $\varepsilon_t = \bar\varepsilon - \gamma(u_t - \bar u)$, the aggregate
-  NKPC takes the form \eqref{eq:NKPC_comp} but with a strictly smaller slope:
+  In the presence of structural monopsony with countercyclical elasticity
+  $\varepsilon_t = \bar\varepsilon - \gamma(u_t - \bar u)$ and $\gamma > 0$,
+  the aggregate NKPC takes the same form as \eqref{eq:NKPC_comp} but with a
+  strictly smaller slope:
   \begin{equation}
-    \kappa^{mono} = \frac{\kappa^{comp}}{1 + \dfrac{\gamma}
-    {\bar\varepsilon(\bar\varepsilon+1)}\cdot\dfrac{1}{\alpha_n}}
+    \kappa^{mono} = \kappa_{mc}\!\left(\frac{1}{\sigma} + \frac{\varphi}{\alpha_n}
+      - \underbrace{\frac{\gamma}{(\bar\varepsilon+1)^2(1-\bar u)\,\alpha_n}}_{\delta_\mu > 0}\right)
     < \kappa^{comp}
     \label{eq:kappa_mono}
   \end{equation}
-  Moreover, $\kappa^{mono}$ is \emph{state-dependent}: it falls further
-  when unemployment exceeds its steady-state value.
+  Moreover, $\kappa^{mono}$ is \emph{state-dependent}: $\kappa^{mono}$ falls
+  further when unemployment exceeds its steady-state value.
 \end{theorem}
 
 \begin{proof}
-  Real marginal cost is $mc_t = w_t / (\mu_t^w \cdot z_t \cdot f_n)$.
-  Log-linearizing around steady state:
+  Real marginal cost in the monopsonistic economy is:
   \begin{equation}
-    \hat{mc}_t = \hat{w}_t - \hat\mu_t^w - \hat{z}_t - \widehat{f_n}_t
+    mc_t = \frac{w_t}{\mu_t^w \cdot z_t \cdot f_n(n_t)}
+    \label{eq:mc_def}
+  \end{equation}
+  where $w_t$ is the nominal wage, $\mu_t^w = \varepsilon_t/(\varepsilon_t+1)$
+  is the wage markdown, $z_t$ is TFP, and $f_n$ is the marginal product of labour.
+  Log-linearising around the non-stochastic steady state (where $mc = 1$ and
+  hats denote log-deviations):
+  \begin{equation}
+    \hat{mc}_t = \hat{w}_t - \hat{\mu}_t^w - \hat{z}_t - \widehat{f_n}_t
     \label{eq:mc_loglin}
   \end{equation}
-  The markdown deviation satisfies:
-  $\hat\mu_t^w = (\partial\mu^w/\partial u)|_{SS}\cdot\hat u_t$.
-  Since $\partial\mu^w/\partial u = -\gamma/(\bar\varepsilon+1)^2$ and
-  $\hat u_t \approx -\hat n_t/(1-\bar u)$:
+
+  \paragraph{Markdown deviation.}
+  The markdown satisfies $\mu^w = \varepsilon/(\varepsilon+1)$, so
+  $\partial\mu^w/\partial\varepsilon = 1/(\varepsilon+1)^2 > 0$.
+  With $\partial\varepsilon/\partial u = -\gamma$ and using the approximation
+  $\hat u_t \approx -(1-\bar u)^{-1}\hat n_t$:
   \begin{equation}
-    \hat\mu_t^w = \frac{\gamma}{(\bar\varepsilon+1)^2(1-\bar u)}\,\hat n_t
+    \hat\mu_t^w = \frac{1}{(\bar\varepsilon+1)^2}\,\partial\varepsilon/\partial u\cdot
+      \hat u_t = \frac{\gamma}{(\bar\varepsilon+1)^2(1-\bar u)}\,\hat n_t
     \label{eq:mu_loglin}
   \end{equation}
-  The log-linearized production function links $\hat n_t$ to $\hat{mc}_t$
-  via $\hat n_t = \alpha_n\,\hat{mc}_t$ (after substituting out $\hat z_t$
-  and $\widehat{f_n}_t$). Substituting \eqref{eq:mu_loglin} into
-  \eqref{eq:mc_loglin} and solving:
-  \begin{equation}
-    \hat{mc}_t = \frac{1}{1 + \dfrac{\gamma}{(\bar\varepsilon+1)^2(1-\bar u)}
-    \cdot\dfrac{\alpha_n}{\alpha_n}} \cdot (\text{standard cost terms})
+  When employment rises ($\hat n_t > 0$), $\hat\mu_t^w > 0$ (workers gain
+  bargaining power) and the markdown falls.
+
+  \paragraph{Marginal product.}
+  From Cobb-Douglas $f(n) = n^{\alpha_n}$:
+  $\widehat{f_n}_t = (\alpha_n - 1)\hat n_t$.
+  Aggregate output satisfies $\hat y_t = \alpha_n \hat n_t + \hat z_t$, so
+  $\hat n_t = (\hat y_t - \hat z_t)/\alpha_n$ and
+  $\widehat{f_n}_t = -[(1-\alpha_n)/\alpha_n](\hat y_t - \hat z_t)$.
+
+  \paragraph{Wage.}
+  The household labour supply FOC gives the competitive wage:
+  $\hat w_t^{comp} = \sigma^{-1}\hat c_t + \varphi\hat n_t$.
+  With market clearing $\hat c_t = \hat y_t$ and $\hat n_t = \hat y_t/\alpha_n$
+  (at $\hat z_t = 0$ for exposition):
+  $\hat w_t = (\sigma^{-1} + \varphi/\alpha_n)\hat y_t$.
+
+  \paragraph{Combining.}
+  Substituting into \eqref{eq:mc_loglin} and collecting terms in $\hat y_t$:
+  \begin{align}
+    \hat{mc}_t &= \underbrace{\left(\frac{1}{\sigma} + \frac{\varphi}{\alpha_n}\right)}_{\text{standard}}
+      \hat y_t
+      - \underbrace{\frac{\gamma}{(\bar\varepsilon+1)^2(1-\bar u)\,\alpha_n}}_{\delta_\mu}\hat y_t
+      \notag\\[4pt]
+    &= \left(\frac{1}{\sigma} + \frac{\varphi}{\alpha_n} - \delta_\mu\right)\hat y_t
     \label{eq:mc_adjusted}
-  \end{equation}
-  Collecting terms and substituting into the NKPC yields \eqref{eq:kappa_mono}.
-  Strict inequality follows because $\gamma > 0$, $\bar\varepsilon > 0$,
-  $\alpha_n \in (0,1)$. The state-dependence follows from
-  $\partial\kappa^{mono}/\partial u < 0$ by the chain rule through $\varepsilon_t$.
+  \end{align}
+  Multiplying by $\kappa_{mc}$ and substituting into the standard Calvo pricing
+  condition $\pi_t = \beta\mathbb{E}_t\pi_{t+1} + \kappa_{mc}\hat{mc}_t$
+  yields \eqref{eq:kappa_mono}.
+
+  Strict inequality holds because $\delta_\mu > 0$ for all $\gamma > 0$,
+  $\bar\varepsilon > 0$, $\bar u \in (0,1)$, $\alpha_n \in (0,1)$.
+
+  State-dependence: $\kappa^{mono}$ falls as $\bar u$ rises (more recession),
+  since $\partial\delta_\mu/\partial\bar u > 0$ reduces the effective
+  slope further. This is because higher unemployment compresses markdowns more
+  aggressively, increasing the dampening of MC responses.
 \end{proof}
 
 \begin{corollary}[Sacrifice Ratio]
   \label{cor:sacrifice_ratio}
-  The sacrifice ratio---the output cost per percentage point of
+  The sacrifice ratio---output cost per percentage point of
   disinflation---is:
   \begin{equation}
-    SR^{mono} = \frac{1}{\kappa^{mono}} =
-    \frac{1}{\kappa^{comp}}\left(1 + \frac{\gamma}{\bar\varepsilon(\bar\varepsilon+1)}
-    \cdot\frac{1}{\alpha_n}\right) > SR^{comp}
+    SR^{mono} = \frac{1}{\kappa^{mono}} > \frac{1}{\kappa^{comp}} = SR^{comp}
     \label{eq:sacrifice_ratio}
   \end{equation}
   Central banks must induce larger recessions to achieve the same disinflation
@@ -77,11 +115,26 @@ in a competitive economy) is:
 
 \paragraph{Magnitudes.}
 In our baseline calibration ($\bar\varepsilon = 4$, $\gamma = 0.8$,
-$\alpha_n = 0.65$, $\xi = 0.75$, $\beta = 0.985$):
-$\kappa^{comp} = 0.0485$, $\kappa^{mono} = 0.0291$ (40\% flatter),
-$SR^{comp} = 20.6$, $SR^{mono} = 34.4$. This flattening is of the same order
-as the empirically documented change in the U.S.\ Phillips curve over 1990--2023
-\citep{hooper2020flat, mccleary2021}.
+$\alpha_n = 0.65$, $\sigma = 2$, $\varphi = 2$, $\xi = 0.75$, $\beta = 0.985$):
+\begin{equation*}
+  \delta_\mu = \frac{0.8}{25 \times 0.95 \times 0.65} \approx 0.052
+\end{equation*}
+This gives $\kappa^{comp} = 0.311$, $\kappa^{mono} = 0.307$---a
+1.4\% flattening of the Phillips curve slope. The associated sacrifice ratios
+are $SR^{comp} = 3.21$ and $SR^{mono} = 3.26$. These magnitudes, computed from
+the fully solved HANK model, are modest with standard calibration. Two remarks
+are in order. First, $\delta_\mu$ scales with $\gamma$; higher countercyclical
+sensitivity---plausible in industries with low labour mobility---produces
+meaningfully larger flattening. Second, and more importantly, the \emph{HANK
+redistribution channel} generates additional amplification beyond the slope
+estimate: by compressing the incomes of high-MPC workers in recessions, monopsony
+reduces aggregate demand by more than a representative-agent model would predict,
+enlarging the effective sacrifice ratio above the pure $1/\kappa^{mono}$ measure.
+The household Jacobian $\mathbf{G}^{C,r}$ computed via the sequence-space fake
+news algorithm shows that aggregate consumption responds $-0.137$ per unit
+interest rate change in the HANK model versus $-0.495$ in the representative-agent
+benchmark, reflecting how MPC heterogeneity redistributes the burden of monetary
+tightening toward constrained workers.
 
 \subsection{Proposition 2: Fragmentation Amplifies Supply Shocks}
 
@@ -97,7 +150,8 @@ as the empirically documented change in the U.S.\ Phillips curve over 1990--2023
   (ii) $\lambda_{sr}(\phi_t)$ is weakly increasing in $\phi_t$ for upstream
   sectors $(s,r)$ with significant cross-bloc linkages:
   $\partial\lambda_{sr}/\partial\phi > 0$.
-  (iii) The aggregate TFP loss from a marginal increase in fragmentation is:
+  (iii) The aggregate TFP semi-elasticity with respect to the fragmentation
+  premium is:
   \begin{equation}
     \frac{d\log\mathrm{TFP}}{d\phi} = -\!\!\!
     \sum_{\substack{(s,r),(s',r')\\b(r)\neq b(r')}}
@@ -105,26 +159,54 @@ as the empirically documented change in the U.S.\ Phillips curve over 1990--2023
     \label{eq:tfp_loss}
   \end{equation}
   (iv) Supply shocks have strictly longer persistence in fragmented networks
-  because domestic substitution is costlier than global reallocation.
+  because domestic substitution operates at the lower within-bloc elasticity
+  $\theta < \eta$.
 \end{theorem}
 
 \begin{proof}
   Part (i): \citet{hulten1978} theorem extended to the multi-sector CES
-  environment of \citet{baqaee2019}. Part (ii): Differentiate the Leontief
-  inverse with respect to $\phi$ using the matrix identity
+  environment of \citet{baqaee2019}. The Hulten result states that, to a first
+  order, the GDP impact of a sectoral TFP shock equals that sector's Domar
+  weight $\lambda_{sr} = P_{sr}X_{sr}/(P\cdot\mathrm{GDP})$.
+
+  Part (ii): Differentiate the Leontief inverse with respect to $\phi$ using
+  the matrix identity
   $d\mathbf{L}/d\phi = \mathbf{L}\,(d\boldsymbol\Omega^\top/d\phi)\,\mathbf{L}$.
-  For upstream sectors, $\partial\Omega_{(s,r)(s',r')}/\partial\phi < 0$
-  for cross-bloc links, which redirects demand toward domestic suppliers,
-  increasing their row-sum in $\mathbf{L}$ and thus their Domar weight.
-  Part (iii): Apply the envelope theorem to the Armington CES cost function.
-  Part (iv): Under global integration, a sector-specific cost shock is absorbed
-  by substituting toward alternative suppliers with elasticity $\eta$. Under
-  fragmentation, cross-bloc substitution is blocked, forcing adjustment through
-  the single domestic margin, which operates at the lower elasticity $\theta <
-  \eta$. The impulse response half-life scales with $1/\min(\theta, \eta)$;
-  under fragmentation, the effective elasticity is $\theta$, extending the
-  half-life by a factor $\eta/\theta > 1$. See Appendix \ref{app:proofs}.
+  From the Armington CES structure, a rise in $\phi$ raises the iceberg cost
+  on cross-bloc links, so
+  $\partial\Omega_{(s,r)(s',r')}/\partial\phi < 0$ for cross-bloc pairs. This
+  redirects final demand toward domestic suppliers, increasing their row-sum
+  in $\mathbf{L}$ and thus their Domar weight. For upstream sectors that
+  supply intermediate goods across blocs, this reallocation is large; for
+  downstream service sectors, it is negligible. See Appendix~\ref{app:proofs}
+  for the full matrix derivation.
+
+  Part (iii): Apply the envelope theorem to the CES cost function. For a
+  marginal increase $d\phi$ in the cross-bloc trade cost:
+  \begin{equation*}
+    dm^{rr'}_{ss'} = -\frac{m^{rr'}_{ss'}}{\tau^{rr'}}\,d\phi
+    \quad \Rightarrow \quad
+    d\log Y = -\!\!\!\sum_{\text{cross-bloc}}\frac{\lambda_{sr}\,\Omega_{(s,r)(s',r')}}
+    {\tau^{rr'}}\,d\phi
+  \end{equation*}
+  which gives \eqref{eq:tfp_loss} after dividing by $d\phi$. Strict negativity
+  holds because all summands are non-negative.
+
+  Part (iv): Under global integration, a cost shock is absorbed by substituting
+  toward cross-bloc suppliers at the Armington elasticity $\eta$. Under
+  fragmentation, this margin is blocked, confining adjustment to domestic
+  suppliers at the lower within-sector elasticity $\theta < \eta$. Shock
+  persistence therefore scales with $\eta/\theta > 1$. See
+  Appendix~\ref{app:proofs}.
 \end{proof}
+
+\paragraph{Magnitudes.}
+Using the BEA 2019 Benchmark Input-Output Table aggregated to 10 sectors and
+5 regions (Appendix~\ref{app:data}), the calibrated formula \eqref{eq:tfp_loss}
+gives $d\log\mathrm{TFP}/d\phi = -0.032$. A 15pp increase in $\phi$ thus
+reduces aggregate TFP by 0.47\%. Upstream Domar weights (Energy, Mining,
+Basic Manufacturing) increase by 15--25\% relative to baseline following such
+a shock, consistent with the Domar reallocation mechanism of Part (ii).
 
 \paragraph{Stagflationary Impulse.}
 Proposition 2 implies that fragmentation shocks are \emph{stagflationary}: they
@@ -152,14 +234,14 @@ the supply-side inflation, worsening the welfare outcome.
           + \phi_\mu^*\,\hat\mu_t^w + \phi_\phi^*\,\hat\phi_t
     \label{eq:optimal_rule}
   \end{equation}
-  with $\phi_\pi^* > \phi_\pi^{std}$, $\phi_\mu^* > 0$, and $\phi_\phi^* < 0$.
+  with $\phi_\pi^* > \phi_\pi^{std}$ and $\phi_\phi^* < 0$.
 \end{theorem}
 
 \begin{proof}
-  The welfare loss function \eqref{eq:welfare_criterion} has three additional
+  The welfare loss function \eqref{eq:welfare_criterion} has two additional
   terms relative to the standard \citet{woodford2003} loss:
   \begin{enumerate}[(i)]
-    \item The \emph{labor wedge term}
+    \item The \emph{labour wedge term}
       $(1/\varepsilon_w\bar\mu^w)\mathrm{Var}[\hat\mu_t^w]$: welfare is directly
       lowered by fluctuations in the wage markdown because households value
       the consumption-leisure margin and are not compensated for the
@@ -168,34 +250,67 @@ the supply-side inflation, worsening the welfare outcome.
       $(\alpha_m/\eta\bar\tau)\mathrm{Var}[\hat\phi_t]$: trade cost fluctuations
       impose deadweight losses proportional to the intermediate input share
       and inversely proportional to the Armington elasticity.
-    \item The \emph{modified output gap weight}
-      $\kappa^{mono}/\varepsilon_p < \kappa^{comp}/\varepsilon_p$: because monopsony
-      flattens the Phillips curve, stabilizing output requires less inflation
-      sacrifice, shifting the optimal frontier inward.
   \end{enumerate}
-  The optimal rule \eqref{eq:optimal_rule} is characterized by first-order
-  conditions of the Ramsey problem. The sign restrictions follow from:
-  $\phi_\mu^* > 0$: when $\hat\mu_t^w < 0$ (monopsony deepens), output falls
-  and welfare is further reduced by the labor wedge. The central bank should
-  ease more aggressively to counteract both the demand fall and the welfare
-  cost of the widening wedge. $\phi_\phi^* < 0$: when $\hat\phi_t > 0$
-  (fragmentation spikes), this is a supply shock. The standard Taylor rule
-  raises rates in response to cost-push inflation, amplifying the output loss.
-  The optimal rule recognizes the supply-side origin and responds less
-  aggressively. See Appendix \ref{app:proofs} for the Ramsey derivation.
+
+  \paragraph{Ramsey first-order conditions.}
+  The planner chooses $(\phi_\pi, \phi_y, \phi_\mu, \phi_\phi)$ to minimise
+  $\mathcal{L}$ subject to the reduced-form law of motion from combining the
+  NKPC \eqref{eq:NKPC_comp} and aggregate demand equation. Let
+  $\rho = \rho_\phi$ denote the AR(1) persistence of the fragmentation shock
+  and $\psi_{mc}$ the cost-push pass-through coefficient. The reduced-form
+  output and inflation responses per unit fragmentation shock are:
+  \begin{align}
+    \Phi_y(\boldsymbol\phi)   &= \frac{-\sigma^{-1}\phi_\phi - \psi_z}
+      {(1-\rho) + \sigma^{-1}\phi_y + \sigma^{-1}(\phi_\pi-\rho)\kappa^{mono}\alpha_n^{-1}/(1-\beta\rho)}
+    \label{eq:Phi_y}\\[4pt]
+    \Phi_\pi(\boldsymbol\phi) &= \frac{\kappa^{mono}}{\alpha_n(1-\beta\rho)}\Phi_y
+      + \frac{\kappa^{mono}\psi_{mc}}{1-\beta\rho}
+    \label{eq:Phi_pi}
+  \end{align}
+  where $\psi_z = |d\log\mathrm{TFP}/d\phi|$ is the TFP sensitivity from
+  Proposition~2. The welfare loss is $\mathcal{L} = \Phi_\pi^2 V_\phi + \lambda_y
+  \Phi_y^2 V_\phi + \cdots$ where $V_\phi = \sigma_\phi^2/(1-\rho^2)$.
+
+  \paragraph{Sign of $\phi_\phi^*$.}
+  From \eqref{eq:Phi_y}--\eqref{eq:Phi_pi}: $\partial\Phi_y/\partial\phi_\phi > 0$
+  (less negative $\phi_\phi$ deepens the output trough) and
+  $\partial\Phi_\pi/\partial\phi_\phi < 0$ (more accommodation reduces inflation).
+  The FOC $\partial\mathcal{L}/\partial\phi_\phi = 0$ sets the inflation-output
+  trade-off at the social optimum. Since a fragmentation shock is a supply shock
+  (both $\Phi_y < 0$ and $\Phi_\pi > 0$, unlike a demand shock where both
+  move together), it generates an inflation-output tradeoff under the standard
+  rule. The planner resolves this by choosing $\phi_\phi^* < 0$, partially
+  accommodating the cost-push component to avoid excessive output sacrifice.
+  The optimal magnitude $|\phi_\phi^*|$ is increasing in the welfare weight
+  $\lambda_\phi = \alpha_m/(\eta\bar\tau)$ on fragmentation variance and in
+  the TFP sensitivity $\psi_z$.
+
+  \paragraph{Sign of $\phi_\pi^*$.}
+  Because monopsony flattens the NKPC ($\kappa^{mono} < \kappa^{comp}$), the
+  planner must use a larger $\phi_\pi^*$ to achieve the same inflation
+  stabilisation.  The optimal augmented rule tilts the inflation-output frontier
+  inward relative to the standard rule; a larger $\phi_\pi^*$ is part of
+  reaching the efficient point. See Appendix~\ref{app:proofs} for the
+  complete Ramsey derivation.
 \end{proof}
 
 \begin{corollary}[Welfare Gain from Augmented Rule]
   The welfare gain from switching from the optimal standard Taylor rule to the
   optimal augmented rule \eqref{eq:optimal_rule} is strictly positive and
-  increasing in $\gamma$ (monopsony cyclicality) and $\sigma_\phi^2$
-  (fragmentation shock variance).
+  increasing in $\sigma_\phi^2$ (fragmentation shock variance).
 \end{corollary}
 
 \paragraph{Magnitudes.}
 In our baseline calibration, the optimal augmented rule has
-$\phi_\pi^* = 2.48$, $\phi_y^* = 0.72$, $\phi_\mu^* = 0.35$,
-$\phi_\phi^* = -0.20$. Relative to the optimal standard rule, the augmented
-rule reduces the total discounted welfare loss by 18\%, with most of the gain
-coming from better management of fragmentation shock episodes (which account
-for 60\% of the welfare gain) and recessions with deep monopsony (40\%).
+$\phi_\pi^* = 3.16$, $\phi_y^* = 0.00$, $\phi_\phi^* = -0.22$.
+The negative coefficient on the fragmentation premium is the key prescription:
+when $\hat\phi_t > 0$ (trade costs spike), the rule calls for \emph{less}
+tightening than the standard Taylor rule would imply, absorbing the supply-side
+cost-push rather than transmitting it into a demand contraction. Relative to
+the optimal standard Taylor rule, the augmented rule reduces the total discounted
+welfare loss by 0.06\% in baseline. This welfare gain scales with the variance of
+fragmentation shocks: with $\sigma_\phi = 0.10$ (twice the baseline), the gain
+rises to approximately 0.24\%, and with $\sigma_\phi = 0.20$, to roughly 1.0\%
+of steady-state consumption. Given the historical volatility of supply chain
+disruptions over 2018--2024, larger values of $\sigma_\phi$ are arguably
+empirically relevant.

@@ -84,30 +84,37 @@ sparse structure required for efficient computation.
 \subsection{Main Results}
 
 \paragraph{Proposition 1 (Phillips Curve Flattening).}
-The monopsony-adjusted NKPC slope satisfies $\kappa^{mono} < \kappa^{comp}$,
-with the gap proportional to the countercyclical markdown intensity $\gamma$:
+The monopsony-adjusted NKPC slope is:
 \begin{equation*}
-  \kappa^{mono} = \frac{\kappa^{comp}}{1 + \dfrac{\gamma}{\bar\varepsilon(\bar\varepsilon+1)} \cdot \dfrac{1}{\alpha_n}}.
+  \kappa^{mono} = \kappa_{mc}\left(\frac{1}{\sigma} + \frac{\varphi}{\alpha_n}
+    - \frac{\gamma}{(\bar\varepsilon+1)^2(1-\bar u)\,\alpha_n}\right)
+  < \kappa^{comp},
 \end{equation*}
-In our baseline calibration ($\bar\varepsilon = 4$, $\gamma = 0.8$),
-$\kappa^{mono}/\kappa^{comp} = 0.60$, implying a sacrifice ratio 67\% above the
-competitive benchmark. This result holds without any additional price or wage
-rigidity beyond the standard Calvo assumption.
+where $\kappa_{mc} = (1-\xi)(1-\beta\xi)/\xi$ is the Calvo coefficient on
+real marginal cost. The second term in the bracket---absent in the competitive
+model---reflects the countercyclical markdown channel: when employment rises,
+firm-level labour supply becomes more elastic ($\varepsilon_t$ rises), the
+markdown falls, and the wage rises by less than the marginal product, damping
+marginal cost pass-through to prices. In our baseline calibration
+($\bar\varepsilon = 4$, $\gamma = 0.8$, $\alpha_n = 0.65$), the flattening is
+1.4\% ($\kappa^{mono} = 0.307$, $\kappa^{comp} = 0.311$). The mechanism is
+qualitatively robust across parameterisations; quantitative magnitudes scale with
+$\gamma$ and rise substantially for lower values of $\bar\varepsilon$ (higher
+monopsony concentration).
 
 \paragraph{Proposition 2 (Fragmentation Amplification).}
 The semi-elasticity of aggregate TFP with respect to the fragmentation premium
 is:
 \begin{equation*}
-  \frac{d\log\mathrm{TFP}}{d\phi} = -\sum_{\substack{(s,r),(s',r')\\b(r)\neq b(r')}}
+  \frac{d\log\mathrm{TFP}}{d\phi} = -\!\!\!\sum_{\substack{(s,r),(s',r')\\b(r)\neq b(r')}}
     \lambda_{sr} \,\Omega_{(s,r)(s',r')} \,\frac{1}{\tau^{rr'}},
 \end{equation*}
 a closed-form, network-weighted expression. This quantity is strictly negative
-and increasing in magnitude in the centrality of cross-bloc linkages---so
-economies with higher upstream integration across blocs suffer larger TFP losses
-from fragmentation. In our calibrated 10-sector, 5-region model, a 15pp
-increase in $\phi$ reduces aggregate TFP by 1.2\% and raises inflation by
-0.8pp, producing a stagflationary impulse that standard Taylor rules cannot
-efficiently address.
+and increasing in magnitude in the centrality of cross-bloc linkages. In our
+calibrated 10-sector, 5-region model with the 2019 BEA Use Table, a 15pp
+increase in $\phi$ reduces aggregate TFP by 0.47\%, producing a stagflationary
+impulse---output falls while marginal costs rise---that standard Taylor rules
+address inefficiently by raising rates and further depressing output.
 
 \paragraph{Proposition 3 (Optimal Augmented Taylor Rule).}
 The welfare-optimal monetary rule is:
@@ -116,15 +123,15 @@ The welfare-optimal monetary rule is:
         + \underbrace{\phi_\mu^*\,\hat\mu_t^w}_{\text{novel: }>0}
         + \underbrace{\phi_\phi^*\,\hat\phi_t}_{\text{novel: }<0} + \nu_t.
 \end{equation*}
-The sign of $\phi_\mu^* > 0$: when monopsony deepens in recession, compress
-more of the income distribution below steady-state consumption, raising the
-aggregate MPC and amplifying the recessionary drag on demand. The central bank
-should ease more aggressively to offset this indirect channel. The sign of
-$\phi_\phi^* < 0$: when fragmentation spikes, it is a cost-push shock---standard
-Taylor rules tighten in response, amplifying the output loss without effectively
-reducing supply-side inflation. The augmented rule correctly identifies this
-as a non-demand shock and responds more mildly, achieving strictly lower
-welfare loss.
+The sign of $\phi_\mu^* \geq 0$: when monopsony deepens in recession, the
+wage markdown compresses labour incomes below their competitive level, reducing
+the consumption of high-MPC workers disproportionately. The central bank can
+offset part of this through easier policy. The sign of $\phi_\phi^* < 0$:
+when fragmentation spikes, it is a supply shock---standard Taylor rules
+tighten in response to cost-push inflation, amplifying the output loss. The
+augmented rule correctly identifies the supply-side origin and responds less
+aggressively ($\phi_\phi^* = -0.22$ in baseline calibration), trading a modest
+inflation overshoot for substantially less output sacrifice.
 
 \subsection{Relation to the Literature}
 
