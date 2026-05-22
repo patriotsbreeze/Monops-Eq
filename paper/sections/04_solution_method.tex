@@ -1,0 +1,157 @@
+\section{Solution Method: Sequence-Space Jacobians}
+\label{sec:solution}
+
+\subsection{The SSJ Framework}
+
+Standard DSGE models are solved by log-linearizing around a deterministic
+steady state and applying \citet{blanchard1980} conditions. With heterogeneous
+agents, this fails because the distribution $\Gamma_t$ is
+infinite-dimensional. The \emph{sequence-space Jacobian} (SSJ) method of
+\citet{auclert2021ssj} bypasses this problem by representing all dynamics
+as $T$-length sequences $\{\mathbf{x}_t\}_{t=0}^{T-1}$ and computing
+Jacobians of equilibrium conditions with respect to these sequences.
+
+\paragraph{Setup.}
+Represent aggregate variables as column vectors of their $T$-period sequences:
+$\mathbf{x} = (x_0, x_1, \ldots, x_{T-1})^\top \in \mathbb{R}^T$.
+A ``block'' is a function $f: \mathbb{R}^T \to \mathbb{R}^T$ mapping
+shock sequences to response sequences. The \emph{Jacobian} of block $f$ at
+the steady state is the $T\times T$ matrix:
+\begin{equation}
+  \mathbf{J}^{x,z} \equiv \frac{\partial \mathbf{x}}{\partial \mathbf{z}}\Bigg|_{SS}
+  \qquad \text{where } [\mathbf{J}^{x,z}]_{ts} = \frac{\partial x_t}{\partial z_s}
+  \label{eq:jacobian_def}
+\end{equation}
+The equilibrium is assembled into a system Jacobian $\mathbf{H}$ encoding
+all market-clearing conditions simultaneously. The solution for impulse
+responses is:
+\begin{equation}
+  \mathbf{H}\,d\mathbf{U} = -\mathbf{H}^{\text{shocks}}\,d\mathbf{Z}
+  \label{eq:ssj_system}
+\end{equation}
+where $d\mathbf{U}$ is the vector of endogenous sequences and $d\mathbf{Z}$
+contains the exogenous shocks.
+
+\subsection{The Fake News Algorithm}
+
+The key computational challenge is constructing the Jacobian of the
+household HANK block efficiently. With $T = 300$ periods and $n_a = 500$
+asset grid points and $n_e = 7$ income states, the household value function
+has dimension $500 \times 7 = 3{,}500$. Running the full household solve
+$T$ times would be prohibitively expensive.
+
+The \emph{fake news algorithm} (FNA) of \citet{auclert2021ssj} exploits
+the following structure. The $(t,s)$ entry of $\mathbf{J}^{c,r}$
+(consumption response to interest rate sequence) equals the response of
+aggregate consumption at date $t$ to a unit ``fake news'' shock to the
+interest rate at date $s$. The FNA computes this by:
+\begin{enumerate}
+  \item Running the steady-state household problem once (cost: $O(T_{ss})$).
+  \item For each date $s = 0, \ldots, T-1$, computing the derivative of
+    the value function with respect to the shock at $s$ via one backward pass
+    (cost: $O(T \cdot n_a \cdot n_e)$ per column).
+  \item Assembling the full $T\times T$ Jacobian from these column vectors
+    (cost: $O(T^2)$ total).
+\end{enumerate}
+The total cost is $O(T^2 n_a n_e)$ rather than $O(T^3 n_a n_e)$, a factor
+of $T = 300$ speedup.
+
+\subsection{Novel Jacobian Blocks}
+
+We extend the standard SSJ framework with two novel Jacobian blocks.
+
+\subsubsection{The Monopsony Block}
+
+In standard HANK-IO models, the wage sequence $\mathbf{w}$ is determined
+by a competitive labor-clearing condition: $w_t = \mathrm{MPL}_t$.
+The corresponding Jacobian is simply $\mathbf{J}^{w,n} = \mathrm{MPL}_{SS} \cdot
+\mathbf{J}^{\mathrm{MPL},n}$.
+
+Under monopsony, the mapping from employment to wages is:
+\begin{equation}
+  w_t = \mu_t^w \cdot \mathrm{MPL}_t
+  \label{eq:wage_mono_mapping}
+\end{equation}
+where $\mu_t^w$ itself depends on employment through the unemployment rate
+$u_t = 1 - \bar N^{-1} n_t$. Log-linearizing \eqref{eq:wage_mono_mapping}:
+\begin{equation}
+  \hat w_t = \hat\mu_t^w + \widehat{\mathrm{MPL}}_t
+  \label{eq:wage_loglin}
+\end{equation}
+and $\hat\mu_t^w = (\partial\mu^w/\partial u)\big|_{SS} \cdot \hat u_t
+= -\gamma/(\bar\varepsilon+1)^2 \cdot \hat u_t$.
+
+The \emph{monopsony Jacobian} is therefore:
+\begin{equation}
+  \mathbf{J}^{w,n} = \bar\mu^w \cdot \mathbf{J}^{\mathrm{MPL},n}
+  + \bar{\mathrm{MPL}} \cdot \underbrace{\frac{\partial\mu^w}{\partial u}\Bigg|_{SS}}_{<\,0}
+  \cdot \mathbf{J}^{u,n}
+  \label{eq:mono_jacobian}
+\end{equation}
+The second term is absent from all existing HANK models. It introduces a
+\emph{negative feedback} from employment to wages: when employment rises
+(output gap positive), monopsony deepens ($\partial\mu^w/\partial u < 0$
+and $\partial u/\partial n < 0$, so the product is positive), partially
+\emph{offsetting} the standard positive wage response and thus reducing
+the inflationary pressure from labor market tightening.
+
+\subsubsection{The Fragmentation Block}
+
+When the fragmentation premium $\phi_t$ changes, the entire IO coefficient
+matrix $\boldsymbol\Omega(\phi_t)$ changes, reshaping the Leontief inverse
+and all Domar weights. The Jacobian of aggregate output with respect to $\phi$:
+\begin{equation}
+  \frac{\partial\log Y_t}{\partial\phi_t} =
+  \frac{\partial}{\partial\phi}\left(\boldsymbol\lambda^\top \log\mathbf{z} -
+  \text{(correction terms)}\right)
+  \label{eq:frag_jacobian_concept}
+\end{equation}
+where $\boldsymbol\lambda$ is the vector of Domar weights. Applying the
+envelope theorem to the Leontief system and differentiating
+$\boldsymbol\Omega(\phi)$ with respect to $\phi$:
+
+\begin{proposition}[GDP-Fragmentation Semi-Elasticity]
+  \label{prop:frag_elasticity}
+  The semi-elasticity of aggregate GDP with respect to the fragmentation
+  premium is:
+  \begin{equation}
+    \frac{d\log Y}{d\phi} =
+    -\sum_{\substack{(s,r),(s',r')\\b(r)\neq b(r')}}
+    \lambda_{sr}\,\Omega_{(s,r)(s',r')}\,\frac{1}{\tau^{rr'}}
+    \label{eq:frag_elasticity}
+  \end{equation}
+  This quantity is (a) strictly negative, (b) increasing in magnitude in the
+  network centrality of cross-bloc linkages, and (c) time-varying because
+  $\boldsymbol\lambda$ evolves with $\phi_t$.
+\end{proposition}
+
+\begin{proof}
+  Differentiate the Leontief system with respect to $\phi$:
+  $d\mathbf{X}/d\phi = \mathbf{L}\,(d\boldsymbol\Omega^\top/d\phi)\,\mathbf{X}$.
+  The derivative of each cross-bloc coefficient is
+  $\partial\Omega_{(s,r)(s',r')}/\partial\phi
+  = -\Omega_{(s,r)(s',r')}/\tau^{rr'}$ (from the Armington CES structure
+  with unit elasticity at first order). Multiplying by the Domar-weight vector
+  $\boldsymbol\lambda = \mathbf{L}\,\mathbf{f}/Y$ and simplifying yields
+  \eqref{eq:frag_elasticity}. See Appendix \ref{app:proofs} for full details.
+\end{proof}
+
+\subsection{Computational Implementation}
+
+With $S = 10$, $R = 5$, $T = 300$, the full system Jacobian has dimension
+approximately $(S \cdot R \cdot T + T_{\text{HH}}) \approx 15{,}000 \times 15{,}000$.
+This is large but tractable using:
+\begin{enumerate}
+  \item \textbf{Sparse LU decomposition}: the system Jacobian $\mathbf{H}$
+    is block-sparse. We exploit this structure using compressed storage.
+  \item \textbf{Fake news algorithm}: for the household block.
+  \item \textbf{Separability}: the IO and monopsony blocks are lower-triangular
+    in the shock-to-variable ordering, allowing sequential rather than
+    simultaneous computation.
+\end{enumerate}
+
+\paragraph{Convergence and truncation.}
+We set $T = 300$ periods ($\approx 75$ years), which is sufficient for all
+shocks in our calibration to die out to less than $10^{-6}$ of their impact
+value. We verified that raising $T$ to 500 changes no reported moment by more
+than $0.01\%$.

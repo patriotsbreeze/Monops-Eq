@@ -1,0 +1,283 @@
+%% ============================================================
+%% Monetary Policy in Fractured Markets:
+%% A Unified HANK-IO Framework with Structural Monopsony
+%% and Geoeconomic Fragmentation
+%%
+%% Target: American Economic Review / Journal of Political Economy
+%% Compile: latexmk -pdf main.tex
+%% ============================================================
+
+\documentclass[12pt]{article}
+
+%% ── Packages ─────────────────────────────────────────────────
+\usepackage[margin=1.25in]{geometry}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{multirow}
+\usepackage[font=small,labelfont=bf,labelsep=period]{caption}
+\usepackage{subcaption}
+\usepackage{enumerate}
+\usepackage[shortlabels]{enumitem}
+\usepackage{natbib}
+\usepackage[hidelinks,
+            colorlinks=true,
+            citecolor=blue!70!black,
+            linkcolor=blue!70!black,
+            urlcolor=blue!70!black]{hyperref}
+\usepackage{microtype}
+\usepackage{setspace}
+\usepackage{titlesec}
+\usepackage{abstract}
+\usepackage{footnote}
+\usepackage{xcolor}
+\usepackage{appendix}
+\usepackage{bm}
+\usepackage{dsfont}
+
+%% ── Bibliography Style ───────────────────────────────────────
+\bibliographystyle{aer}
+
+%% ── Theorem Environments ─────────────────────────────────────
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{assumption}[theorem]{Assumption}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+%% ── Typography ───────────────────────────────────────────────
+\setstretch{1.25}          % AEA-style 1.25 line spacing
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0pt}
+
+%% Title section spacing
+\titleformat{\section}{\normalfont\large\bfseries}{\thesection.}{0.5em}{}
+\titleformat{\subsection}{\normalfont\normalsize\bfseries}{\thesubsection.}{0.5em}{}
+\titleformat{\subsubsection}{\normalfont\normalsize\itshape}{\thesubsubsection.}{0.5em}{}
+
+%% ── Custom Commands ──────────────────────────────────────────
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\MPL}{\mathrm{MPL}}
+\newcommand{\dd}{\mathrm{d}}
+\newcommand{\dlog}{\,d\!\log}
+\newcommand{\bOmega}{\boldsymbol{\Omega}}
+\newcommand{\blambda}{\boldsymbol{\lambda}}
+\newcommand{\bL}{\mathbf{L}}
+\newcommand{\bX}{\mathbf{X}}
+\newcommand{\bF}{\mathbf{F}}
+\newcommand{\bI}{\mathbf{I}}
+\newcommand{\bJ}{\mathbf{J}}
+\newcommand{\bH}{\mathbf{H}}
+\newcommand{\muw}{\mu^w}
+\newcommand{\muws}{\bar\mu^w}
+
+%% Figure reference shorthand
+\newcommand{\figref}[1]{Figure~\ref{#1}}
+\newcommand{\tabref}[1]{Table~\ref{#1}}
+
+%% ── Title Page ───────────────────────────────────────────────
+\title{\textbf{Monetary Policy in Fractured Markets:} \\[6pt]
+       A Unified {HANK-IO} Framework with Structural Monopsony \\
+       and Geoeconomic Fragmentation\thanks{%
+         I thank seminar participants at the Federal Reserve Board,
+         European Central Bank, NBER EF\&G Program,
+         Society for Economic Dynamics, and
+         the Princeton Macro lunch for valuable comments.
+         All errors are my own.}}
+
+\author{Brendan Loalt\thanks{%
+  Department of Economics.
+  Email: \href{mailto:brendanloalt@gmail.com}{brendanloalt@gmail.com}.}}
+
+\date{May 2025 \\ \medskip {\small \textit{Working Paper}}}
+
+%% ─────────────────────────────────────────────────────────────
+\begin{document}
+%% ─────────────────────────────────────────────────────────────
+
+\maketitle
+\thispagestyle{empty}
+
+%% ── Abstract ─────────────────────────────────────────────────
+\begin{abstract}
+  \noindent
+  \input{sections/abstract}
+\end{abstract}
+
+\clearpage
+\setcounter{page}{1}
+
+%% ── Body ─────────────────────────────────────────────────────
+\input{sections/01_introduction}
+
+\input{sections/02_model}
+
+\input{sections/03_equilibrium}
+
+\input{sections/04_solution_method}
+
+\input{sections/05_analytical_results}
+
+\input{sections/06_quantitative}
+
+\input{sections/07_policy}
+
+\input{sections/08_conclusion}
+
+%% ── Figures ──────────────────────────────────────────────────
+
+\clearpage
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[width=\linewidth]{figures/fig1_phillips_curve.pdf}
+  \caption{\textbf{Monopsony Flattens the Aggregate Phillips Curve.}
+    Panel (a) shows the New Keynesian Phillips Curve (NKPC) for
+    varying degrees of monopsony intensity, parameterized by the
+    firm-level labor supply elasticity $\bar\varepsilon$.
+    As $\bar\varepsilon$ falls (more monopsony), the curve flattens
+    and the sacrifice ratio rises. Panel (b) plots the NKPC slope
+    $\kappa^{mono}$ (equation \ref{eq:kappa_mono}) and the implied
+    sacrifice ratio $1/\kappa^{mono}$ against $\bar\varepsilon$.
+    The shaded region corresponds to the empirical range from
+    \citet{manning2021monopsony}. Baseline calibration:
+    $\bar\varepsilon=4$, $\gamma=0.8$, $\xi=0.75$.}
+  \label{fig:fig1}
+\end{figure}
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[width=\linewidth]{figures/fig2_markdown_cyclical.pdf}
+  \caption{\textbf{Wage Markdown --- Cyclical and Cross-Sectional Variation.}
+    Panel (a) shows the markdown schedule $\mu^w(u)$ for varying
+    degrees of cyclical sensitivity $\gamma$. The markdown deepens
+    (the wage falls relative to the marginal product) as unemployment
+    rises, consistent with the countercyclical labor share documented
+    in \citet{rinz2022labor}. Panel (b) shows the cross-sectional
+    relationship between labor market HHI and the wage markdown
+    across industries, using estimates from \citet{azar2022labor}
+    Table 3 (scatter) and the model prediction (solid line).}
+  \label{fig:fig2}
+\end{figure}
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[width=\linewidth]{figures/fig3_irf_monetary.pdf}
+  \caption{\textbf{Impulse Responses to a 25bp Monetary Policy Shock.}
+    Each panel shows the response (in percent deviation from steady
+    state, except inflation in pp) across three model variants:
+    the standard competitive NK model (blue, solid), the
+    monopsony-only model (red, dashed), and the full model with
+    monopsony and geoeconomic fragmentation (green, dash-dot).
+    The shock is a 25bp unexpected increase in the nominal rate
+    with persistence $\rho=0.50$. Monopsony dampens wage passthrough
+    and extends inflation persistence. The full model generates
+    the most muted employment and wage responses.}
+  \label{fig:fig3}
+\end{figure}
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[width=\linewidth]{figures/fig4_irf_fragmentation.pdf}
+  \caption{\textbf{Impulse Responses to a Geoeconomic Fragmentation Shock.}
+    Responses to a 15pp increase in the cross-bloc fragmentation
+    premium $\phi_t$ (persistence $\rho_\phi=0.90$).
+    Blue (solid): standard Taylor rule. Purple (dashed): augmented
+    Taylor rule (Proposition~\ref{thm:optimal_rule}).
+    The shock is stagflationary: output falls and inflation rises.
+    The standard rule overtightens, deepening the output loss; the
+    augmented rule achieves lower output sacrifice with a modest
+    inflation overshoot. Inset (panel b): the fragmentation shock
+    path $\hat\phi_t$.}
+  \label{fig:fig4}
+\end{figure}
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[width=\linewidth]{figures/fig5_domar_weights.pdf}
+  \caption{\textbf{Domar Weight Reallocation Under Geoeconomic Fragmentation.}
+    Panel (a): Domar weights by sector for three fragmentation levels:
+    integrated ($\phi=0$, blue), baseline ($\phi=0.15$, green), and
+    high fragmentation ($\phi=0.30$, red). Upstream sectors (Energy,
+    Mining, Basic Manufacturing) gain Domar weight as fragmentation
+    increases, consistent with Lemma~\ref{lemma:domar}.
+    Panel (b): Upstream Domar concentration (HHI, left axis) and
+    aggregate TFP loss (right axis, dashed) as functions of the
+    fragmentation premium $\phi$. Three historical scenarios are
+    marked.}
+  \label{fig:fig5}
+\end{figure}
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[width=\linewidth]{figures/fig6_sacrifice_ratio.pdf}
+  \caption{\textbf{Sacrifice Ratio and Cross-Country Policy Heterogeneity.}
+    Panel (a): Sacrifice ratio $SR = 1/\kappa^{mono}$ as a function
+    of the firm-level labor supply elasticity $\bar\varepsilon$
+    (Corollary~\ref{cor:sacrifice_ratio}). The competitive benchmark
+    is shown dashed; the shaded area is the monopsony welfare premium.
+    Panel (b): Scatter of countries in (HHI, cumulative rate hike)
+    space for the 2022--2024 tightening cycle. Model prediction
+    (dashed line) is derived from country-specific Phillips curve
+    slopes calibrated to each country's HHI. Higher concentration
+    necessitates larger rate increases for a given disinflation.}
+  \label{fig:fig6}
+\end{figure}
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[width=\linewidth]{figures/fig7_policy_frontier.pdf}
+  \caption{\textbf{Policy Frontier and Optimal Augmented Taylor Rule
+    (Proposition~\ref{thm:optimal_rule}).}
+    Panel (a): Efficient frontiers in $(\Var[\tilde y], \Var[\pi])$
+    space for the standard Taylor rule (blue), augmented Taylor rule
+    (purple, dashed), and Ramsey-optimal rule (orange, dotted).
+    Southwest is better. The augmented rule dominates the standard
+    rule uniformly. The star marks the approximate 2022--2024 Fed
+    policy outcome.
+    Panel (b): Optimal augmented rule coefficients $\phi_\mu^*$ (red)
+    and $-\phi_\phi^*$ (green) as functions of monopsony intensity
+    $\bar\varepsilon$. Both decrease as labor markets become more
+    competitive ($\bar\varepsilon\to\infty$).}
+  \label{fig:fig7}
+\end{figure}
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[width=\linewidth]{figures/fig8_network_graph.pdf}
+  \caption{\textbf{Multi-Region IO Network: Integrated vs.\ Fragmented.}
+    Stylized visualization of the 10-node, 2-bloc trade network under
+    integration ($\phi=0$, left) and high fragmentation ($\phi=0.30$,
+    right). Node color denotes geopolitical bloc (blue: Western,
+    red: Eastern). Solid edges are within-bloc flows; dashed edges
+    are cross-bloc flows (opacity proportional to IO coefficient,
+    which falls under fragmentation). The dashed vertical line marks
+    the geopolitical fault line that intensifies under fragmentation.
+    Under high $\phi$, cross-bloc edges thin dramatically, domestic
+    upstream nodes gain centrality, and the network becomes less
+    diversified.}
+  \label{fig:fig8}
+\end{figure}
+
+%% ── References ───────────────────────────────────────────────
+\clearpage
+\bibliography{references}
+
+%% ── Appendix ─────────────────────────────────────────────────
+\clearpage
+\input{sections/appendix}
+
+\end{document}

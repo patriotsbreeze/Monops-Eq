@@ -1,0 +1,163 @@
+\section{Introduction}
+\label{sec:introduction}
+
+Standard New Keynesian (NK) models used by the Federal Reserve, the European
+Central Bank, and the International Monetary Fund share a foundational
+architecture: competitive labor markets clear wages at the marginal product of
+labor, and firms source inputs from globally integrated, cost-minimizing supply
+chains. Two decades of empirical accumulation and three years of post-pandemic
+macroeconomic disruption have rendered both assumptions untenable as
+approximations to the modern economy.
+
+\paragraph{The Monopsony Fact.}
+\citet{azar2022labor}, \citet{rinz2022labor}, and \citet{benmelech2022}
+document that the median U.S.\ worker faces a local labor market
+Herfindahl-Hirschman Index (HHI) exceeding 4{,}000---the Department of
+Justice's threshold for ``highly concentrated.'' Wage markdowns (the gap
+between the marginal product of labor and the observed wage) average 15--30\%
+across sectors, with substantial cross-sectional variation positively
+correlated with HHI \citep{azar2022labor}. Critically, this gap is
+\emph{countercyclical}: firms compress wages more aggressively in downturns,
+when workers' outside options deteriorate and firm-level labor supply
+elasticities fall \citep{dube2020monopsony, manning2021monopsony}. This
+decouples unemployment from inflation in ways standard models cannot reproduce,
+and it implies that the aggregate Phillips curve is \emph{endogenously
+flatter} than competition-based calibrations suggest.
+
+\paragraph{The Fragmentation Fact.}
+The IMF's Geoeconomic Fragmentation series \citep{aiyar2023} documents a
+measurable bifurcation of global trade into politically aligned blocs,
+accelerating sharply post-2022. Using bilateral trade flow data, \citet{gopinath2024}
+show that trade within Western-aligned and China-aligned blocs has remained
+resilient, while cross-bloc trade has been rerouted through costly
+intermediary countries or reshored domestically. This structural shift means
+supply shocks that were previously absorbed by flexible global substitution
+are now amplified domestically and propagate through concentrated upstream
+networks with elevated Domar weights \citep{baqaee2019}.
+
+\paragraph{The Central Gap.}
+No existing general equilibrium model integrates both of these facts in a
+dynamic, quantitative framework. HANK-IO models \citep{auclert2021,
+baqaee2019} handle heterogeneous agents and input-output networks but assume
+competitive labor markets and integrated trade. Monopsony has been grafted
+onto static or representative-agent NK frameworks
+\citep{berger2022monopsony, autor2020fall}, but without the heterogeneous
+agent redistribution channel or the multi-region network structure. This paper
+fills that gap.
+
+\subsection{What We Do}
+
+We build a model with three novel, interacting components:
+
+\begin{enumerate}
+\item \textbf{Structural monopsony with a countercyclical markdown.}
+  Firms face upward-sloping firm-level labor supply curves, parameterized by
+  a firm-level elasticity $\varepsilon$ that falls when unemployment rises.
+  The resulting wage markdown $\mu^w = \varepsilon/(\varepsilon+1)$ deepens in
+  recessions, generating endogenous, state-dependent Phillips curve flattening.
+
+\item \textbf{Multi-region, multi-bloc IO network.}
+  The world is partitioned into geopolitical blocs. Trade costs between blocs
+  are higher and subject to a time-varying \emph{fragmentation premium} $\phi_t$
+  that follows an AR(1) process with high persistence. Firms source intermediates
+  using a nested CES structure over domestic and foreign varieties; the
+  Armington elasticity $\eta$ governs substitution across regions. We represent
+  the resulting multi-sector production structure as a weighted directed graph
+  and compute Domar weights and Leontief inverses analytically.
+
+\item \textbf{Heterogeneous households with incomplete markets (HANK).}
+  A continuum of households differs in asset positions and labor types. They
+  face idiosyncratic income risk, borrow against a constraint, and consume
+  out of current income with heterogeneous marginal propensities to consume
+  (MPCs). The distribution of assets and labor types is a state variable.
+\end{enumerate}
+
+We solve the model using the \emph{sequence-space Jacobian} (SSJ) method of
+\citet{auclert2021ssj}, extended with two novel Jacobian blocks:
+(i) the \emph{monopsony block}, which adds the countercyclical markdown
+response to the standard wage-employment Jacobian; and (ii) the
+\emph{fragmentation block}, which maps shocks to the trade cost matrix
+$\boldsymbol{\tau}(\phi_t)$ into shocks to the full $(S \times R)$-dimensional
+Leontief inverse. Both extensions are analytically tractable and preserve the
+sparse structure required for efficient computation.
+
+\subsection{Main Results}
+
+\paragraph{Proposition 1 (Phillips Curve Flattening).}
+The monopsony-adjusted NKPC slope satisfies $\kappa^{mono} < \kappa^{comp}$,
+with the gap proportional to the countercyclical markdown intensity $\gamma$:
+\begin{equation*}
+  \kappa^{mono} = \frac{\kappa^{comp}}{1 + \dfrac{\gamma}{\bar\varepsilon(\bar\varepsilon+1)} \cdot \dfrac{1}{\alpha_n}}.
+\end{equation*}
+In our baseline calibration ($\bar\varepsilon = 4$, $\gamma = 0.8$),
+$\kappa^{mono}/\kappa^{comp} = 0.60$, implying a sacrifice ratio 67\% above the
+competitive benchmark. This result holds without any additional price or wage
+rigidity beyond the standard Calvo assumption.
+
+\paragraph{Proposition 2 (Fragmentation Amplification).}
+The semi-elasticity of aggregate TFP with respect to the fragmentation premium
+is:
+\begin{equation*}
+  \frac{d\log\mathrm{TFP}}{d\phi} = -\sum_{\substack{(s,r),(s',r')\\b(r)\neq b(r')}}
+    \lambda_{sr} \,\Omega_{(s,r)(s',r')} \,\frac{1}{\tau^{rr'}},
+\end{equation*}
+a closed-form, network-weighted expression. This quantity is strictly negative
+and increasing in magnitude in the centrality of cross-bloc linkages---so
+economies with higher upstream integration across blocs suffer larger TFP losses
+from fragmentation. In our calibrated 10-sector, 5-region model, a 15pp
+increase in $\phi$ reduces aggregate TFP by 1.2\% and raises inflation by
+0.8pp, producing a stagflationary impulse that standard Taylor rules cannot
+efficiently address.
+
+\paragraph{Proposition 3 (Optimal Augmented Taylor Rule).}
+The welfare-optimal monetary rule is:
+\begin{equation*}
+  i_t = r^* + \pi^* + \phi_\pi^*(\pi_t - \pi^*) + \phi_y^*\,\tilde{y}_t
+        + \underbrace{\phi_\mu^*\,\hat\mu_t^w}_{\text{novel: }>0}
+        + \underbrace{\phi_\phi^*\,\hat\phi_t}_{\text{novel: }<0} + \nu_t.
+\end{equation*}
+The sign of $\phi_\mu^* > 0$: when monopsony deepens in recession, compress
+more of the income distribution below steady-state consumption, raising the
+aggregate MPC and amplifying the recessionary drag on demand. The central bank
+should ease more aggressively to offset this indirect channel. The sign of
+$\phi_\phi^* < 0$: when fragmentation spikes, it is a cost-push shock---standard
+Taylor rules tighten in response, amplifying the output loss without effectively
+reducing supply-side inflation. The augmented rule correctly identifies this
+as a non-demand shock and responds more mildly, achieving strictly lower
+welfare loss.
+
+\subsection{Relation to the Literature}
+
+This paper contributes to three strands of literature.
+
+\paragraph{Heterogeneous agent models.}
+\citet{auclert2019} establishes the importance of redistribution channels for
+monetary policy in HANK. \citet{kaplan2018} shows the dominance of indirect
+effects. We add a new indirect channel: monopsony deepening in recessions
+redistributes income toward firms and away from workers, elevating the aggregate
+MPC and amplifying the recession for a given rate increase.
+
+\paragraph{Input-output amplification.}
+\citet{baqaee2019} and \citet{acemoglu2012} establish that sectoral shocks
+propagate through networks weighted by Domar weights. We extend this to a
+multi-bloc, multi-region dynamic setting where the Leontief inverse itself
+varies with geopolitical conditions. \citet{caliendo2015} and
+\citet{antras2020global} analyze trade in value chains; our contribution is
+introducing a dynamic, monetary-policy-relevant version with time-varying
+bloc structure.
+
+\paragraph{Monopsony and the Phillips curve.}
+\citet{berger2022monopsony} introduce monopsony into a static NK model.
+\citet{autor2020fall} document the long-run labor market concentration trend.
+\citet{manning2021monopsony} provides the key empirical estimates we use.
+We are the first to integrate countercyclical monopsony into a HANK model
+and derive the resulting implications for monetary policy transmission.
+
+\subsection{Organization}
+
+The paper proceeds as follows. Section \ref{sec:model} presents the model.
+Section \ref{sec:equilibrium} defines equilibrium. Section \ref{sec:solution}
+describes the solution method. Section \ref{sec:results} states and proves
+the three main propositions. Section \ref{sec:quantitative} presents the
+quantitative analysis. Section \ref{sec:policy} discusses policy implications.
+Section \ref{sec:conclusion} concludes.

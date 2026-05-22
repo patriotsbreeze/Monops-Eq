@@ -1,0 +1,277 @@
+\section{Model}
+\label{sec:model}
+
+The economy consists of $S$ sectors, $R$ trade regions partitioned into
+$B$ geopolitical blocs, a continuum of heterogeneous households indexed by
+asset positions and labor types, a continuum of firms with pricing and
+wage-setting power, and a monetary authority.
+
+Time is discrete. The state of the economy at date $t$ includes the
+distribution of household asset-type pairs $\Gamma_t(a, \ell)$, aggregate
+productivity $\{z_{st}\}$, and the fragmentation premium $\phi_t$.
+
+\subsection{Households}
+\label{sec:households}
+
+A continuum of households $i \in [0,1]$ are indexed by their labor type
+$\ell \in \mathcal{L}$ (an occupation-location pair) and asset position
+$a \in [\underline{a}, \infty)$. Households maximize:
+\begin{equation}
+  \max_{\{c_{it}, a_{it+1}, n_{it}\}} \mathbb{E}_0 \sum_{t=0}^{\infty} \beta^t
+  \left[\frac{c_{it}^{1-\sigma}}{1-\sigma} - \chi \frac{n_{it}^{1+\varphi}}{1+\varphi}\right]
+  \label{eq:hh_objective}
+\end{equation}
+subject to the budget constraint:
+\begin{equation}
+  c_{it} + a_{it+1} = (1 + r_t)\,a_{it} + w_t(\ell_i)\,n_{it} + T_{it}
+  \label{eq:bc}
+\end{equation}
+and the natural borrowing constraint $a_{it+1} \geq \underline{a}$.
+
+Here $r_t$ is the real interest rate, $w_t(\ell)$ is the effective wage for
+labor type $\ell$ (reflecting the monopsony markdown, defined below), and
+$T_{it}$ are lump-sum transfers. The distribution $\Gamma_t(a,\ell)$ is a
+state variable that evolves endogenously.
+
+\paragraph{Income risk.}
+Labor income $w_t(\ell)\,n_{it}$ is subject to idiosyncratic income shocks.
+We discretize the income process using the \citet{rouwenhorst1995} method
+with $n_e = 7$ states, persistence $\rho_e = 0.966$, and innovation standard
+deviation $\sigma_e = 0.5$ (in logs), following
+\citet{floden2001idiosyncratic}.
+
+\paragraph{Heterogeneous MPCs.}
+A key property of the model is that the marginal propensity to consume (MPC)
+varies across households. Define the household-specific MPC as:
+\begin{equation}
+  \mathcal{M}_i = \frac{\partial c_{it}}{\partial y_{it}}\Bigg|_{\text{transitory}}
+\end{equation}
+where $y_{it}$ is transitory income. Households near the borrowing constraint
+(``hand-to-mouth'' households) have $\mathcal{M}_i \approx 1$; wealthy
+households have $\mathcal{M}_i \approx 0$. The aggregate MPC is:
+\begin{equation}
+  \mathcal{M}_t = \int \mathcal{M}_i \, d\Gamma_t(a,\ell).
+\end{equation}
+This quantity responds to both monetary policy (via $r_t$) and the monopsony
+wage markdown (via $w_t(\ell)$), a coupling absent from representative-agent
+models and critical for the indirect transmission channel identified in
+Proposition 3.
+
+\subsection{Firms}
+\label{sec:firms}
+
+Firm $j$ in sector $s$, region $r$ produces output $y_{jt}$ using labor and
+intermediate inputs.
+
+\subsubsection{Production Technology}
+
+Output is produced according to a nested CES technology:
+\begin{equation}
+  y_{jt} = z_{jt} \left[\alpha_n^{1/\theta} n_{jt}^{(\theta-1)/\theta} +
+  \alpha_m^{1/\theta} M_{jt}^{(\theta-1)/\theta}\right]^{\theta/(\theta-1)}
+  \label{eq:production}
+\end{equation}
+where $z_{jt}$ is idiosyncratic TFP, $n_{jt}$ is labor input, and
+$M_{jt}$ is a CES aggregate of intermediate inputs from all sector-region
+pairs:
+\begin{equation}
+  M_{jt} = \left[\sum_{s',r'} \omega_{s'r'}^{1/\eta}
+  \left(\frac{m_{jt}^{s'r'}}{\tau_t^{rr'}}\right)^{(\eta-1)/\eta}
+  \right]^{\eta/(\eta-1)}.
+  \label{eq:composite_M}
+\end{equation}
+The term $\tau_t^{rr'} \geq 1$ is the iceberg trade cost between regions
+$r$ and $r'$. The cost share parameters satisfy
+$\alpha_n + \alpha_m = 1$. The elasticity $\theta$ governs substitution
+between labor and intermediates; $\eta$ is the Armington elasticity across
+source regions.
+
+\subsubsection{Monopsony in Labor Markets}
+
+Standard NK models assume firms are price-takers in the labor market. We
+replace this assumption with an \emph{upward-sloping firm-level labor supply
+curve}, which is the defining feature of oligopsonistic labor markets
+\citep{manning2011, card2018}.
+
+Firm $j$'s labor supply curve is:
+\begin{equation}
+  n_{jt} = \left(\frac{w_{jt}}{\bar{w}_t(\ell)}\right)^{\varepsilon_t}
+  \bar{N}_t(\ell)
+  \label{eq:labor_supply}
+\end{equation}
+where $\varepsilon_t > 0$ is the \emph{firm-level labor supply elasticity},
+$\bar{w}_t(\ell)$ is the market-wide wage for labor type $\ell$, and
+$\bar{N}_t(\ell)$ is aggregate labor supply of that type.
+
+When $\varepsilon \to \infty$, equation \eqref{eq:labor_supply} delivers
+perfect competition: the firm faces a perfectly elastic labor supply curve at
+the market wage. When $\varepsilon$ is finite, the firm internalizes that
+raising its wage attracts more workers, implying wage-setting power.
+
+\paragraph{Countercyclical markdown.}
+A critical departure from static monopsony models is that we allow
+$\varepsilon_t$ to vary over the business cycle. When unemployment is high,
+workers' outside options deteriorate and their mobility falls, reducing the
+elasticity of their labor supply to any given firm:
+\begin{equation}
+  \varepsilon_t = \bar{\varepsilon} - \gamma\,(u_t - \bar{u}),
+  \qquad \varepsilon_t \geq \varepsilon_{\min} > 0
+  \label{eq:epsilon_cyclical}
+\end{equation}
+where $\bar{\varepsilon}$ is the steady-state elasticity, $\gamma > 0$
+captures the cyclical sensitivity, and $u_t$ is the aggregate unemployment
+rate. We set $\varepsilon_{\min} = 0.5$ to bound the markdown from above.
+
+\paragraph{Wage-setting.}
+Profit-maximizing wage-setting by firm $j$ yields the \emph{wage markdown
+condition}:
+\begin{equation}
+  w_{jt}^* = \underbrace{\frac{\varepsilon_t}{\varepsilon_t + 1}}_{\equiv\,\mu_t^w} \cdot
+  \mathrm{MPL}_{jt}
+  \label{eq:wage_markdown}
+\end{equation}
+where $\mu_t^w \in (0,1)$ is the \emph{wage markdown}---the ratio of wage to
+marginal product. Under perfect competition, $\mu_t^w = 1$. The parameter
+$\gamma > 0$ ensures that $\mu_t^w$ is countercyclical: it falls (the markup
+deepens) when unemployment rises.
+
+\paragraph{Calibration of $\bar\varepsilon$.}
+We set $\bar\varepsilon = 4$, implying a steady-state markdown of
+$\mu^w = 4/5 = 0.80$---consistent with the central estimate of
+\citet{manning2021monopsony} and the sector-level estimates of
+\citet{dube2020monopsony}. The countercyclical sensitivity $\gamma = 0.8$
+is calibrated to match the observed variation in wage growth across recessions
+documented by \citet{rinz2022labor}.
+
+\subsubsection{Price-Setting}
+
+In goods markets, firms face a standard Calvo \citeyearpar{calvo1983} pricing
+friction. A fraction $1-\xi$ of firms can optimally reset their price each
+period. A firm that resets chooses $P_{jt}^*$ to maximize the present
+discounted value of profits, yielding the standard condition:
+\begin{equation}
+  P_{jt}^* = \frac{\varepsilon_p}{\varepsilon_p - 1} \cdot
+  \mathbb{E}_t\sum_{k=0}^{\infty}(\xi\beta)^k\,\frac{\Lambda_{t+k}}{\Lambda_t}
+  \cdot \widehat{mc}_{jt+k} \cdot y_{jt+k|t}
+  \label{eq:optimal_price}
+\end{equation}
+where $\varepsilon_p$ is the elasticity of substitution across goods varieties,
+$\Lambda_t$ is the stochastic discount factor, and $\widehat{mc}_{jt}$ is
+the \emph{true} marginal cost under monopsonistic labor hiring:
+\begin{equation}
+  \widehat{mc}_{jt} = \frac{w_{jt}}{\mu_t^w \cdot z_{jt} \cdot f_n}
+  = \frac{\mathrm{MPL}_{jt}}{z_{jt} \cdot f_n}.
+  \label{eq:true_mc}
+\end{equation}
+Note that the markdown $\mu_t^w$ cancels in \eqref{eq:true_mc}: the true
+marginal cost of an additional unit of output equals the marginal product
+value regardless of wage-setting power. However, the markdown \emph{does}
+affect real marginal cost dynamics through the general equilibrium link between
+employment, productivity, and the markup.
+
+\subsection{The Multi-Region IO Network}
+\label{sec:io_network}
+
+\subsubsection{Geopolitical Blocs and Trade Costs}
+
+The world is partitioned into $B = 2$ geopolitical blocs:
+$\mathcal{B}_1 = \{\text{US}, \text{EU}, \text{RoW}\}$ and
+$\mathcal{B}_2 = \{\text{China}, \text{Emerging Asia}\}$. The iceberg trade
+cost between regions $r$ and $r'$ is:
+\begin{equation}
+  \tau_t^{rr'} = \begin{cases}
+    1 & \text{if } r = r' \\
+    1 + \delta^{\text{within}} & \text{if } b(r) = b(r') \neq r \\
+    1 + \delta^{\text{within}} + \underbrace{\phi_t}_{\text{fragmentation premium}}
+      & \text{if } b(r) \neq b(r')
+  \end{cases}
+  \label{eq:trade_costs}
+\end{equation}
+The fragmentation premium $\phi_t$ follows an AR(1) process:
+\begin{equation}
+  \phi_t = \rho_\phi \phi_{t-1} + \sigma_\phi\,\varepsilon_t^\phi,
+  \qquad \varepsilon_t^\phi \sim \mathcal{N}(0,1)
+  \label{eq:phi_process}
+\end{equation}
+with high persistence $\rho_\phi = 0.90$, reflecting the slow-moving nature
+of geopolitical realignments.
+
+\subsubsection{The Leontief IO Structure}
+
+We represent the global production network as a weighted directed graph
+$\mathcal{G} = (\mathcal{V}, \mathcal{E}, \boldsymbol{\Omega})$ where:
+\begin{itemize}
+  \item Nodes $\mathcal{V}$: sector-region pairs $(s,r)$, with
+    $|\mathcal{V}| = S \times R = 10 \times 5 = 50$.
+  \item Edges $\mathcal{E}$: input-output linkages between node pairs.
+  \item Weights $\Omega_{(s,r)(s',r')} \in [0,1]$: cost share of sector
+    $(s',r')$ inputs in the production of sector $(s,r)$.
+\end{itemize}
+
+The IO balance system in matrix form is:
+\begin{equation}
+  \mathbf{X} = \boldsymbol{\Omega}^\top \mathbf{X} + \mathbf{F}
+  \label{eq:io_balance}
+\end{equation}
+where $\mathbf{X} \in \mathbb{R}^{S \times R}$ is the gross output vector and
+$\mathbf{F}$ is final demand. Solving \eqref{eq:io_balance}:
+\begin{equation}
+  \mathbf{X} = (\mathbf{I} - \boldsymbol{\Omega}^\top)^{-1}\mathbf{F}
+  \equiv \mathbf{L}\,\mathbf{F}
+  \label{eq:leontief}
+\end{equation}
+where $\mathbf{L}$ is the \emph{Leontief inverse}. Its $(i,j)$ entry gives
+the total output of sector $i$ required per unit of final demand in sector $j$,
+including all upstream supply chain rounds.
+
+\paragraph{Domar Weights.}
+Following \citet{baqaee2019}, the \emph{Domar weight} of sector $(s,r)$ is:
+\begin{equation}
+  \lambda_{sr} = \frac{P_{sr} X_{sr}}{P \cdot \mathrm{GDP}}
+  \label{eq:domar}
+\end{equation}
+which equals the sector's share of \emph{gross} (not value-added) output in
+GDP. Because sectors supply both final goods and intermediates, Domar weights
+sum to more than 1: $\sum_{sr} \lambda_{sr} > 1$.
+
+\paragraph{Fragmentation and Domar Weights.}
+A key result of the model is that fragmentation reshapes the Domar weight
+distribution. Specifically:
+
+\begin{lemma}[Domar Weight Reallocation]
+  \label{lemma:domar}
+  For any upstream sector $(s,r)$ that primarily supplies cross-bloc
+  intermediate goods: $\partial\lambda_{sr}/\partial\phi > 0$.
+  For downstream service sectors with limited cross-bloc linkages:
+  $\partial\lambda_{sr}/\partial\phi \approx 0$.
+\end{lemma}
+
+\begin{proof}
+  See Appendix \ref{app:proofs}.
+\end{proof}
+
+The intuition is straightforward: when cross-bloc trade costs rise, domestic
+firms substitute toward domestic upstream suppliers. This increases the volume
+of domestic upstream production relative to GDP, raising upstream Domar
+weights. The effect is amplified by the Leontief multiplier, which propagates
+first-order substitutions into higher-order input demand changes.
+
+\subsection{Monetary Authority}
+\label{sec:monetary}
+
+The central bank sets the nominal interest rate according to a (potentially
+augmented) Taylor rule:
+\begin{equation}
+  i_t = r^* + \pi^* + \phi_\pi(\pi_t - \pi^*) + \phi_y\,\tilde{y}_t
+        + \phi_\mu\,\hat\mu_t^w + \phi_\phi\,\hat\phi_t + \nu_t
+  \label{eq:taylor}
+\end{equation}
+where $\tilde{y}_t$ is the output gap, $\hat\mu_t^w \equiv \mu_t^w - \bar\mu^w$
+is the wage markdown gap, $\hat\phi_t \equiv \phi_t - \bar\phi$ is the
+fragmentation premium deviation from steady state, and $\nu_t$ is an
+exogenous monetary policy shock. The \emph{standard} Taylor rule corresponds
+to $\phi_\mu = \phi_\phi = 0$; the \emph{augmented} rule allows these
+coefficients to differ from zero.
+
+Proposition 3 characterizes the welfare-optimal values of all four
+coefficients $(\phi_\pi^*, \phi_y^*, \phi_\mu^*, \phi_\phi^*)$.
