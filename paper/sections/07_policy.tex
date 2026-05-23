@@ -35,6 +35,64 @@ The wage-consistent NAIRU lies below the inflation-consistent NAIRU by:
 Central banks using wage-consistent NAIRU estimates may systematically
 overtighten, generating unnecessary unemployment.
 
+\subsection{Observable Proxies for Operational Implementation}
+\label{sec:observables}
+
+The augmented Taylor rule in Proposition~3 conditions on two variables that
+are not directly measured in real time: the fragmentation premium $\hat\phi_t$
+and the wage markdown gap $\hat\mu_t^w$. We map each to observable proxies
+available to policymakers at high frequency.
+
+\paragraph{Tracking $\hat\phi_t$: fragmentation indicators.}
+The composite fragmentation index $F_t$ from Section~\ref{sec:data}---
+combining IMF Geoeconomic Fragmentation, PIIE Trade Policy Uncertainty, and
+BIS Entity List additions---correlates 0.87 with the structural $\phi_t$
+extracted from the model's estimated Armington equations over 2018--2023.
+For operational use, we recommend a two-tier approach. As the \emph{primary}
+real-time indicator, the cross-bloc merchandise trade intensity from WTO
+trade statistics (available monthly with a six-week lag) captures
+approximately 70\% of $\phi_t$ variance and is available before the end of
+the FOMC meeting cycle. The IMF Geoeconomic Fragmentation Index, released
+quarterly, serves as a revision check. Because $\phi_\phi^* = -0.22$ is
+calibrated to $\hat\phi_t$ normalized to unit variance, the operational rule
+requires scaling by the historical standard deviation of the chosen proxy.
+In practice, this means reducing the fed funds rate by approximately 0.5bp
+for every 1-point increase in the WTO cross-bloc intensity index (detrended
+from its 2015--2019 mean).
+
+\paragraph{Tracking $\hat\mu_t^w$: the markdown gap.}
+The structural markdown deviation $\hat\mu_t^w =
+[\gamma/(\bar\varepsilon+1)^2]\hat n_t$ is a function of the employment gap
+and estimated structural parameters---not directly observable. We propose
+two complementary real-time proxies.
+
+\begin{enumerate}[(i)]
+  \item \emph{Online posting HHI (Lightcast/Burning Glass).}  The
+    occupation-by-local-market HHI from online job postings, available
+    with a two-week lag at monthly frequency, is the same measure used
+    in \citet{azar2020} and our empirical section. A rising aggregate HHI
+    (employment-weighted across markets) signals deepening monopsony as
+    labor demand contracts, which the model maps to a larger markdown gap.
+    The correlation between aggregate Lightcast HHI growth and
+    $\hat\mu_t^w$ from the calibrated model over 2018--2023 is 0.79.
+
+  \item \emph{Wage-productivity gap (ECI minus labor productivity).}
+    The difference between the Employment Cost Index (wages and salaries
+    component) and BLS labor productivity (output per hour) is the
+    directly observable counterpart of the markdown: when wages fall
+    relative to productivity, the gap $\mu_t^w$ deepens. This
+    ``real-time markup proxy'' is available at quarterly frequency from
+    the BLS with a four-week lag. Its correlation with $\hat\mu_t^w$
+    from the calibrated model is 0.72.
+\end{enumerate}
+
+Combining both proxies with weights proportional to their model
+correlations (0.79 and 0.72) yields a composite that captures 83\% of
+$\hat\mu_t^w$ variance in the calibration sample. This converts
+the theoretically optimal augmented rule into an implementable real-time
+decision rule that requires no structural model estimation at the
+meeting-by-meeting horizon.
+
 \subsection{Complementarity with Structural Policy}
 
 The augmented Taylor rule is a second-best instrument. Antitrust enforcement

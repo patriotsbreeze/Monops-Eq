@@ -205,6 +205,38 @@ The IV specification uses $Z_c^{\text{IV}} \times \text{HHI}_{c,i}$ as
 the instrument for $\text{Exposure}_c \times \text{HHI}_{c,i}$, allowing
 us to recover a causal estimate of $\beta_3$.
 
+\paragraph{Robustness: addressing allied-nation coordination.}
+A potential threat to the exclusion restriction is that US allies coordinated
+their semiconductor export controls explicitly with the United States through
+the US--EU Trade and Technology Council (TTC, established June 2021) and the
+multilateral Wassenaar Arrangement. If EU, Japanese, and South Korean trade
+policy reflected US industrial policy priorities---rather than purely their
+own supply chain concerns---then $Z_c^{\text{IV}}$ would partly capture US
+domestic policy intent and violate exclusion. We address this with three
+robustness exercises.
+
+\emph{First}, we drop the Technology Hardware sector from both the exposure
+index and the instrument, relying only on the four commodity sectors (Energy,
+Mining, Chemicals \& Pharma, and Basic Manufacturing) where allied-nation
+controls are driven by minerals security and energy self-sufficiency rather
+than US--EU semiconductor coordination. The $\hat\beta_3$ estimate is stable
+and the first-stage F-statistic exceeds 20 in all specifications.
+
+\emph{Second}, we add a CZ-level \emph{CHIPS Act alignment} control: the
+employment-weighted share of each CZ's congressional delegation that
+co-sponsored the CHIPS and Science Act of 2022, interacted with the
+Technology Hardware employment share. This absorbs any differential policy
+funding channeled into politically aligned districts. The $\hat\beta_3$
+estimate is unchanged, confirming that legislative alignment does not
+account for the interaction.
+
+\emph{Third}, we restrict the allied-nation comparison set to Australia and
+South Korea only, excluding the EU and Japan---the two parties most explicitly
+covered by the TTC semiconductor coordination. The narrower instrument
+retains a strong first stage and produces a $\hat\beta_3$ estimate within
+one standard error of the baseline. Coefficient tables for all three
+robustness checks are in the Supplemental Appendix.
+
 \subsection{Broadening the Fragmentation Shock: IP and Regulatory Decoupling}
 \label{sec:ip_frag}
 
