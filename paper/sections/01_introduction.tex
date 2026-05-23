@@ -76,7 +76,7 @@ fills that gap.
 
 \paragraph{What This Paper Does.}
 
-We build a model with three novel, interacting components:
+We build a model with two novel, interacting components:
 
 \begin{enumerate}
 \item \textbf{Structural monopsony with a countercyclical markdown.}
@@ -84,6 +84,8 @@ We build a model with three novel, interacting components:
   a firm-level elasticity $\varepsilon$ that falls when unemployment rises.
   The resulting wage markdown $\mu^w = \varepsilon/(\varepsilon+1)$ deepens in
   recessions, generating endogenous, state-dependent Phillips curve flattening.
+  Section~\ref{sec:toy_model} derives this mechanism in closed form in a
+  two-sector analytical model before the full calibration.
 
 \item \textbf{Multi-region, multi-bloc IO network.}
   The world is partitioned into geopolitical blocs. Trade costs between blocs
@@ -93,22 +95,16 @@ We build a model with three novel, interacting components:
   Armington elasticity $\eta$ governs substitution across regions. We represent
   the resulting multi-sector production structure as a weighted directed graph
   and compute Domar weights and Leontief inverses analytically.
-
-\item \textbf{Heterogeneous households with incomplete markets (HANK).}
-  A continuum of households differs in asset positions and labor types. They
-  face idiosyncratic income risk, borrow against a constraint, and consume
-  out of current income with heterogeneous marginal propensities to consume
-  (MPCs). The distribution of assets and labor types is a state variable.
 \end{enumerate}
 
-We solve the model using the \emph{sequence-space Jacobian} (SSJ) method of
-\citet{auclert2021ssj}, extended with two novel Jacobian blocks:
-(i) the \emph{monopsony block}, which adds the countercyclical markdown
-response to the standard wage-employment Jacobian; and (ii) the
-\emph{fragmentation block}, which maps shocks to the trade cost matrix
-$\boldsymbol{\tau}(\phi_t)$ into shocks to the full $(S \times R)$-dimensional
-Leontief inverse. Both extensions are analytically tractable and preserve the
-sparse structure required for efficient computation.
+We solve the model by standard log-linearization around the non-stochastic
+steady state, extended with two novel closed-form blocks: the
+\emph{monopsony block}, which adds the countercyclical markdown response
+to the standard wage-employment system; and the \emph{fragmentation block},
+which maps shocks to the trade cost matrix $\boldsymbol{\tau}(\phi_t)$ into
+shocks to the Leontief inverse. Both blocks are analytically tractable, which
+is why we can state Propositions~1--3 as pencil-and-paper results rather than
+computational simulations.
 
 \paragraph{Main Results.}
 
@@ -152,24 +148,26 @@ The welfare-optimal monetary rule is:
         + \underbrace{\phi_\mu^*\,\hat\mu_t^w}_{\text{novel: }>0}
         + \underbrace{\phi_\phi^*\,\hat\phi_t}_{\text{novel: }<0} + \nu_t.
 \end{equation*}
-The sign of $\phi_\mu^* \geq 0$: monopsony deepening compresses high-MPC
-workers' incomes below competitive levels; the central bank can partially
-offset this through accommodation. The sign of $\phi_\phi^* < 0$:
+The sign of $\phi_\mu^* \geq 0$: monopsony deepening widens the labor
+wedge below the competitive level; the central bank partially offsets
+the wage compression through accommodation.
+The sign of $\phi_\phi^* < 0$:
 fragmentation spikes are supply shocks---standard Taylor rules tighten into
 the output loss; the augmented rule ($\phi_\phi^* = -0.22$) trades a modest
 inflation overshoot for substantially less output sacrifice.
 
 \textit{Relation to the literature.}
-We build on three bodies of work. On heterogeneous agents: \citet{auclert2019}
-and \citet{kaplan2018} show redistribution channels dominate monetary
-transmission in HANK; we add the countercyclical monopsony channel as a novel
-source of MPC amplification. On IO networks: \citet{baqaee2019} and
-\citet{acemoglu2012} price sectoral shocks via Domar weights; we extend this to
-a multi-bloc setting where the Leontief inverse varies with geopolitical
-fragmentation. On labor market power: \citet{berger2022monopsony} introduce
-monopsony into a static NK model; we are the first to embed countercyclical
-monopsony in a dynamic HANK-IO framework and derive its implications for
-optimal monetary policy.
+We build on three bodies of work. On New Keynesian models: \citet{clarida1999}
+and \citet{woodford2003} establish the standard three-equation framework;
+we add structural monopsony and IO fragmentation as two analytically tractable
+extensions with first-order policy implications. On IO networks:
+\citet{baqaee2019} and \citet{acemoglu2012} price sectoral shocks via Domar
+weights; we extend this to a multi-bloc setting where the Leontief inverse
+varies with geopolitical fragmentation. On labor market power:
+\citet{berger2022monopsony} introduce monopsony into a static NK model;
+we are the first to embed countercyclical monopsony in a dynamic IO network
+framework and derive its implications for optimal monetary policy, including
+the closed-form characterization of the augmented Taylor rule.
 
 \paragraph{Organization.}
 

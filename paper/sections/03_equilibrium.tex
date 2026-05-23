@@ -1,16 +1,15 @@
 \section{Equilibrium and Log-Linearization}
 \label{sec:equilibrium}
 
-A sequential competitive equilibrium consists of household policy functions,
-firm price and wage policies, and price sequences such that households
-maximize \eqref{eq:hh_objective}--\eqref{eq:bc}, firms optimize
+A sequential competitive equilibrium consists of household plans,
+firm price and wage policies, and price sequences such that the household
+maximizes \eqref{eq:hh_objective}--\eqref{eq:bc}, firms optimize
 \eqref{eq:production} subject to monopsonistic labor supply
 \eqref{eq:labor_supply} and Calvo pricing \eqref{eq:optimal_price}, and
 all markets clear. Under monopsony, the labor market clears at
-$w_t(\ell) = \mu_t^w(\ell) \cdot \mathrm{MPL}_t(\ell)$---below the
-competitive wage---while goods and asset markets clear in the standard
-fashion. The government runs a balanced budget with constant bond supply
-$B_t = \bar B$.
+$w_t = \mu_t^w \cdot \mathrm{MPL}_t$---below the competitive wage---while
+goods and asset markets clear in the standard fashion. The government runs
+a balanced budget with constant bond supply $B_t = \bar B$.
 
 \paragraph{Key log-linearized equations.}
 The monopsony-adjusted Phillips curve (derived in Section~\ref{sec:results}):
@@ -18,20 +17,15 @@ The monopsony-adjusted Phillips curve (derived in Section~\ref{sec:results}):
   \pi_t = \beta\,\mathbb{E}_t\pi_{t+1} + \kappa^{mono}\,\tilde{y}_t
   \label{eq:NKPC_linearized}
 \end{equation}
-The HANK IS curve, which adds a redistribution channel $\Psi_t$ to the
-standard Euler equation:
+The standard IS curve (log-linearized Euler equation):
 \begin{equation}
   \tilde{y}_t = \mathbb{E}_t\tilde{y}_{t+1} -
-  \underbrace{\mathbf{G}^{C,r}[0,0]}_{\text{HANK: }{-0.137}}
-  (i_t - \mathbb{E}_t\pi_{t+1} - \bar r)
-  + \underbrace{\Psi_t}_{\substack{\text{redistribution} \\ \text{channel}}}
+  \sigma^{-1}(i_t - \mathbb{E}_t\pi_{t+1} - \bar r)
   \label{eq:IS_linearized}
 \end{equation}
-where $\Psi_t = (d\mathcal{M}_t/d\mu_t^w)\,\hat\mu_t^w$ captures the
-novel channel: when monopsony deepens, the distribution of assets shifts
-toward constrained high-MPC households, amplifying demand contractions.
-The representative-agent benchmark has $\mathbf{G}^{C,r}[0,0] = -0.495$
-(3.6$\times$ larger in magnitude), showing how HANK dampens the direct
-intertemporal channel while leaving the wage income channel---and thus the
-monopsony redistribution term---intact. Full market-clearing conditions and
+Fragmentation enters through the Phillips curve slope $\kappa^{mono}$
+(which is state-dependent in $\phi_t$ via Domar weight reallocation) and
+through the effective marginal cost of intermediates, which shifts the
+NKPC intercept in the presence of supply shocks. The augmented Taylor rule
+\eqref{eq:taylor} closes the system. Full market-clearing conditions and
 the steady-state computation are in the Supplemental Appendix.

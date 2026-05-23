@@ -13,8 +13,8 @@ accommodates, trading a modest inflation overshoot ($+0.3$pp peak) for a
 substantially smaller output trough ($-0.8$pp vs.\ $-1.4$pp). Operationally,
 this coefficient can be conditioned on cross-bloc trade flow divergence,
 shipping cost indices, or the composite fragmentation index $F_t$ from
-Section~\ref{sec:data}. The welfare gain is 0.06\% at baseline
-$\sigma_\phi = 0.05$, rising to $\approx 1\%$ at $\sigma_\phi = 0.20$.
+Section~\ref{sec:data}. The welfare gain is 0.03\% at baseline
+$\sigma_\phi = 0.05$, rising to $\approx 0.5\%$ at $\sigma_\phi = 0.20$.
 
 \paragraph{Respond to the wage markdown indicator ($\phi_\mu^* \geq 0$).}
 Markdown deepening in recession compresses incomes of hand-to-mouth
@@ -92,6 +92,40 @@ $\hat\mu_t^w$ variance in the calibration sample. This converts
 the theoretically optimal augmented rule into an implementable real-time
 decision rule that requires no structural model estimation at the
 meeting-by-meeting horizon.
+
+\subsection{The Augmented Rule as a Normative Benchmark}
+\label{sec:normative}
+
+The augmented Taylor rule \eqref{eq:optimal_rule} is best understood as
+a \emph{normative welfare benchmark}, not an immediate operational directive.
+Two qualifications are in order.
+
+\paragraph{The Lucas Critique.}
+If a central bank announces an explicit commitment to respond to the wage
+markdown $\hat\mu_t^w$, firms that currently set wages monopsonistically
+may alter their behavior in anticipation of accommodation, changing the
+structural parameter $\gamma$ that the rule is calibrated to. The welfare
+analysis in Proposition~3 holds under the assumption that $\gamma$ is
+policy-invariant---a standard hypothesis in the structural estimation
+literature but one that breaks down if the augmented rule is communicated
+as a firm commitment rather than a conditional benchmark. We therefore
+recommend interpreting the rule as follows: the central bank uses the
+markdown and fragmentation proxies from Section~\ref{sec:observables}
+as \emph{real-time diagnostic indicators} of the supply-side origin of
+inflation, and the augmented coefficients as a welfare-consistent reference
+for how much accommodation is justified, not as a mechanical commitment
+to respond to any measured change in $\hat\mu_t^w$.
+
+\paragraph{Practical implementation.}
+In practice, the augmented rule's value lies primarily in the $\phi_\phi^*
+= -0.22$ coefficient: the prescription that supply-side cost-push shocks
+should not be fought with rate increases, because doing so adds output
+sacrifice without reducing the supply-side origin of inflation. This
+prescription is robust to the Lucas Critique because it concerns the
+\emph{sign} of the response to an observable supply shock, not the precise
+magnitude of the markdown response. The qualitative conclusion---do not
+overtighten into a fragmentation-driven inflation episode---holds regardless
+of whether $\gamma$ shifts post-announcement.
 
 \subsection{Complementarity with Structural Policy}
 

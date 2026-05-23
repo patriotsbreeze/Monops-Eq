@@ -2,60 +2,138 @@
 \label{sec:model}
 
 The economy consists of $S$ sectors, $R$ trade regions partitioned into
-$B$ geopolitical blocs, a continuum of heterogeneous households indexed by
-asset positions and labor types, a continuum of firms with pricing and
-wage-setting power, and a monetary authority.
+$B$ geopolitical blocs, a representative household, a continuum of firms
+with pricing and wage-setting power, and a monetary authority.
+Time is discrete. The aggregate state at date $t$ is
+$\{z_{st}, \phi_t\}$: sectoral productivities and the fragmentation premium.
 
-Time is discrete. The state of the economy at date $t$ includes the
-distribution of household asset-type pairs $\Gamma_t(a, \ell)$, aggregate
-productivity $\{z_{st}\}$, and the fragmentation premium $\phi_t$.
+\subsection{A Two-Sector Analytical Model of the Core Non-Linearity}
+\label{sec:toy_model}
+
+Before presenting the full model, we establish the core
+IO$\times$Monopsony non-linearity in a static, two-sector economy that
+admits closed-form analysis. The full quantitative model generalizes every
+dimension of this setup; the mechanism is identical.
+
+\paragraph{Setup.}
+The economy has two sectors: Upstream $U$ (goods) and Downstream $D$
+(services). Each has a continuum of firms facing an upward-sloping
+firm-level labor supply curve with sector-specific elasticity
+$\varepsilon_s > 0$, where $\varepsilon_U < \varepsilon_D$---goods sectors
+are more monopsonistic than service sectors, following
+\citet{dube2020monopsony}. Production uses labor only:
+$y_s = z_s\,n_s^{\alpha_s}$, so the marginal product of labor is
+$\mathrm{MPL}_s = \alpha_s z_s n_s^{\alpha_s-1}$. The Downstream sector
+uses Upstream output as an intermediate input with IO cost share
+$\Omega \in (0,1)$.
+
+\paragraph{Wage markdown and sector-level labor income.}
+Optimal wage-setting under monopsony yields
+$w_s = \mu_s^w \cdot \mathrm{MPL}_s$ where $\mu_s^w \equiv
+\varepsilon_s/(\varepsilon_s+1) \in (0,1)$ is the sector-specific markdown.
+When unemployment rises, workers' outside options deteriorate and
+$\varepsilon_s$ falls by $\gamma\,\Delta u$, so the markdown deepens by:
+\begin{equation}
+  \Delta\mu_s^w \approx -\frac{\gamma}{(\varepsilon_s+1)^2}\,\Delta u
+  \equiv -\delta_s\,\Delta u, \qquad \delta_s \equiv
+  \frac{\gamma}{(\varepsilon_s+1)^2}.
+  \label{eq:delta_s}
+\end{equation}
+The coefficient $\delta_s$ is \emph{decreasing} in $\varepsilon_s$: more
+monopsonistic sectors (lower $\varepsilon_s$) have a \emph{larger}
+markdown response per unit unemployment.
+
+\paragraph{Domar weights and fragmentation.}
+In this two-sector economy, Domar weights are:
+$\lambda_U = (1+\Omega)/(1+\Omega(1-\alpha_U))$ and
+$\lambda_D = 1/(1+\Omega(1-\alpha_U))$.\footnote{These follow from
+the standard Leontief identity $\mathbf{X} = (\mathbf{I} -
+\boldsymbol{\Omega}^\top)^{-1}\mathbf{F}$; see \citet{baqaee2019}.}
+When a cross-bloc fragmentation shock $d\phi > 0$ raises the cost of
+foreign $U$-substitutes, domestic Upstream production expands:
+\begin{equation}
+  \frac{d\lambda_U}{d\phi} = A > 0, \qquad
+  \frac{d\lambda_D}{d\phi} = -A,
+  \label{eq:domar_shift}
+\end{equation}
+where $A = \eta\,\lambda_U\lambda_D\,\Omega/\bar\tau > 0$ is the
+Armington first-order effect (see Supplemental Appendix).
+
+\paragraph{The core non-linearity.}
+Define the \emph{aggregate wage-suppression index}---the expected markdown
+deepening per unit unemployment, weighted by sectors' share of economic
+activity:
+\begin{equation}
+  W_{\text{agg}} \equiv \lambda_U\,\delta_U + \lambda_D\,\delta_D.
+  \label{eq:W_agg}
+\end{equation}
+This is the cross-sectional average of the markdown coefficient, weighted
+by Domar shares. Its response to a fragmentation shock is:
+\begin{equation}
+  \boxed{\frac{dW_{\text{agg}}}{d\phi} = A\!\left(\delta_U - \delta_D\right)
+  = A\,\gamma\!\left[\frac{1}{(\varepsilon_U+1)^2} -
+  \frac{1}{(\varepsilon_D+1)^2}\right] > 0.}
+  \label{eq:core_nonlinearity}
+\end{equation}
+This is strictly positive \emph{if and only if} $\varepsilon_U < \varepsilon_D$.
+
+\begin{proposition}[Core Non-Linearity: Analytical]\label{prop:toy}
+  In the two-sector model:
+  \begin{enumerate}[(i)]
+    \item An IO-only model $(\varepsilon_U = \varepsilon_D = \bar\varepsilon)$
+      predicts $dW_{\emph{agg}}/d\phi = 0$: fragmentation shifts Domar
+      weights but generates no differential wage compression.
+    \item A monopsony-only model (no IO linkages, $A = 0$) predicts
+      $dW_{\emph{agg}}/d\phi = 0$: markdowns deepen but the
+      sector-composition of activity is unaffected.
+    \item The joint model predicts $dW_{\emph{agg}}/d\phi > 0$: Domar
+      reallocation into high-monopsony upstream sectors amplifies wage
+      suppression super-proportionally, at rate
+      $A\gamma[(\varepsilon_U+1)^{-2} - (\varepsilon_D+1)^{-2}]$.
+  \end{enumerate}
+  The amplification factor relative to a model with uniform monopsony is:
+  \begin{equation}
+    \mathcal{A} \equiv \frac{W_{\emph{agg}}^{\emph{joint}}}
+    {W_{\emph{agg}}^{\emph{uniform}}} =
+    \frac{\lambda_U(\varepsilon_U+1)^{-2} + \lambda_D(\varepsilon_D+1)^{-2}}
+    {(\bar\varepsilon+1)^{-2}} > 1.
+    \label{eq:amp_factor}
+  \end{equation}
+\end{proposition}
+
+\paragraph{Calibrated magnitudes.}
+With $\varepsilon_U = 2.5$, $\varepsilon_D = 5.5$, $\bar\varepsilon = 4$
+(from \citealt{dube2020monopsony}), the amplification factor is:
+$\mathcal{A} = [(2.5+1)^{-2} + (5.5+1)^{-2}]/2 \div (4+1)^{-2} = [0.082
++ 0.024]/2 \div 0.040 = 0.053/0.040 \approx 1.33$. The $3.4\times$ ratio
+of goods-sector to services-sector wage compression ($\delta_U/\delta_D
+= (5.5+1)^2/(2.5+1)^2 \approx 3.4$) is a corollary. Both figures carry
+directly into the full quantitative model.
 
 \subsection{Households}
 \label{sec:households}
 
-A continuum of households $i \in [0,1]$ are indexed by their labor type
-$\ell \in \mathcal{L}$ (an occupation-location pair) and asset position
-$a \in [\underline{a}, \infty)$. Households maximize:
+A representative household maximizes:
 \begin{equation}
-  \max_{\{c_{it}, a_{it+1}, n_{it}\}} \mathbb{E}_0 \sum_{t=0}^{\infty} \beta^t
-  \left[\frac{c_{it}^{1-\sigma}}{1-\sigma} - \chi \frac{n_{it}^{1+\varphi}}{1+\varphi}\right]
+  \max_{\{c_t, a_{t+1}, n_t\}} \mathbb{E}_0 \sum_{t=0}^{\infty} \beta^t
+  \left[\frac{c_t^{1-\sigma}}{1-\sigma} - \chi \frac{n_t^{1+\varphi}}{1+\varphi}\right]
   \label{eq:hh_objective}
 \end{equation}
 subject to the budget constraint:
 \begin{equation}
-  c_{it} + a_{it+1} = (1 + r_t)\,a_{it} + w_t(\ell_i)\,n_{it} + T_{it}
+  c_t + a_{t+1} = (1 + r_t)\,a_t + w_t\,n_t + T_t
   \label{eq:bc}
 \end{equation}
-and the natural borrowing constraint $a_{it+1} \geq \underline{a}$.
-
-Here $r_t$ is the real interest rate, $w_t(\ell)$ is the effective wage for
-labor type $\ell$ (reflecting the monopsony markdown, defined below), and
-$T_{it}$ are lump-sum transfers. The distribution $\Gamma_t(a,\ell)$ is a
-state variable that evolves endogenously.
-
-\paragraph{Income risk.}
-Labor income $w_t(\ell)\,n_{it}$ is subject to idiosyncratic income shocks.
-We discretize the income process using the \citet{rouwenhorst1995} method
-with $n_e = 7$ states, persistence $\rho_e = 0.966$, and innovation standard
-deviation $\sigma_e = 0.5$ (in logs), following
-\citet{floden2001idiosyncratic}.
-
-\paragraph{Heterogeneous MPCs.}
-A key property of the model is that the marginal propensity to consume (MPC)
-varies across households. Define the household-specific MPC as:
-\begin{equation}
-  \mathcal{M}_i = \frac{\partial c_{it}}{\partial y_{it}}\Bigg|_{\text{transitory}}
-\end{equation}
-where $y_{it}$ is transitory income. Households near the borrowing constraint
-(``hand-to-mouth'' households) have $\mathcal{M}_i \approx 1$; wealthy
-households have $\mathcal{M}_i \approx 0$. The aggregate MPC is:
-\begin{equation}
-  \mathcal{M}_t = \int \mathcal{M}_i \, d\Gamma_t(a,\ell).
-\end{equation}
-This quantity responds to both monetary policy (via $r_t$) and the monopsony
-wage markdown (via $w_t(\ell)$), a coupling absent from representative-agent
-models and critical for the indirect transmission channel identified in
-Proposition 3.
+where $r_t$ is the real interest rate, $w_t$ is the effective wage
+(reflecting the monopsony markdown), and $T_t$ are lump-sum transfers.
+The first-order conditions are the standard Euler equation and
+intratemporal labor supply condition:
+\begin{align}
+  c_t^{-\sigma} &= \beta(1+r_t)\,\mathbb{E}_t[c_{t+1}^{-\sigma}]
+  \label{eq:euler} \\
+  \chi\,n_t^{\varphi} &= w_t\,c_t^{-\sigma}.
+  \label{eq:labor_supply_hh}
+\end{align}
 
 \subsection{Firms}
 \label{sec:firms}

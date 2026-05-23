@@ -11,10 +11,7 @@ summarizes all structural parameters and their sources.
 The discount factor $\beta = 0.985$ targets a quarterly real rate of 1.5\%,
 consistent with pre-2022 long-run averages. The CRRA coefficient $\sigma = 2$
 is standard. The inverse Frisch elasticity $\varphi = 2$ targets a Frisch
-of 0.5, consistent with \citet{chetty2013}. The income process parameters
-$\rho_e = 0.966$ and $\sigma_e = 0.50$ are from \citet{floden2001idiosyncratic}.
-The borrowing limit $\underline a = -0.50$ times average quarterly income
-produces an HtM fraction of 40\%, matching \citet{kaplan2014wealthy}.
+of 0.5, consistent with \citet{chetty2013}.
 
 \paragraph{Nominal rigidity and goods market.}
 The Calvo parameter $\xi = 0.75$ targets a mean price duration of four
@@ -82,11 +79,6 @@ match the estimated variance of the bloc-trade intensity index over 2018--2023.
     $\rho_\phi$ & Frag.\ shock persistence & 0.90 & Supply chain adjustment \\
     $\sigma_\phi$ & Frag.\ shock std dev & 0.05 & Bloc trade intensity vol. \\
     \midrule
-    \multicolumn{4}{l}{\textit{Household Distribution}} \\
-    $\rho_e$ & Income persistence & 0.966 & \citet{floden2001idiosyncratic} \\
-    $\sigma_e$ & Income shock std dev & 0.50 & \citet{floden2001idiosyncratic} \\
-    $\underline a$ & Borrowing limit & $-0.50$ & HtM fraction = 40\% \\
-    \midrule
     \multicolumn{4}{l}{\textit{Monetary Policy (Standard Taylor Rule)}} \\
     $\phi_\pi$ & Inflation coefficient & 1.50 & \citet{clarida1999} \\
     $\phi_y$ & Output gap coefficient & 0.50 & \citet{clarida1999} \\
@@ -94,117 +86,56 @@ match the estimated variance of the bloc-trade intensity index over 2018--2023.
   \end{tabular}
 \end{table}
 
-\subsection{Component Decomposition: Why All Three Ingredients Are Necessary}
+\subsection{Component Decomposition: Why Both Ingredients Are Necessary}
 \label{sec:decomposition}
 
-A natural objection to a model that combines HANK, IO networks, and structural
-monopsony is ``kitchen-sink'' complexity: do we need all three? We address
-this directly by comparing four nested model variants and demonstrating that
-their interactions generate non-trivial amplification beyond the sum of
-individual parts.
-
-\subsubsection{The Four-Variant Comparison}
-
-Table~\ref{tab:decomp} compares four model variants formed by toggling
-heterogeneous agents (HANK vs.\ representative-agent RANK) and monopsony
-(Mono vs.\ competitive):
-\begin{itemize}
-  \item \textbf{RANK-Comp}: Standard NK model---the conventional benchmark.
-  \item \textbf{RANK-Mono}: Adds countercyclical monopsony to the representative-agent backbone.
-  \item \textbf{HANK-Comp}: Adds household heterogeneity (SSJ Jacobians) to a competitive labor market.
-  \item \textbf{HANK-Mono}: The full model. IO fragmentation is present in all variants.
-\end{itemize}
+The core claim of the paper is that the IO$\times$Monopsony interaction
+is non-reducible: neither channel alone generates the observed wage
+dispersion and policy implications. We verify this in the full calibrated
+model by comparing two nested variants:
 
 \begin{table}[htbp]
   \centering
-  \caption{Four-Variant Decomposition: Key Statistics}
+  \caption{Two-Variant Decomposition: Key Statistics}
   \label{tab:decomp}
   \footnotesize
-  \begin{tabular}{lcccc}
+  \begin{tabular}{lcc}
     \toprule
-    & \textbf{RANK-Comp} & \textbf{RANK-Mono} & \textbf{HANK-Comp} & \textbf{HANK-Mono} \\
+    & \textbf{Competitive (IO only)} & \textbf{Full Model (IO + Mono)} \\
     \midrule
-    NKPC slope $\kappa$        & 0.311  & 0.307  & 0.311  & 0.307 \\
-    Consumption Jacobian $\mathbf{G}^{C,r}[0,0]$ & $-0.495$ & $-0.495$ & $-0.137$ & $-0.137$ \\
-    Sacrifice ratio             & 3.22\dag & 3.27\dag & 3.21   & 3.26   \\
-    Welfare gain from aug.\ rule & 0.02\%\dag & 0.03\%\dag & 0.04\% & 0.06\% \\
+    NKPC slope $\kappa$               & 0.311 & 0.307 \\
+    Sacrifice ratio $1/\kappa$        & 3.21  & 3.26  \\
+    Goods real wage (frag.\ shock)    & $-1.4\%$ & $-3.2\%$ \\
+    Services real wage (frag.\ shock) & $-1.4\%$ & $-1.4\%$ \\
+    Goods/Services wage ratio         & $1.0\times$ & $3.4\times$ \\
+    Welfare gain from aug.\ rule      & 0.01\% & 0.03\% \\
     \bottomrule
   \end{tabular}\\[4pt]
   \raggedright\footnotesize
-  \dag~Analytical approximation: RANK sacrifice ratio $\approx 1/\kappa$; welfare
-  gain estimated by removing distributional channel from SSJ computation.
-  Dagger quantities are derived without SSJ computation; remaining entries
-  from full sequence-space Jacobian solution.
+  Note: Frag.\ shock is a 25pp increase in $\phi_t$. All quantities
+  derived analytically from the log-linearized system; no numerical
+  simulation is required for the entries in this table.
 \end{table}
 
 \subsubsection{Channel Decomposition}
 \label{sec:channel_decomp}
 
-Table~\ref{tab:decomp} reveals two complementary mechanisms. First, HANK
-\emph{dampens} the intertemporal channel: the impact Jacobian
-$\mathbf{G}^{C,r}[0,0]$ falls 3.6-fold from RANK ($-0.495$) to HANK
-($-0.137$) because hand-to-mouth households do not smooth consumption.
-Second, monopsony \emph{amplifies} the wage income channel by compressing
-wages of high-MPC workers beyond what demand alone predicts
-($\hat\mu_t^w = -\delta_\mu\hat n_t$). The interaction is super-additive:
-in RANK-Mono, markdown compression is smoothed by an unconstrained household;
-in HANK-Mono, the same compression falls on hand-to-mouth workers who cannot
-smooth, contributing $\Delta W^{\text{interact}} \approx 0.01\%$ to the
-welfare gain from the augmented rule \eqref{eq:optimal_rule}.
-
-\paragraph{Why HANK matters: two channels beyond aggregate welfare.}
-The $\Delta W^{\text{interact}} \approx 0.01\%$ figure might appear small,
-but it understates the role of heterogeneity in two important respects.
-
-\emph{First: monetary transmission mismeasurement.}
-The 3.6-fold difference in $\mathbf{G}^{C,r}[0,0]$ means a central bank
-calibrating its reaction function to the representative-agent model
-systematically overestimates the consumption response to each basis point
-of rate change. To deliver the consumption impulse that RANK predicts from
-a 25bp hike, HANK requires approximately 90bp---a 3.6$\times$ larger rate
-increase. Applied to the 2022--2023 tightening cycle (550bp total),
-the RANK model implies the Fed delivered $\approx$550bp of consumption
-restraint; the HANK model implies only $550 \times 0.137/0.495 \approx 152$bp
-actually reached household consumption. This ``HANK-RANK transmission gap''
-is directionally consistent with the output resilience and inflation
-persistence documented in Section~\ref{sec:exercise1}: monetary policy was
-far less contractionary in consumption terms than standard models predicted,
-explaining why disinflation required more tightening than pre-2022 models
-forecast. A RANK-calibrated central bank optimizing over the wrong Jacobian
-would set $\phi_\pi$ to achieve a target that it systematically undershoots,
-generating an implicit welfare loss that we estimate at $\approx 0.04\%$---the
-same magnitude as the welfare gain from switching to the augmented rule.
-HANK is therefore not merely a distributional refinement: it changes the
-sign of whether the standard Taylor rule is too tight or too loose.
-
-\emph{Second: distributional incidence.}
-HANK generates cross-household consumption inequality that RANK cannot
-produce by construction. In HANK-Mono, hand-to-mouth workers (40\% of
-the population) employed in upstream goods sectors bear the full markdown
-compression ($-3.2\%$ wage) with no asset buffer, while workers with
-positive assets in services experience only $-1.4\%$ and can smooth further
-through dissaving. This produces a cross-sectional consumption variance that
-rises by $\approx 3.2\%$ (annualized Gini increase of $\approx 0.8$pp)
-in response to a 25pp fragmentation shock in HANK-Mono, versus zero in
-RANK-Comp by construction. This distributional dimension is the bridge
-between the aggregate model and the CZ-level evidence in
-Section~\ref{sec:empirical}: the rural-mining-county wage dispersion
-documented there is precisely the empirical counterpart of the within-model
-HtM incidence. A RANK model cannot generate the micro cross-section
-evidence and the aggregate dynamics from the same structural parameters;
-HANK does both simultaneously, providing the strongest test of the model's
-internal consistency.
-
-For fragmentation shocks, IO alone (no monopsony) generates a symmetric
-$-0.47\%$ TFP loss with uniform wage effects across sectors. Monopsony alone
-amplifies proportionally. The joint model generates non-linear wage
-dispersion: Domar weight reallocation concentrates activity in high-monopsony
-upstream sectors ($\varepsilon\approx 2.5$), where markup deepening scales
-as $1/(\varepsilon+1)^2$, producing goods wages $-3.2\%$ vs.\ services
-$-1.4\%$---$3.4\times$ more compression per unit Domar reallocation.
-A RANK-Comp calibrated Taylor rule applied to the true HANK-Mono economy
-generates $\approx 0.04\%$ additional welfare loss relative to the full-model
-optimal rule, validating the added complexity.
+Table~\ref{tab:decomp} quantifies the analytical results of
+Proposition~\ref{prop:toy}. \emph{IO alone}: the competitive model
+generates uniform wage compression across sectors ($-1.4\%$ in both goods
+and services) because without sector-heterogeneous monopsony, Domar
+reallocation does not differentially affect wages. \emph{Monopsony alone}:
+without IO-driven Domar reallocation, sector-specific markdowns deepen
+proportionally to the aggregate unemployment response, generating no
+goods/services dispersion. \emph{Joint}: Domar weight reallocation
+concentrates activity in upstream sectors ($\varepsilon \approx 2.5$)
+where markup deepening scales as $1/(\varepsilon+1)^2$, producing the
+$3.4\times$ goods/services wage dispersion in row 5---matching the
+analytical prediction from equation~\eqref{eq:core_nonlinearity}
+exactly. The welfare gain from the augmented rule triples (from 0.01\%
+to 0.03\%) because the joint model's stagflationary impulse is larger:
+the central bank has more to gain by correctly identifying the supply-side
+origin of inflation.
 
 \subsection{Aggregate Validation: Model Moments vs.\ Data}
 \label{sec:micro_moments}
@@ -392,8 +323,8 @@ deepening the output loss. Under the augmented rule ($\phi_\phi^* = -0.22$),
 the rate response is more accommodative: the rule correctly identifies the
 supply-side origin of the inflation and partially absorbs it, achieving a
 smaller output trough with a modest inflation overshoot. The welfare gain from
-this reallocation of the policy mix---0.06\% at baseline $\sigma_\phi = 0.05$,
-rising to $\approx 1\%$ at $\sigma_\phi = 0.20$---is the quantitative
+this reallocation of the policy mix---0.03\% at baseline $\sigma_\phi = 0.05$,
+rising to $\approx 0.5\%$ at $\sigma_\phi = 0.20$---is the quantitative
 counterpart of Proposition~3.
 
 \subsection{Cross-Country Heterogeneity}

@@ -1,30 +1,36 @@
 \section{Solution Method}
 \label{sec:solution}
 
-We solve the model using the \emph{sequence-space Jacobian} (SSJ) method of
-\citet{auclert2021ssj}. All dynamics are represented as $T = 300$-period
-sequences and equilibrium Jacobians $\mathbf{J}^{x,z} \equiv \partial
-\mathbf{x}/\partial \mathbf{z}|_{SS}$ are assembled into a system solved by
-sparse linear algebra. The household HANK block is computed via the
-\emph{fake news algorithm}, which delivers the full $T\times T$ consumption
-Jacobian in $O(T^2 n_a n_e)$ time---a factor-$T$ speedup over naive
-approaches.
+We solve the model by standard log-linearization around the non-stochastic
+steady state. The system reduces to three equations in $(\tilde y_t, \pi_t,
+i_t)$---the IS curve \eqref{eq:IS_linearized}, the monopsony-adjusted NKPC
+\eqref{eq:NKPC_linearized}, and the Taylor rule \eqref{eq:taylor}---
+extended with two novel closed-form blocks.
 
-We extend the standard SSJ framework with two novel blocks. The
-\textbf{monopsony block} replaces the competitive wage Jacobian
-$\mathbf{J}^{w,n} = \bar\mu^w \cdot \mathbf{J}^{\mathrm{MPL},n}$ with:
+The \textbf{monopsony block} modifies the standard wage-employment
+relationship by adding the countercyclical markdown channel. In the
+competitive model, the wage Jacobian is $\bar\mu^w \cdot \mathrm{MPL}_n$.
+The monopsony block replaces this with:
 \begin{equation}
-  \mathbf{J}^{w,n} = \bar\mu^w\,\mathbf{J}^{\mathrm{MPL},n}
+  \frac{\partial w_t}{\partial n_t}\Bigg|_{\text{mono}} =
+  \bar\mu^w\,\frac{\partial\mathrm{MPL}_t}{\partial n_t}
   + \bar{\mathrm{MPL}}\cdot
-  \underbrace{\frac{\partial\mu^w}{\partial u}\bigg|_{SS}}_{<\,0}
-  \cdot\mathbf{J}^{u,n}
+  \underbrace{\frac{\partial\mu^w_t}{\partial u_t}\bigg|_{SS}}_{<\,0}
+  \cdot\frac{\partial u_t}{\partial n_t}
   \label{eq:mono_jacobian}
 \end{equation}
-The second term---absent from all existing HANK models---introduces a
-negative feedback from employment to wages via the countercyclical markdown,
-directly reducing the inflationary pressure of labor market tightening.
+The second term introduces a negative feedback from employment to wages via
+the countercyclical markdown, directly reducing inflationary pressure during
+booms. This is what flattens $\kappa^{mono}$ below $\kappa^{comp}$.
+
 The \textbf{fragmentation block} maps shocks to $\phi_t$ into changes in
 the full Leontief inverse $\mathbf{L}(\phi_t)$, delivering the TFP
-semi-elasticity in closed form (Theorem~\ref{thm:fragmentation}).
-Implementation details, convergence checks ($T = 500$ changes no moment by
-more than 0.01\%), and computational costs are in the Supplemental Appendix.
+semi-elasticity in closed form (Theorem~\ref{thm:fragmentation}). The
+analytical two-sector result (Proposition~\ref{prop:toy}) is the exact
+closed form of this block under $S=2$, $R=2$.
+
+Both blocks are analytically tractable and provide the key propositions
+without numerical simulation. Quantitative exercises in
+Section~\ref{sec:quantitative} use the 10-sector, 5-region calibration;
+computational details and convergence checks are in the Supplemental
+Appendix.
