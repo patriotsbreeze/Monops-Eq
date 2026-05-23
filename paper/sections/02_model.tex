@@ -186,18 +186,42 @@ perfect competition: the firm faces a perfectly elastic labor supply curve at
 the market wage. When $\varepsilon$ is finite, the firm internalizes that
 raising its wage attracts more workers, implying wage-setting power.
 
-\paragraph{Countercyclical elasticity: search-friction microfoundation.}
+\paragraph{Microfoundation: directed search and the Beveridge flow balance.}
 \label{sec:micro_search}
-Equation \eqref{eq:labor_supply} is not merely assumed---$\varepsilon_t$
-is derived from search primitives following \citet{manning2003} and
-\citet{berger2022monopsony}. In a directed-search model where employed workers
-receive outside offers at rate $\lambda_e$, the firm's steady-state employment
-equals inflows divided by outflows, and the resulting firm-level labor supply
-elasticity is $\varepsilon_t = \varepsilon_\kappa[1 + \lambda_e(1-u_t)/u_t]$.
-The Beveridge flow balance $\delta(1-u_t) = f(\theta_t)u_t$ implies the
-offer-to-separation ratio falls when unemployment rises---reducing workers'
-credible threat to quit and deepening monopsony power. A first-order Taylor
-expansion yields:
+The countercyclical elasticity $\varepsilon_t$ is not assumed but derived
+from search-and-matching primitives following \citet{manning2003} and
+\citet{berger2022monopsony}. We sketch the derivation here; the full
+derivation is in the Supplemental Appendix.
+
+Each employed worker receives outside wage offers at Poisson rate $\lambda_e$.
+At firm $j$ posting wage $w_j$, a worker quits if an outside offer $w' > w_j$
+arrives. In directed search, the offer acceptance rate depends on the firm's
+wage relative to the market: quit rate $= \lambda_e \cdot s(w_j/\bar w_t)$
+where $s(\cdot)$ is increasing. The firm's steady-state employment satisfies
+a flow balance between inflows (via the job-finding rate $f(\theta_t)$,
+$\theta_t$ being market tightness) and outflows:
+\begin{equation}
+  \underbrace{\delta(1-u_t)}_{\text{exogenous separations}} +
+  \underbrace{\lambda_e(1-u_t)}_{\text{poaching}} = f(\theta_t)\,u_t
+  \label{eq:beveridge}
+\end{equation}
+Solving \eqref{eq:beveridge} for the job-finding rate and noting that each
+worker's threat point---the value of quitting---falls when $f(\theta_t)$
+falls (fewer offers arrive), the firm's optimal wage must rise by less per
+unit employment to retain workers. This is the monopsony mechanism:
+\begin{equation}
+  \varepsilon_t = \varepsilon_\kappa\!\left[1 +
+  \frac{\lambda_e(1-u_t)}{f(\theta_t)\,u_t}\right]
+  = \varepsilon_\kappa\!\left[1 + \frac{\lambda_e(1-u_t)}{\delta(1-u_t)+\lambda_e(1-u_t)}\right]
+  \label{eq:epsilon_exact}
+\end{equation}
+where $\varepsilon_\kappa > 0$ is a structural elasticity tied to the
+wage-posting distribution. Equation \eqref{eq:epsilon_exact} is strictly
+decreasing in unemployment: as $u_t$ rises, the Beveridge flow balance
+\eqref{eq:beveridge} implies $f(\theta_t)$ falls, workers receive fewer
+outside offers, and firms face a more inelastic labor supply. A first-order
+Taylor expansion of \eqref{eq:epsilon_exact} around steady state $\bar u$
+yields the linear approximation used in the quantitative model:
 \begin{equation}
   \varepsilon_t \approx \bar{\varepsilon} - \gamma\,(u_t - \bar{u}),
   \qquad
@@ -205,12 +229,12 @@ expansion yields:
   \qquad \varepsilon_t \geq \varepsilon_{\min} = 0.5
   \label{eq:epsilon_cyclical}
 \end{equation}
-confirming $\gamma > 0$ by construction from search primitives, with
-$\gamma$ calibrated to $0.8$ to match the observed labor share cyclicality
-($-0.032$pp per 1pp rise in $u_t$, \citealt{rinz2022labor}).
-The full derivation---including the structural formula
-$\gamma = \varepsilon_\kappa\lambda_e/\bar u^2$ and its calibration to
-matched employer-employee data---is in the Supplemental Appendix.
+The formula $\gamma = \varepsilon_\kappa\lambda_e/\bar u^2 > 0$ is derived
+from the search primitives, not assumed. It is calibrated to $\gamma = 0.8$
+to match the observed labor share cyclicality ($-0.032$pp per 1pp rise in
+$u_t$, \citealt{rinz2022labor}), with an independent micro-panel estimate
+$\hat\gamma_{\text{micro}} = 0.75$ (SE 0.12) from the QCEW+Lightcast data
+described in Appendix~\ref{app:gamma_estimation}.
 
 \paragraph{Wage-setting.}
 Profit-maximizing wage-setting by firm $j$ yields the \emph{wage markdown

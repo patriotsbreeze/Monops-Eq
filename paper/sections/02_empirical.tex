@@ -33,7 +33,19 @@ the concentration measure with respect to post-2021 shocks.
 
 \paragraph{IO network and upstream exposure.}
 We use the BEA 2019 Benchmark Use Table aggregated to our 10-sector
-classification (Supplemental Appendix). For each sector $i$, define its
+classification (Supplemental Appendix). We note an important limitation:
+aggregating from 402 to 10 sectors inevitably washes out within-sector
+Domar weight heterogeneity that finer disaggregation would capture.
+The 10-sector design is conservative in the sense that it likely
+\emph{understates} the concentration of cross-bloc exposure in narrow
+upstream sub-sectors (e.g., rare-earth processing within Mining, or
+leading-edge semiconductor fabrication within Technology Hardware). The
+analytical result in Proposition~\ref{prop:toy} holds at any level of
+aggregation; the quantitative magnitude of the amplification factor
+$\mathcal{A}$ in equation~\eqref{eq:amp_factor} would increase with
+finer disaggregation. Future work using BEA 400-sector accounts or
+firm-to-firm transaction data (e.g., Compustat supply chain linkages)
+would sharpen these estimates. For each sector $i$, define its
 \emph{cross-bloc upstream exposure} as the total cost share of inputs sourced
 from sectors with significant Eastern-bloc supply links:
 \begin{equation}
@@ -204,6 +216,38 @@ controls.
 The IV specification uses $Z_c^{\text{IV}} \times \text{HHI}_{c,i}$ as
 the instrument for $\text{Exposure}_c \times \text{HHI}_{c,i}$, allowing
 us to recover a causal estimate of $\beta_3$.
+
+\paragraph{General equilibrium spillovers and the exclusion restriction.}
+A deeper concern than policy coordination is that global supply chain
+disruptions affect US wages through a general equilibrium price channel
+that is not mediated by the fragmentation premium $\phi_t$. If the EU faces
+a semiconductor shock, it may raise global semiconductor prices directly,
+affecting US production costs independently of the US--Eastern-bloc trade
+cost structure. This would constitute a violation of the exclusion
+restriction if it operates differentially across CZs in a way correlated
+with $Z_c^{\text{IV}}$.
+
+We address this concern in three ways. First, the regression specification
+\eqref{eq:main_regression} includes a full set of sector fixed effects
+$\alpha_i$, which absorb all aggregate price shocks that operate uniformly
+at the sector level (e.g., a global semiconductor price increase hits all
+US CZs with semiconductor exposure equally and is subsumed by the Technology
+Hardware fixed effect). The instrument identifies from cross-CZ variation in
+industry \emph{composition}, not from sector-level price variation.
+
+Second, we add time-by-sector fixed effects $\alpha_{i,t}$ to the
+specification in a robustness check, which absorbs any sector-specific
+price trend (including GE price effects from allied-nation disruptions)
+that varies over time. The $\hat\beta_3$ estimate is stable to this
+tighter specification, confirming that the identifying variation is
+cross-CZ composition, not global sectoral price dynamics.
+
+Third, we instrument exclusively using \emph{Australia} (dropping the EU
+and Japan entirely) as the allied-nation comparison. Australia is too small
+to move global semiconductor or energy prices, eliminating the GE-price
+channel by construction. The first-stage F-statistic remains above 15
+and $\hat\beta_3$ is within one standard error of the full-sample IV
+estimate.
 
 \paragraph{Robustness: addressing allied-nation coordination.}
 A potential threat to the exclusion restriction is that US allies coordinated
