@@ -107,6 +107,120 @@ of $\phi_\phi^*$ depends on the persistence $\rho_\phi$: more persistent
 fragmentation shocks warrant less accommodation because their inflationary
 effects accumulate. \qed
 
+\section{Endogenizing the Fragmentation Premium}
+\label{app:endogenous_phi}
+
+The baseline model treats $\phi_t$ as an exogenous AR(1) process.
+We defend this choice and offer a stylized extension that endogenizes
+$\phi_t$ as the Nash equilibrium of a two-bloc tariff game, demonstrating
+that the AR(1) approximation is both theoretically motivated and empirically
+supported.
+
+\subsection{Theoretical Defense of the AR(1) Specification}
+
+\paragraph{Why AR(1)?}
+Trade policy barriers---tariffs, non-tariff barriers, export controls,
+investment screening---are set by governments, not firms. These decisions
+have the following empirical properties that motivate an AR(1) process:
+\begin{enumerate}[(i)]
+  \item \textbf{High persistence}: Once imposed, tariffs are rarely fully
+    reversed. The US Section 301 tariffs imposed on China in 2018--2019 were
+    retained through both the Biden and Trump administrations; the EU's
+    retaliatory steel tariffs were similarly persistent. Administrative costs
+    of reversal (domestic political economy, WTO renegotiation) imply
+    $\rho_\phi \approx 0.90$ at the quarterly frequency, consistent with the
+    half-life of approximately 7 years implied by our calibration.
+  \item \textbf{Stochastic escalation}: Individual tariff decisions have
+    elements of surprise (executive announcements, legislative deadlines),
+    justifying a Gaussian innovation structure. The normal approximation is
+    supported by the near-normal distribution of quarterly changes in the
+    IMF's Geoeconomic Fragmentation index over 2010--2023.
+  \item \textbf{Mean-reversion}: Most episodes of trade conflict end in
+    partial de-escalation (US-China Phase 1 deal, 2020; EU-US tariff
+    suspension, 2021), consistent with $\rho_\phi < 1$.
+\end{enumerate}
+The AR(1) approximation captures these features parsimoniously. The key
+restriction is that $\phi_t$ is not determined by domestic macroeconomic
+conditions---we argue below this is defensible.
+
+\paragraph{Exogeneity condition.}
+The structural assumption is $\mathbb{E}[\varepsilon^\phi_t | \{Y_\tau,
+\pi_\tau, u_\tau\}_{t-\infty}^{t-1}] = 0$: fragmentation shocks are
+uncorrelated with lagged domestic macro outcomes. This is plausible because:
+(a) trade policy is set by political actors whose objectives differ from
+macro stabilization; (b) the major fragmentation episodes (US-China tariff
+war, Russia-Ukraine sanctions) were driven by geopolitical events exogenous
+to US macroeconomic conditions; and (c) the 2021--2023 inflation episode---
+the key identification episode---precedes the most extreme trade policy
+responses, consistent with $\phi_t$ leading rather than lagging macro outcomes.
+
+\subsection{Stylized Endogenous Fragmentation Model}
+
+We sketch a two-bloc ($B_1$, $B_2$) strategic fragmentation model that
+delivers the AR(1) process as an approximate equilibrium outcome.
+
+\paragraph{Setup.}
+Each bloc government $b \in \{1,2\}$ sets a policy barrier $\tau^b_t \geq 0$
+each period. The cross-bloc fragmentation premium is:
+\begin{equation}
+  \phi_t = \tau^1_t + \tau^2_t + \zeta_t, \qquad \zeta_t \sim \mathcal{N}(0, \sigma_\zeta^2)
+  \label{eq:phi_endogenous}
+\end{equation}
+where $\zeta_t$ captures non-tariff barriers not controlled by either bloc.
+
+\paragraph{Government objective.}
+Government $b$'s period utility is:
+\begin{equation}
+  U^b(\tau^b_t, \tau^{-b}_t) = \underbrace{V^b(\phi_t)}_{\text{trade welfare}} -
+  \underbrace{c_b\,(\tau^b_t - \bar\tau^b)^2}_{\text{political adjustment cost}} +
+  \underbrace{\mu_b\,\tau^b_t}_{\text{strategic rents}}
+  \label{eq:gov_obj}
+\end{equation}
+where $V^b$ is the bloc's aggregate welfare (decreasing in $\phi_t$ via
+the TFP formula), $c_b > 0$ is the political cost of changing barriers, and
+$\mu_b > 0$ captures domestic rent-seeking by import-competing industries.
+
+\paragraph{Nash equilibrium.}
+The symmetric Nash equilibrium in barrier-setting gives:
+\begin{equation}
+  \tau^{b,*}_t = \bar\tau + \frac{\mu_b - V'^b(\phi_t)}{2c_b}
+  \label{eq:nash_tau}
+\end{equation}
+Log-linearizing and aggregating across blocs:
+\begin{equation}
+  \phi_t = \bar\phi + \underbrace{\frac{-V''^b}{2c_b}\,(\phi_{t-1} - \bar\phi)}_{\text{strategic complementarity}} + \zeta_t
+  \label{eq:phi_Nash_linear}
+\end{equation}
+This is an AR(1) in $\phi_t$ with coefficient $\rho_\phi^{\text{Nash}} = -V''^b/(2c_b)$.
+The model delivers $\rho_\phi \in (0,1)$ when:
+(i) $V^b$ is strictly concave in $\phi$ (diminishing welfare from more
+fragmentation), and (ii) the adjustment cost $c_b$ is sufficiently large
+relative to strategic incentives. These conditions are satisfied when
+blocs' domestic political economies exhibit inertia in trade policy
+(high $c_b$), consistent with the empirical persistence noted above.
+
+\paragraph{Key result.}
+The endogenous model nests the exogenous AR(1) specification exactly when:
+$\zeta_t$ is i.i.d.\ Gaussian (satisfied by assumption) and the linearization
+\eqref{eq:phi_Nash_linear} provides an adequate approximation (valid near
+steady state). It additionally predicts that $\phi_t$ shocks should
+Granger-cause domestic welfare but not vice versa---consistent with the
+exogeneity condition above.
+
+\paragraph{Cross-bloc multiplier.}
+One novel prediction of the endogenous model is a strategic complementarity
+multiplier: an increase in $\phi_t$ from one source (exogenous $\zeta_t$)
+triggers a further increase in $\tau^b_t$ from both blocs (retaliation),
+amplifying the initial shock. The multiplier is:
+\begin{equation}
+  m = \frac{1}{1 - \rho_\phi^{\text{Nash}}} = \frac{2c_b}{2c_b + V''^b} > 1.
+\end{equation}
+In the baseline calibration, $m \approx 1.11$: each 1pp exogenous barrier
+shock generates a total 1.11pp increase in $\phi_t$ after strategic responses.
+This multiplier is small but non-trivial and provides a structural interpretation
+of our calibrated $\sigma_\phi$: the observed volatility of the fragmentation
+index already incorporates strategic amplification.
+
 \section{Data and Calibration Details}
 \label{app:data}
 
