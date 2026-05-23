@@ -244,14 +244,17 @@ the RANK-Comp world---meaning that the complexity of the full model is
 ``paid for'' by avoiding policy errors, even in expected value terms under
 the baseline $\sigma_\phi = 0.05$.
 
-\subsection{Empirical Validation: Cross-Sectional Micro-Moments}
+\subsection{Aggregate Validation: Model Moments vs.\ Data}
 \label{sec:micro_moments}
 
-Before the aggregate exercises, we verify that the model's cross-sectional
-predictions---which are \emph{untargeted} by the calibration---align with
-data from the 2021--2023 episode. The calibration targets aggregate moments
-(mean markdown, labor share cyclicality, trade bloc intensity); the
-cross-sectional wage and Domar weight predictions follow as model implications.
+Section~\ref{sec:empirical} establishes the CZ-level evidence using the Bartik
+design. Here we verify that the calibrated model matches the key \emph{aggregate}
+and \emph{sectoral} moments---again using predictions that are untargeted by
+the calibration---providing a second, independent layer of validation. The
+calibration targets (mean markdown, labor share cyclicality, trade bloc
+intensity) are aggregate time-series moments; the cross-sectional wage and
+Domar weight predictions below are model implications tested against
+independent data sources.
 
 \subsubsection{Prediction 1: Sectoral Real Wage Compression}
 
@@ -306,12 +309,25 @@ wage growth over 2021--2023, with no free parameters: the only free
 aggregate parameter ($\Delta\phi = 0.25$) is calibrated to the aggregate
 trade flow data, not the sectoral wage data. The model correctly ranks all
 seven sectors and the predicted magnitudes are within 0.4 percentage points
-of the data in every case. Importantly, a model without the IO channel
+of the data in every case. A model without the IO channel
 (applying uniform Domar weight changes across sectors) has $R^2 = 0.12$;
 a model without the monopsony channel (applying $\varepsilon_s = \bar\varepsilon = 4$
-in all sectors) has $R^2 = 0.47$. The full model's $R^2 = 0.91$ provides
-direct empirical confirmation that both channels are necessary to explain
-the cross-sectional pattern.
+in all sectors) has $R^2 = 0.47$. The full model's $R^2 = 0.91$ confirms
+that both channels are necessary.
+
+\paragraph{Connection to the CZ regression.}
+The sectoral pattern in Table~\ref{tab:micro_moments} is the sector-level
+aggregation of the CZ-level regression in Proposition~\ref{prop:empirical}.
+The wage compression index $\Phi_s^{\text{pred}}$ is the model's prediction
+of the average within-sector cross-CZ pattern: sectors with higher
+$\Phi_s^{\text{pred}}$ should also show larger $\hat\beta_3$ in the CZ
+regression when that sector's employment share is the exposure measure.
+The predicted aggregate $\hat\beta_3^{\text{model}} \approx -0.18$
+(Section~\ref{sec:specification}) is consistent with the $R^2 = 0.91$
+sector-level fit: both are driven by the $\Phi_s^{\text{pred}}$ index,
+confirming that the Bartik design and the aggregate model are measuring
+the same underlying IO$\times$Monopsony interaction at different levels
+of aggregation.
 
 \subsubsection{Prediction 2: Labor Share Dynamics by Concentration Quartile}
 
