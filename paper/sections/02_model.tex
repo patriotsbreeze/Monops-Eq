@@ -302,7 +302,29 @@ The fragmentation premium $\phi_t$ follows an AR(1) process:
   \label{eq:phi_process}
 \end{equation}
 with high persistence $\rho_\phi = 0.90$, reflecting the slow-moving nature
-of geopolitical realignments.
+of geopolitical realignments. Appendix~\ref{app:endogenous_phi} provides a
+strategic-game micro-foundation and demonstrates that the AR(1) is the
+Nash-equilibrium linearization of a two-bloc tariff game.
+
+\paragraph{Sector-specific regulatory premium.}
+The empirical analysis (Section~\ref{sec:ip_frag}) documents that modern
+geoeconomic fragmentation operates through IP and regulatory channels in
+addition to tariff costs. We extend \eqref{eq:trade_costs} to accommodate
+a sector-specific regulatory premium $\psi_{s,t}^{rr'}$:
+\begin{equation}
+  \tau_{s,t}^{rr'} = \begin{cases}
+    1 & r = r' \\
+    1 + \delta^{\text{within}} & b(r)=b(r'), r\neq r' \\
+    1 + \delta^{\text{within}} + \phi_t + \psi_{s,t}^{rr'} & b(r)\neq b(r')
+  \end{cases}
+  \label{eq:trade_costs_full}
+\end{equation}
+In the baseline model, $\psi_{s,t} \equiv 0$ (sector-neutral $\phi_t$ shock).
+In the extended model with IP decoupling (Appendix~\ref{app:endogenous_phi}
+and Section~\ref{sec:ip_frag}), $\psi_{s,t}^{\text{Tech}}$ captures
+semiconductor export control shocks. All main results hold under either
+specification; the IP extension is used in the broadened fragmentation
+exposure index in Section~\ref{sec:data}.
 
 \subsubsection{The Leontief IO Structure}
 
