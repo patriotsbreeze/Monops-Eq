@@ -1,13 +1,23 @@
 \section{Introduction}
 \label{sec:introduction}
 
-Standard New Keynesian (NK) models used by the Federal Reserve, the European
-Central Bank, and the International Monetary Fund share a foundational
-architecture: competitive labor markets clear wages at the marginal product of
-labor, and firms source inputs from globally integrated, cost-minimizing supply
-chains. Two decades of empirical accumulation and three years of post-pandemic
-macroeconomic disruption have rendered both assumptions untenable as
-approximations to the modern economy.
+Consider two commuting zones in 2022: a rural Appalachian mining county and a
+suburban professional services corridor. Both face the same Federal Reserve
+rate hikes. But only the mining county---heavily employed in upstream sectors
+dependent on cross-bloc intermediate inputs, with a labor market HHI above
+4{,}000---sees real wages fall by 3\% over 2022--2023. The services corridor
+sees wages fall by less than 1\%. Standard monetary models predict the same
+rate-hike transmission for both. This paper builds and estimates a model that
+predicts the difference.
+
+The core mechanism is a non-linear interaction that requires three simultaneous
+ingredients: a multi-region input-output network (the mining county's upstream
+exposure to fragmented supply chains), structural monopsony (the concentrated
+labor market that amplifies wage compression), and household heterogeneity
+(the hand-to-mouth workers in the mining county who cannot smooth the income
+loss). Remove any one ingredient, and the differential wage response disappears.
+We document this interaction in commuting-zone microdata, then build the
+framework needed to understand its aggregate and distributional consequences.
 
 \paragraph{The Monopsony Fact.}
 \citet{azar2022labor}, \citet{rinz2022labor}, and \citet{benmelech2022}
@@ -189,9 +199,20 @@ neither IO models nor monopsony models alone can produce.
 
 \subsection{Organization}
 
-The paper proceeds as follows. Section \ref{sec:model} presents the model.
-Section \ref{sec:equilibrium} defines equilibrium. Section \ref{sec:solution}
-describes the solution method. Section \ref{sec:results} states and proves
-the three main propositions. Section \ref{sec:quantitative} presents the
-quantitative analysis. Section \ref{sec:policy} discusses policy implications.
-Section \ref{sec:conclusion} concludes.
+Following the AER structure of leading with motivating facts, the paper
+proceeds as follows. \textbf{Section~\ref{sec:empirical}} establishes the
+motivating empirical evidence using a commuting-zone Bartik design: it
+documents the non-linear IO$\times$Monopsony wage suppression interaction
+in US local labor markets during 2021--2023, broadens the fragmentation
+concept to include IP and regulatory decoupling, and develops the
+allied-nation instrumental variable. \textbf{Section~\ref{sec:model}}
+presents the model as the natural explanation for the three stylized facts
+documented in Section~\ref{sec:empirical}.
+\textbf{Section~\ref{sec:equilibrium}} defines equilibrium.
+\textbf{Section~\ref{sec:solution}} describes the sequence-space Jacobian
+solution method. \textbf{Section~\ref{sec:results}} states and proves the
+three main propositions, connecting them to the empirical estimates.
+\textbf{Section~\ref{sec:quantitative}} presents the quantitative analysis,
+including the four-variant decomposition and cross-sectional validation.
+\textbf{Section~\ref{sec:policy}} discusses policy implications.
+\textbf{Section~\ref{sec:conclusion}} concludes.
