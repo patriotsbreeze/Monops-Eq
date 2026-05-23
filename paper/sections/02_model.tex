@@ -108,128 +108,31 @@ perfect competition: the firm faces a perfectly elastic labor supply curve at
 the market wage. When $\varepsilon$ is finite, the firm internalizes that
 raising its wage attracts more workers, implying wage-setting power.
 
-\subsubsection{Microfoundation: Search Frictions and Countercyclical Monopsony}
+\paragraph{Countercyclical elasticity: search-friction microfoundation.}
 \label{sec:micro_search}
-
-Equation \eqref{eq:labor_supply} leaves open why $\varepsilon_t$ should vary
-over the business cycle. We now derive the countercyclical pattern from
-search-and-matching primitives, following \citet{manning2003}, \citet{burdett1998},
-and \citet{berger2022monopsony}. The key mechanism: in slack labor markets,
-workers' outside options deteriorate because the job-finding rate falls,
-reducing their effective mobility across employers and amplifying monopsony
-power.
-
-\paragraph{Search environment.}
-Within each labor type $\ell$, workers face the following frictions each period:
-\begin{enumerate}[(i)]
-  \item \textbf{Exogenous separations}: Employed workers lose their job at
-    rate $\delta > 0$ (illness, relocation, firm death).
-  \item \textbf{On-the-job search}: Employed workers sample competing firms'
-    wages at Poisson rate $\lambda_e > 0$. A contact at firm $j'$ succeeds
-    with probability $f(\theta_t)$, where $\theta_t = v_t / u_t$ is labor
-    market tightness ($v_t$ = vacancies, $u_t$ = unemployment rate) and
-    $f(\cdot)$ is strictly increasing.
-  \item \textbf{Beveridge flow balance}: In steady state, inflows to
-    unemployment equal outflows:
-    \begin{equation}
-      \delta(1 - u_t) = f(\theta_t)\,u_t
-      \quad\Longrightarrow\quad
-      f(\theta_t) = \frac{\delta(1-u_t)}{u_t}.
-      \label{eq:beveridge}
-    \end{equation}
-    Hence $f$ is a \emph{decreasing} function of $u_t$: when unemployment
-    rises, job-finding falls.
-\end{enumerate}
-
-\paragraph{Firm-level steady-state employment.}
-Firm $j$'s workforce $N_{jt}$ satisfies the flow balance
-$\text{hires} = \text{separations}$:
-\begin{equation}
-  \kappa(w_{jt},\theta_t)
-  = \bigl[\delta + q(w_{jt},\theta_t)\bigr]\,N_{jt}
-  \label{eq:flow_balance}
-\end{equation}
-where $\kappa(\cdot) > 0$ is the total recruitment flow (increasing in $w_{jt}$)
-and $q(\cdot)$ is the endogenous quit rate:
-\begin{equation}
-  q(w_{jt},\theta_t) = \lambda_e\,f(\theta_t)\,\bigl[1 - F_t(w_{jt})\bigr].
-  \label{eq:quit_rate}
-\end{equation}
-Here $F_t(w)$ is the CDF of wages posted by competing firms: $1-F_t(w_{jt})$
-is the probability that a sampled competitor pays more, inducing the worker
-to quit.  Solving \eqref{eq:flow_balance}:
-\begin{equation}
-  N_{jt}(w_{jt}) = \frac{\kappa(w_{jt},\theta_t)}
-    {\delta + \lambda_e\,f(\theta_t)\,[1-F_t(w_{jt})]}.
-  \label{eq:N_j}
-\end{equation}
-
-\paragraph{Elasticity of firm-level labor supply.}
-Differentiating \eqref{eq:N_j} with respect to $w_{jt}$ (holding
-$\theta_t$ and $F_t$ at the symmetric equilibrium) and applying
-$f(\theta_t) = \delta(1-u_t)/u_t$ from \eqref{eq:beveridge}:
-\begin{equation}
-  \varepsilon_t \;\equiv\; \frac{d\ln N_{jt}}{d\ln w_{jt}}
-  \;=\; \varepsilon_{\kappa}\!\left[1 + \Psi_t\right],
-  \qquad
-  \Psi_t \;\equiv\; \frac{\lambda_e\,f(\theta_t)}{\delta}
-         = \frac{\lambda_e(1-u_t)}{u_t}
-  \label{eq:eps_structural}
-\end{equation}
-where $\varepsilon_\kappa > 0$ is the elasticity of recruitment flows with
-respect to the posted wage (the ``extensive margin'' of labor supply, assumed
-constant across the cycle). The offer-to-separation ratio $\Psi_t$ captures
-the ``intensive margin'': it measures how frequently employed workers turn
-over \emph{because} they find better offers, relative to the exogenous
-destruction rate.
-
-Equation \eqref{eq:eps_structural} reveals the mechanism directly:
-$\varepsilon_t$ is \emph{increasing} in $\Psi_t$, which is \emph{decreasing}
-in $u_t$ via the Beveridge curve. When unemployment rises,
-$f(\theta_t)$ falls, outside offers become rare, workers can no longer
-credibly threaten to quit, and each firm faces a less elastic labor supply
-curve---deepening monopsony power.
-
-\paragraph{Linearization.}
-Let $\bar\Psi = \lambda_e(1-\bar u)/\bar u$ and
-$\bar\varepsilon = \varepsilon_\kappa(1+\bar\Psi)$.
-A first-order Taylor expansion of \eqref{eq:eps_structural} around
-$u_t = \bar u$ yields:
+Equation \eqref{eq:labor_supply} is not merely assumed---$\varepsilon_t$
+is derived from search primitives following \citet{manning2003} and
+\citet{berger2022monopsony}. In a directed-search model where employed workers
+receive outside offers at rate $\lambda_e$, the firm's steady-state employment
+equals inflows divided by outflows, and the resulting firm-level labor supply
+elasticity is $\varepsilon_t = \varepsilon_\kappa[1 + \lambda_e(1-u_t)/u_t]$.
+The Beveridge flow balance $\delta(1-u_t) = f(\theta_t)u_t$ implies the
+offer-to-separation ratio falls when unemployment rises---reducing workers'
+credible threat to quit and deepening monopsony power. A first-order Taylor
+expansion yields:
 \begin{equation}
   \varepsilon_t \approx \bar{\varepsilon} - \gamma\,(u_t - \bar{u}),
-  \qquad \varepsilon_t \geq \varepsilon_{\min} > 0,
   \qquad
-  \gamma \;\equiv\; \frac{\varepsilon_\kappa\,\lambda_e}{\bar{u}^2}
-  \;=\; \frac{\bar\varepsilon\,\lambda_e}{(1+\bar\Psi)\,\bar u^2}
+  \gamma \equiv \frac{\varepsilon_\kappa\,\lambda_e}{\bar{u}^2} > 0,
+  \qquad \varepsilon_t \geq \varepsilon_{\min} = 0.5
   \label{eq:epsilon_cyclical}
 \end{equation}
-where $\varepsilon_{\min} = 0.5$ bounds the markdown from above.
-The structural formula $\gamma = \varepsilon_\kappa\lambda_e/\bar u^2$
-delivers three results:
-\begin{enumerate}[(i)]
-  \item \textbf{Sign}: $\gamma > 0$ always, so the markdown is
-    countercyclical \emph{by construction} from search primitives.
-  \item \textbf{Amplification}: $\gamma$ is larger when labor markets are
-    tight ($\bar u$ small), because a given change in $u_t$ has a larger
-    proportional effect on $f(\theta_t)$.
-  \item \textbf{Structural calibration}: $\gamma$ is identified by
-    $(\varepsilon_\kappa, \lambda_e, \bar u)$---all measurable from matched
-    employer-employee data on separation and offer rates
-    \citep{card2018, burdett1998}.
-\end{enumerate}
-
-\paragraph{Calibration of $\gamma$.}
-We calibrate $\gamma = 0.8$ to match the time-series moment that a
-1 percentage point increase in unemployment reduces the aggregate labor
-share by $\approx 0.032$ pp \citep{rinz2022labor}. The structural
-formula \eqref{eq:epsilon_cyclical} implies $\gamma \approx 0.8$ for
-$\varepsilon_\kappa \approx 3.8$, $\lambda_e \approx 0.013$ per quarter,
-and $\bar u = 0.05$. The implied on-the-job offer rate of 1.3\% per quarter
-is conservative relative to estimates from matched employer-employee data
-($\lambda_e \approx 2$--$5\%$ per quarter in the full economy), consistent
-with the view that concentrated labor markets exhibit \emph{lower}
-on-the-job mobility than the aggregate economy-wide average
-\citep{dube2020monopsony, berger2022monopsony}.
+confirming $\gamma > 0$ by construction from search primitives, with
+$\gamma$ calibrated to $0.8$ to match the observed labor share cyclicality
+($-0.032$pp per 1pp rise in $u_t$, \citealt{rinz2022labor}).
+The full derivation---including the structural formula
+$\gamma = \varepsilon_\kappa\lambda_e/\bar u^2$ and its calibration to
+matched employer-employee data---is in the Supplemental Appendix.
 
 \paragraph{Wage-setting.}
 Profit-maximizing wage-setting by firm $j$ yields the \emph{wage markdown
@@ -249,7 +152,7 @@ We set $\bar\varepsilon = 4$, implying a steady-state markdown of
 $\mu^w = 4/5 = 0.80$---consistent with the central estimate of
 \citet{manning2021monopsony} and the sector-level estimates of
 \citet{dube2020monopsony}. This also pins down $\varepsilon_\kappa = \bar\varepsilon/(1+\bar\Psi) \approx 3.8$
-via \eqref{eq:eps_structural}, given the calibrated $\lambda_e$.
+following the microfoundation in Section~\ref{sec:micro_search}, given the calibrated $\lambda_e$.
 
 \subsubsection{Price-Setting}
 
@@ -302,7 +205,7 @@ The fragmentation premium $\phi_t$ follows an AR(1) process:
   \label{eq:phi_process}
 \end{equation}
 with high persistence $\rho_\phi = 0.90$, reflecting the slow-moving nature
-of geopolitical realignments. Appendix~\ref{app:endogenous_phi} provides a
+of geopolitical realignments. The Supplemental Appendix provides a
 strategic-game micro-foundation and demonstrates that the AR(1) is the
 Nash-equilibrium linearization of a two-bloc tariff game.
 
@@ -320,7 +223,7 @@ a sector-specific regulatory premium $\psi_{s,t}^{rr'}$:
   \label{eq:trade_costs_full}
 \end{equation}
 In the baseline model, $\psi_{s,t} \equiv 0$ (sector-neutral $\phi_t$ shock).
-In the extended model with IP decoupling (Appendix~\ref{app:endogenous_phi}
+In the extended model with IP decoupling (Supplemental Appendix
 and Section~\ref{sec:ip_frag}), $\psi_{s,t}^{\text{Tech}}$ captures
 semiconductor export control shocks. All main results hold under either
 specification; the IP extension is used in the broadened fragmentation

@@ -155,64 +155,34 @@ The welfare-optimal monetary rule is:
         + \underbrace{\phi_\mu^*\,\hat\mu_t^w}_{\text{novel: }>0}
         + \underbrace{\phi_\phi^*\,\hat\phi_t}_{\text{novel: }<0} + \nu_t.
 \end{equation*}
-The sign of $\phi_\mu^* \geq 0$: when monopsony deepens in recession, the
-wage markdown compresses labour incomes below their competitive level, reducing
-the consumption of high-MPC workers disproportionately. The central bank can
-offset part of this through easier policy. The sign of $\phi_\phi^* < 0$:
-when fragmentation spikes, it is a supply shock---standard Taylor rules
-tighten in response to cost-push inflation, amplifying the output loss. The
-augmented rule correctly identifies the supply-side origin and responds less
-aggressively ($\phi_\phi^* = -0.22$ in baseline calibration), trading a modest
+The sign of $\phi_\mu^* \geq 0$: monopsony deepening compresses high-MPC
+workers' incomes below competitive levels; the central bank can partially
+offset this through accommodation. The sign of $\phi_\phi^* < 0$:
+fragmentation spikes are supply shocks---standard Taylor rules tighten into
+the output loss; the augmented rule ($\phi_\phi^* = -0.22$) trades a modest
 inflation overshoot for substantially less output sacrifice.
 
-\subsection{Relation to the Literature}
-
-This paper contributes to three strands of literature.
-
-\paragraph{Heterogeneous agent models.}
-\citet{auclert2019} establishes the importance of redistribution channels for
-monetary policy in HANK. \citet{kaplan2018} shows the dominance of indirect
-effects. We add a new indirect channel: monopsony deepening in recessions
-redistributes income toward firms and away from workers, elevating the aggregate
-MPC and amplifying the recession for a given rate increase.
-
-\paragraph{Input-output amplification.}
-\citet{baqaee2019} and \citet{acemoglu2012} establish that sectoral shocks
-propagate through networks weighted by Domar weights. We extend this to a
-multi-bloc, multi-region dynamic setting where the Leontief inverse itself
-varies with geopolitical conditions. \citet{caliendo2015} and
-\citet{antras2020global} analyze trade in value chains; our contribution is
-introducing a dynamic, monetary-policy-relevant version with time-varying
-bloc structure.
-
-\paragraph{Monopsony and the Phillips curve.}
-\citet{berger2022monopsony} introduce monopsony into a static NK model.
-\citet{autor2020fall} document the long-run labor market concentration trend.
-\citet{manning2021monopsony} provides the key empirical estimates we use.
-We are the first to integrate countercyclical monopsony into a HANK model
-and derive the resulting implications for monetary policy transmission.
-Crucially, our model generates a quantitatively distinct prediction relative
-to each ingredient alone: the non-linear IO$\times$Monopsony interaction
-($3.4\times$ amplification of wage compression in goods vs.\ services during
-fragmentation episodes) constitutes an independently testable moment that
-neither IO models nor monopsony models alone can produce.
+\textit{Relation to the literature.}
+We build on three bodies of work. On heterogeneous agents: \citet{auclert2019}
+and \citet{kaplan2018} show redistribution channels dominate monetary
+transmission in HANK; we add the countercyclical monopsony channel as a novel
+source of MPC amplification. On IO networks: \citet{baqaee2019} and
+\citet{acemoglu2012} price sectoral shocks via Domar weights; we extend this to
+a multi-bloc setting where the Leontief inverse varies with geopolitical
+fragmentation. On labor market power: \citet{berger2022monopsony} introduce
+monopsony into a static NK model; we are the first to embed countercyclical
+monopsony in a dynamic HANK-IO framework and derive its implications for
+optimal monetary policy.
 
 \subsection{Organization}
 
-Following the AER structure of leading with motivating facts, the paper
-proceeds as follows. \textbf{Section~\ref{sec:empirical}} establishes the
-motivating empirical evidence using a commuting-zone Bartik design: it
-documents the non-linear IO$\times$Monopsony wage suppression interaction
-in US local labor markets during 2021--2023, broadens the fragmentation
-concept to include IP and regulatory decoupling, and develops the
-allied-nation instrumental variable. \textbf{Section~\ref{sec:model}}
-presents the model as the natural explanation for the three stylized facts
-documented in Section~\ref{sec:empirical}.
-\textbf{Section~\ref{sec:equilibrium}} defines equilibrium.
-\textbf{Section~\ref{sec:solution}} describes the sequence-space Jacobian
-solution method. \textbf{Section~\ref{sec:results}} states and proves the
-three main propositions, connecting them to the empirical estimates.
-\textbf{Section~\ref{sec:quantitative}} presents the quantitative analysis,
-including the four-variant decomposition and cross-sectional validation.
-\textbf{Section~\ref{sec:policy}} discusses policy implications.
-\textbf{Section~\ref{sec:conclusion}} concludes.
+Section~\ref{sec:empirical} establishes the CZ-level Bartik evidence.
+Section~\ref{sec:model} presents the model.
+Section~\ref{sec:equilibrium} defines equilibrium and key log-linearizations.
+Section~\ref{sec:solution} describes the SSJ method.
+Section~\ref{sec:results} proves the three propositions.
+Section~\ref{sec:quantitative} presents quantitative exercises.
+Section~\ref{sec:policy} draws policy implications.
+Section~\ref{sec:conclusion} concludes. A Supplemental Appendix contains
+computational details, robustness checks, and extensions.
+

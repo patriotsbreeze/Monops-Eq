@@ -1,131 +1,37 @@
-\section{Equilibrium}
+\section{Equilibrium and Log-Linearization}
 \label{sec:equilibrium}
 
-\begin{definition}[Sequential Competitive Equilibrium]
-  A sequential competitive equilibrium consists of:
-  \begin{enumerate}[(i)]
-    \item Household policy functions $\{c_{it}(a,\ell,\Gamma_t),\,
-          a_{it+1}(a,\ell,\Gamma_t),\, n_{it}(a,\ell,\Gamma_t)\}$;
-    \item Firm policies $\{n_{jt},\, \{m_{jt}^{s'r'}\},\, y_{jt},\,
-          w_{jt},\, P_{jt}\}$;
-    \item Price sequences $\{r_t,\, w_t(\ell),\, P_t^s,\, P_t^{s'r'}\}$;
-    \item A distribution $\Gamma_t(a,\ell)$ and its law of motion;
-  \end{enumerate}
-  such that:
-  \begin{itemize}
-    \item Households optimize \eqref{eq:hh_objective}--\eqref{eq:bc} taking
-      prices as given;
-    \item Firms optimize \eqref{eq:production}, \eqref{eq:optimal_price}
-      subject to monopsonistic labor supply \eqref{eq:labor_supply};
-    \item All markets clear (see below);
-    \item The monetary authority follows \eqref{eq:taylor};
-    \item Expectations are model-consistent (rational expectations).
-  \end{itemize}
-\end{definition}
+A sequential competitive equilibrium consists of household policy functions,
+firm price and wage policies, and price sequences such that households
+maximize \eqref{eq:hh_objective}--\eqref{eq:bc}, firms optimize
+\eqref{eq:production} subject to monopsonistic labor supply
+\eqref{eq:labor_supply} and Calvo pricing \eqref{eq:optimal_price}, and
+all markets clear. Under monopsony, the labor market clears at
+$w_t(\ell) = \mu_t^w(\ell) \cdot \mathrm{MPL}_t(\ell)$---below the
+competitive wage---while goods and asset markets clear in the standard
+fashion. The government runs a balanced budget with constant bond supply
+$B_t = \bar B$.
 
-\subsection{Market Clearing Conditions}
-
-\paragraph{Labor Market.}
-For each labor type $\ell \in \mathcal{L}$:
+\paragraph{Key log-linearized equations.}
+The monopsony-adjusted Phillips curve (derived in Section~\ref{sec:results}):
 \begin{equation}
-  \int_{j\in\mathcal{J}(\ell)} n_{jt}\,dj = \int_{i:\,\ell_i=\ell} n_{it}\,d\Gamma_t
-  \label{eq:labor_clearing}
-\end{equation}
-Under monopsony, this clearing condition does \emph{not} equate the wage to the
-marginal product of labor. Instead, the equilibrium wage is pinned down by
-\eqref{eq:wage_markdown}: $w_t(\ell) = \mu_t^w(\ell) \cdot \mathrm{MPL}_t(\ell)$.
-The resulting wedge between wage and MPL is the \emph{labor market distortion}
-whose welfare cost enters directly into the second-order approximation of
-household welfare.
-
-\paragraph{Goods Market.}
-For each sector-region pair $(s,r)$:
-\begin{equation}
-  X_{srt} = F_{srt} + \sum_{s',r'} m_{s'r',srt} / \tau_t^{r'r}
-  \label{eq:goods_clearing}
-\end{equation}
-where $F_{srt}$ is final demand and $m_{s'r',srt}$ is intermediate demand from
-sector $(s,r)$ to sector $(s',r')$, adjusted for iceberg loss.
-
-\paragraph{Asset Market.}
-\begin{equation}
-  \int a_{it}\,d\Gamma_t = B_t
-  \label{eq:asset_clearing}
-\end{equation}
-where $B_t$ is the net supply of bonds (government debt). In the benchmark
-calibration we set $B_t = \bar B$ (constant) and adjust lump-sum taxes to
-balance the government budget.
-
-\paragraph{Trade Balance.}
-In each region $r$, net exports satisfy:
-\begin{equation}
-  \mathrm{NX}_{rt} = P_{rt} X_{rt} - \sum_{\ell\in\mathcal{L}_r} w_t(\ell) n_t(\ell)
-  - r_t B_{rt} - T_{rt}
-  \label{eq:trade_balance}
-\end{equation}
-We solve the model in a closed-world setting where world trade balances:
-$\sum_r \mathrm{NX}_{rt} = 0$.
-
-\subsection{Steady State}
-
-In steady state, all aggregate variables are constant: $r_t = \bar r$,
-$\pi_t = \bar\pi$, $\phi_t = \bar\phi$, $u_t = \bar u$. The steady-state
-distribution $\bar\Gamma(a,\ell)$ is computed numerically via the
-\citet{young2010} non-stochastic simulation method, which avoids
-discretization error by tracking the distribution continuously rather than
-on a fine grid.
-
-\paragraph{Steady-state monopsony wedge.}
-At $u_t = \bar u = 0.05$, the markdown is:
-\begin{equation}
-  \bar\mu^w = \frac{\bar\varepsilon}{\bar\varepsilon + 1} = \frac{4}{5} = 0.80
-\end{equation}
-so firms pay workers 80 cents per dollar of marginal product. Total labor
-income is $1-1/5 = 20\%$ below the competitive level, a figure consistent
-with the estimates in \citet{manning2021monopsony}.
-
-\paragraph{Steady-state Leontief inverse.}
-At the baseline fragmentation level $\bar\phi = 0.15$, we compute the
-steady-state Leontief inverse $\bar{\mathbf{L}}$ from the $50\times50$ IO
-coefficient matrix $\bar{\boldsymbol\Omega}$ calibrated to the BEA 2019
-Use Table (aggregated to 10 sectors) and the IMF 2023 World IO database
-(for trade shares). The steady-state Domar weights sum to 1.64, implying
-substantial upstream multiplier effects.
-
-\paragraph{Steady-state HtM fraction.}
-The model matches a fraction 0.40 of hand-to-mouth households (those with
-assets within one period's income of the constraint), consistent with
-\citet{kaplan2014wealthy}. These households have $\mathcal{M}_i \approx 1$
-and their income losses from monopsony translate almost one-for-one into
-consumption falls.
-
-\subsection{Log-Linearization}
-
-For dynamic analysis, we log-linearize around the steady state. Let
-$\hat x_t \equiv \log(x_t/\bar x)$ denote proportional deviations for
-quantity variables, and $\tilde x_t \equiv x_t - \bar x$ for rate variables
-(interest rates, inflation).
-
-The log-linearized Phillips curve---our key equation---becomes:
-\begin{equation}
-  \pi_t = \beta\,\mathbb{E}_t\pi_{t+1} + \kappa^{mono}\,\hat{mc}_t
+  \pi_t = \beta\,\mathbb{E}_t\pi_{t+1} + \kappa^{mono}\,\tilde{y}_t
   \label{eq:NKPC_linearized}
 \end{equation}
-where the monopsony-adjusted slope $\kappa^{mono}$ is derived in
-Section \ref{sec:results}.
-
-The log-linearized IS curve:
+The HANK IS curve, which adds a redistribution channel $\Psi_t$ to the
+standard Euler equation:
 \begin{equation}
-  \hat{Y}_t = \mathbb{E}_t\hat{Y}_{t+1} - \frac{1}{\sigma}
-  (i_t - \mathbb{E}_t\pi_{t+1} - \bar r) + \underbrace{\Psi_t}_{\text{redistribution}}
+  \tilde{y}_t = \mathbb{E}_t\tilde{y}_{t+1} -
+  \underbrace{\mathbf{G}^{C,r}[0,0]}_{\text{HANK: }{-0.137}}
+  (i_t - \mathbb{E}_t\pi_{t+1} - \bar r)
+  + \underbrace{\Psi_t}_{\substack{\text{redistribution} \\ \text{channel}}}
   \label{eq:IS_linearized}
 \end{equation}
-The term $\Psi_t$ is the HANK \emph{redistribution channel}:
-\begin{equation}
-  \Psi_t = \frac{d\mathcal{M}_t}{dr_t} (i_t - \bar\pi - \bar r)
-  + \frac{d\mathcal{M}_t}{d\mu_t^w} \hat\mu_t^w
-  \label{eq:redistribution}
-\end{equation}
-The second term is novel: when monopsony deepens ($\hat\mu_t^w < 0$,
-markdown widens), the aggregate MPC rises (distribution shifts toward
-constrained households), amplifying the demand contraction.
+where $\Psi_t = (d\mathcal{M}_t/d\mu_t^w)\,\hat\mu_t^w$ captures the
+novel channel: when monopsony deepens, the distribution of assets shifts
+toward constrained high-MPC households, amplifying demand contractions.
+The representative-agent benchmark has $\mathbf{G}^{C,r}[0,0] = -0.495$
+(3.6$\times$ larger in magnitude), showing how HANK dampens the direct
+intertemporal channel while leaving the wage income channel---and thus the
+monopsony redistribution term---intact. Full market-clearing conditions and
+the steady-state computation are in the Supplemental Appendix.

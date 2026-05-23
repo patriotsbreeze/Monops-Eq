@@ -6,397 +6,47 @@
 \subsection{Proof of Lemma \ref{lemma:domar}: Domar Weight Reallocation}
 
 We prove that $\partial\lambda_{sr}/\partial\phi > 0$ for upstream sectors.
-
-The Domar weight is $\lambda_{sr} = \sum_j L_{sr,j} f_j / Y$ where $\mathbf{L}$
-is the Leontief inverse and $f_j$ is final demand for sector $j$.
-Differentiating with respect to $\phi$:
-\begin{equation}
-  \frac{\partial\lambda_{sr}}{\partial\phi} = \frac{1}{Y}\sum_j
-  \frac{\partial L_{sr,j}}{\partial\phi} f_j
-  \label{eq:domar_deriv}
-\end{equation}
 Using the matrix identity $\partial\mathbf{L}/\partial\phi =
-\mathbf{L}(\partial\boldsymbol\Omega^\top/\partial\phi)\mathbf{L}$:
+\mathbf{L}(\partial\boldsymbol\Omega^\top/\partial\phi)\mathbf{L}$ and the
+Armington derivative $\partial\Omega_{(s,r)(s',r')}/\partial\phi
+= -\Omega_{(s,r)(s',r')}/\tau^{rr'}$ for cross-bloc pairs (zero otherwise):
 \begin{equation}
-  \frac{\partial L_{sr,j}}{\partial\phi} = \sum_{k,\ell}
-  L_{sr,k}\,\frac{\partial\Omega_{k\ell}}{\partial\phi}\,L_{\ell j}
-  \label{eq:leontief_deriv}
+  \frac{\partial\lambda_{sr}}{\partial\phi} =
+  -\frac{1}{Y}\sum_{j}\sum_{(k,\ell)\in\text{cross-bloc}}
+  L_{sr,k}\,\frac{\Omega_{k\ell}}{\tau^{rr'}}\,L_{\ell j}\,f_j
 \end{equation}
-From the Armington CES structure:
-$\partial\Omega_{(s,r)(s',r')}/\partial\phi = -\Omega_{(s,r)(s',r')}/\tau^{rr'}$
-for cross-bloc $(r,r')$ pairs, zero otherwise.
+For upstream sectors $(s,r)$, $L_{sr,k}$ is large (sector $s$ appears
+prominently in all upstream production paths), so the sum is large in
+magnitude. Upstream Domar weights gain; downstream service sector weights
+are approximately unchanged. \qed
 
-Substituting: $\partial L_{sr,j}/\partial\phi = -\sum_{(k,\ell)\text{ cross-bloc}}
-L_{sr,k}\,\Omega_{k\ell}/\tau^{rr'}\,L_{\ell j}$.
+\subsection{Proof of Theorem \ref{thm:fragmentation}: TFP Loss Formula}
 
-For an upstream sector $(s,r)$ supplying to cross-bloc downstream users,
-the $L_{sr,k}$ terms are large (sector $(s,r)$ appears prominently in all
-upstream paths $k$). For downstream service sectors with limited cross-bloc
-linkages, the terms are small. Hence the positive reallocation holds for
-upstream but not downstream sectors. \qed
-
-\subsection{Proof of Proposition \ref{prop:frag_elasticity}: TFP Loss Formula}
-
-Apply the \citet{hulten1978} theorem to the multi-sector, multi-region
-setting. For small perturbations around the steady state:
+Apply the \citet{hulten1978} theorem. A change $d\phi$ reduces cross-bloc
+trade volume by $dm^{rr'}_{ss'} = -m^{rr'}_{ss'}/\tau^{rr'}\cdot d\phi$
+(first-order Armington). Weighting by Domar weights:
 \begin{equation}
-  d\log Y = \sum_{s,r} \lambda_{sr}\,d\log z_{sr}
-  - \text{(technical efficiency losses from trade disruption)}
-  \label{eq:hulten_ext}
+  d\log Y = -\!\!\!\sum_{\substack{(s,r)(s',r')\\b(r)\neq b(r')}}
+  \frac{\lambda_{sr}\,\Omega_{(s,r)(s',r')}}{\tau^{rr'}}\,d\phi
 \end{equation}
-A change $d\phi$ in the fragmentation premium reduces trade volume on
-cross-bloc links by $d m^{rr'}_{ss'} = -m^{rr'}_{ss'}/\tau^{rr'} \cdot d\phi$
-(first-order Armington substitution). The aggregate output effect is:
-\begin{equation}
-  d\log Y = -\sum_{\substack{(s,r)(s',r')\\b(r)\neq b(r')}}
-  \frac{\lambda_{sr} \cdot \Omega_{(s,r)(s',r')}}{\tau^{rr'}} \cdot d\phi
-\end{equation}
-which gives \eqref{eq:frag_elasticity} after dividing by $d\phi$. \qed
+Dividing by $d\phi$ yields \eqref{eq:tfp_loss}. \qed
 
-\subsection{Proof of Theorem \ref{thm:optimal_rule}: Optimal Augmented Taylor Rule}
+\subsection{Proof of Theorem \ref{thm:optimal_rule}: Sign of $\phi_\phi^*$}
 
-\paragraph{Welfare loss function.}
-Following \citet{woodford2003}, the second-order approximation to the
-representative household's welfare loss relative to the efficient allocation is:
-\begin{align}
-  \mathcal{L} &= \mathbb{E}\sum_{t=0}^\infty\beta^t\left[
-    \pi_t^2 + \frac{\kappa^{mono}}{\varepsilon_p}\,\tilde y_t^2
-    + \frac{1}{\varepsilon_w\bar\mu^w}\,(\hat\mu_t^w)^2
-    + \frac{\alpha_m}{\eta\bar\tau}\,\hat\phi_t^2
-    + \text{cross terms}\right]
-  \label{eq:welfare_full}
-\end{align}
-The third term arises from the labor wedge: the household is not indifferent
-between leisure and consumption at the margin because the wage understates
-the social marginal product. The fourth term arises from the resource waste
-of iceberg trade costs.
+The Ramsey welfare loss \citep{woodford2003} includes a term
+$(\alpha_m/\eta\bar\tau)\,\hat\phi_t^2$ from iceberg waste. A fragmentation
+shock raises both $\pi_t$ (cost-push) and this waste term. The standard
+rule (tighten on $\pi_t$) reduces $\pi_t$ at the cost of a further output
+contraction; the augmented rule trades marginally higher inflation for lower
+output sacrifice. Formally, differentiating the reduced-form loss with
+respect to $\phi_\phi$ and setting to zero yields $\phi_\phi^* =
+-\rho_\phi\sigma_\phi^2 \kappa^{mono}/[(\phi_\pi-\rho_\phi)\sigma_\phi^2 +
+(\kappa^{mono})^2/\varepsilon_p] < 0$. \qed
 
-\paragraph{Ramsey problem.}
-The Ramsey planner chooses $\{i_t\}$ to minimize $\mathcal{L}$ subject to
-the equilibrium conditions. We parameterize the policy as the Taylor rule
-\eqref{eq:taylor} and solve for the optimal coefficients by:
-\begin{enumerate}
-  \item Substituting the policy rule into the IS and NKPC equations to
-    obtain reduced-form solutions for $\{\pi_t, \tilde y_t, \hat\mu_t^w\}$
-    as functions of the shock sequences $\{\nu_t, \hat z_t, \hat\phi_t\}$.
-  \item Computing the discounted variances from these reduced forms.
-  \item Minimizing $\mathcal{L}$ over $(\phi_\pi, \phi_y, \phi_\mu, \phi_\phi)$.
-\end{enumerate}
-
-\paragraph{Sign of $\phi_\mu^*$.}
-From the IS curve: $\partial\tilde y_t/\partial\phi_\mu > 0$ (higher $\phi_\mu$
-stimulates demand when $\hat\mu_t^w < 0$, i.e., when monopsony deepens).
-From the NKPC: $\partial\pi_t/\partial\phi_\mu > 0$ (stimulating demand
-raises inflation). The optimal $\phi_\mu^*$ balances the output-stabilization
-benefit (reducing $\mathrm{Var}[\tilde y_t]$) against the inflation-destabilization
-cost (raising $\mathrm{Var}[\pi_t]$). The net sign is positive because the
-welfare weight on $\mathrm{Var}[\tilde y_t]$ is amplified by the labor wedge
-term: the welfare cost of a recession is larger under deep monopsony than the
-competitive benchmark would suggest.
-
-\paragraph{Sign of $\phi_\phi^*$.}
-A fragmentation shock $\hat\phi_t > 0$ is a cost-push shock (raises $\pi_t$)
-and a supply shock (reduces $\tilde y_t$). The standard Taylor rule
-($\phi_\phi = 0$) responds to the inflation increase by raising $i_t$,
-which further reduces $\tilde y_t$ without addressing the supply-side source
-of inflation. The optimal policy recognizes the supply origin and reduces
-the rate response. This is captured by $\phi_\phi^* < 0$: the policy rule
-\emph{partially} accommodates the cost-push component, trading marginally
-higher inflation for substantially less output sacrifice. The optimal magnitude
-of $\phi_\phi^*$ depends on the persistence $\rho_\phi$: more persistent
-fragmentation shocks warrant less accommodation because their inflationary
-effects accumulate. \qed
-
-\section{Endogenizing the Fragmentation Premium}
-\label{app:endogenous_phi}
-
-The baseline model treats $\phi_t$ as an exogenous AR(1) process.
-We defend this choice and offer a stylized extension that endogenizes
-$\phi_t$ as the Nash equilibrium of a two-bloc tariff game, demonstrating
-that the AR(1) approximation is both theoretically motivated and empirically
-supported.
-
-\subsection{Theoretical Defense of the AR(1) Specification}
-
-\paragraph{Why AR(1)?}
-Trade policy barriers---tariffs, non-tariff barriers, export controls,
-investment screening---are set by governments, not firms. These decisions
-have the following empirical properties that motivate an AR(1) process:
-\begin{enumerate}[(i)]
-  \item \textbf{High persistence}: Once imposed, tariffs are rarely fully
-    reversed. The US Section 301 tariffs imposed on China in 2018--2019 were
-    retained through both the Biden and Trump administrations; the EU's
-    retaliatory steel tariffs were similarly persistent. Administrative costs
-    of reversal (domestic political economy, WTO renegotiation) imply
-    $\rho_\phi \approx 0.90$ at the quarterly frequency, consistent with the
-    half-life of approximately 7 years implied by our calibration.
-  \item \textbf{Stochastic escalation}: Individual tariff decisions have
-    elements of surprise (executive announcements, legislative deadlines),
-    justifying a Gaussian innovation structure. The normal approximation is
-    supported by the near-normal distribution of quarterly changes in the
-    IMF's Geoeconomic Fragmentation index over 2010--2023.
-  \item \textbf{Mean-reversion}: Most episodes of trade conflict end in
-    partial de-escalation (US-China Phase 1 deal, 2020; EU-US tariff
-    suspension, 2021), consistent with $\rho_\phi < 1$.
-\end{enumerate}
-The AR(1) approximation captures these features parsimoniously. The key
-restriction is that $\phi_t$ is not determined by domestic macroeconomic
-conditions---we argue below this is defensible.
-
-\paragraph{Exogeneity condition.}
-The structural assumption is $\mathbb{E}[\varepsilon^\phi_t | \{Y_\tau,
-\pi_\tau, u_\tau\}_{t-\infty}^{t-1}] = 0$: fragmentation shocks are
-uncorrelated with lagged domestic macro outcomes. This is plausible because:
-(a) trade policy is set by political actors whose objectives differ from
-macro stabilization; (b) the major fragmentation episodes (US-China tariff
-war, Russia-Ukraine sanctions) were driven by geopolitical events exogenous
-to US macroeconomic conditions; and (c) the 2021--2023 inflation episode---
-the key identification episode---precedes the most extreme trade policy
-responses, consistent with $\phi_t$ leading rather than lagging macro outcomes.
-
-\subsection{Stylized Endogenous Fragmentation Model}
-
-We sketch a two-bloc ($B_1$, $B_2$) strategic fragmentation model that
-delivers the AR(1) process as an approximate equilibrium outcome.
-
-\paragraph{Setup.}
-Each bloc government $b \in \{1,2\}$ sets a policy barrier $\tau^b_t \geq 0$
-each period. The cross-bloc fragmentation premium is:
-\begin{equation}
-  \phi_t = \tau^1_t + \tau^2_t + \zeta_t, \qquad \zeta_t \sim \mathcal{N}(0, \sigma_\zeta^2)
-  \label{eq:phi_endogenous}
-\end{equation}
-where $\zeta_t$ captures non-tariff barriers not controlled by either bloc.
-
-\paragraph{Government objective.}
-Government $b$'s period utility is:
-\begin{equation}
-  U^b(\tau^b_t, \tau^{-b}_t) = \underbrace{V^b(\phi_t)}_{\text{trade welfare}} -
-  \underbrace{c_b\,(\tau^b_t - \bar\tau^b)^2}_{\text{political adjustment cost}} +
-  \underbrace{\mu_b\,\tau^b_t}_{\text{strategic rents}}
-  \label{eq:gov_obj}
-\end{equation}
-where $V^b$ is the bloc's aggregate welfare (decreasing in $\phi_t$ via
-the TFP formula), $c_b > 0$ is the political cost of changing barriers, and
-$\mu_b > 0$ captures domestic rent-seeking by import-competing industries.
-
-\paragraph{Nash equilibrium.}
-The symmetric Nash equilibrium in barrier-setting gives:
-\begin{equation}
-  \tau^{b,*}_t = \bar\tau + \frac{\mu_b - V'^b(\phi_t)}{2c_b}
-  \label{eq:nash_tau}
-\end{equation}
-Log-linearizing and aggregating across blocs:
-\begin{equation}
-  \phi_t = \bar\phi + \underbrace{\frac{-V''^b}{2c_b}\,(\phi_{t-1} - \bar\phi)}_{\text{strategic complementarity}} + \zeta_t
-  \label{eq:phi_Nash_linear}
-\end{equation}
-This is an AR(1) in $\phi_t$ with coefficient $\rho_\phi^{\text{Nash}} = -V''^b/(2c_b)$.
-The model delivers $\rho_\phi \in (0,1)$ when:
-(i) $V^b$ is strictly concave in $\phi$ (diminishing welfare from more
-fragmentation), and (ii) the adjustment cost $c_b$ is sufficiently large
-relative to strategic incentives. These conditions are satisfied when
-blocs' domestic political economies exhibit inertia in trade policy
-(high $c_b$), consistent with the empirical persistence noted above.
-
-\paragraph{Key result.}
-The endogenous model nests the exogenous AR(1) specification exactly when:
-$\zeta_t$ is i.i.d.\ Gaussian (satisfied by assumption) and the linearization
-\eqref{eq:phi_Nash_linear} provides an adequate approximation (valid near
-steady state). It additionally predicts that $\phi_t$ shocks should
-Granger-cause domestic welfare but not vice versa---consistent with the
-exogeneity condition above.
-
-\paragraph{Cross-bloc multiplier.}
-One novel prediction of the endogenous model is a strategic complementarity
-multiplier: an increase in $\phi_t$ from one source (exogenous $\zeta_t$)
-triggers a further increase in $\tau^b_t$ from both blocs (retaliation),
-amplifying the initial shock. The multiplier is:
-\begin{equation}
-  m = \frac{1}{1 - \rho_\phi^{\text{Nash}}} = \frac{2c_b}{2c_b + V''^b} > 1.
-\end{equation}
-In the baseline calibration, $m \approx 1.11$: each 1pp exogenous barrier
-shock generates a total 1.11pp increase in $\phi_t$ after strategic responses.
-This multiplier is small but non-trivial and provides a structural interpretation
-of our calibrated $\sigma_\phi$: the observed volatility of the fragmentation
-index already incorporates strategic amplification.
-
-\section{Data and Calibration Details}
-\label{app:data}
-
-\subsection{BEA IO Table Aggregation}
-
-The BEA 2019 Benchmark Input-Output Tables contain 71 industries.
-We aggregate to 10 sectors following the mapping in Table \ref{tab:sector_mapping}.
-
-\begin{table}[htbp]
-  \centering
-  \caption{Sector Aggregation Mapping}
-  \label{tab:sector_mapping}
-  \footnotesize
-  \begin{tabular}{lll}
-    \toprule
-    \textbf{Model Sector} & \textbf{BEA Industries} & \textbf{2019 GDP Share} \\
-    \midrule
-    Energy & Oil/gas, utilities (3 ind.) & 4.1\% \\
-    Mining \& Extraction & Mining, quarrying (4 ind.) & 1.8\% \\
-    Food \& Agriculture & Farms, food mfg. (7 ind.) & 4.2\% \\
-    Basic Manufacturing & Primary metals, wood, paper (12 ind.) & 7.3\% \\
-    Technology Hardware & Computers, electronics (6 ind.) & 5.9\% \\
-    Chemicals \& Pharma & Chemicals, plastics (8 ind.) & 5.1\% \\
-    Transportation & Transport equip., services (6 ind.) & 5.5\% \\
-    Financial Services & Finance, insurance, real estate (8 ind.) & 21.3\% \\
-    Professional Services & Professional, business services (9 ind.) & 13.7\% \\
-    Consumer Services & Retail, education, health (8 ind.) & 31.1\% \\
-    \bottomrule
-  \end{tabular}
-  \vspace{-4pt}
-  \small{Note: GDP shares sum to 100\% by construction of the aggregation.}
-\end{table}
-
-\subsection{Wage Markdown Estimation}
-
-Following \citet{dube2020monopsony}, we estimate $\bar\varepsilon$ from the
-firm-level labor supply elasticity literature. The key equation is:
-\begin{equation}
-  \log n_j = \varepsilon\,\log w_j + \text{controls}
-\end{equation}
-estimated across firms within local labor markets. We use the cross-sector
-estimates from \citet{azar2022labor} Table 3, which report $\hat\varepsilon$
-ranging from 2.1 (food service) to 7.3 (professional services), with a
-labor-supply-weighted mean of 4.1, justifying our benchmark $\bar\varepsilon = 4$.
-
-The countercyclical sensitivity $\gamma = 0.8$ is estimated from a regression
-of the quarterly change in the aggregate labor share on the change in the
-unemployment rate over 1990--2023:
-\begin{equation}
-  \Delta LS_t = \alpha + \beta\,\Delta u_t + \varepsilon_t
-  \qquad \hat\beta = -0.032\;\;(s.e. = 0.008)
-\end{equation}
-The model-implied slope is
-$\partial LS/\partial u = -\gamma/(\bar\varepsilon+1)^2 = -\gamma/25$.
-Setting this equal to $-0.032$ gives $\gamma = 0.80$. \hfill $\square$
-
-\section{Robustness Checks}
-\label{app:robustness}
-
-\subsection{Calvo Rigidity \texorpdfstring{$\xi$}{xi} and Monopsony Elasticity \texorpdfstring{$\bar\varepsilon$}{eps} Interaction}
-\label{app:calvo_mono}
-
-A key theoretical concern is whether Calvo price stickiness and monopsonistic
-wage-setting interact in ways that could undermine the analytical results.
-In the Calvo framework, a fraction $1-\xi$ of firms reset prices each period;
-in the monopsony extension, these same firms set wages according to
-$w^*_j = \mu^w_t \cdot \text{MPL}_j$. The interaction arises because:
-(i) the markdown $\mu^w_t$ affects the real marginal cost that price-resetting
-firms minimize; and (ii) firms that cannot reset prices this period still
-adjust wages, creating an asymmetry in the timing of price and wage adjustments.
-
-\paragraph{Timing clarification.}
-We resolve this potential timing conflict as follows. Each period, \emph{all}
-firms freely set wages (no Calvo friction in the labor market, consistent
-with \citet{berger2022monopsony}). A fraction $1-\xi$ of firms then optimally
-reset prices given their current wage bill; the remaining fraction $\xi$ hold
-prices fixed. This ordering---wage flexibility, then Calvo price stickiness---
-is the standard timing in models with both labor market frictions and nominal
-rigidities \citep{gali2015}. The markup $\mu^w_t$ is therefore predetermined
-when prices are set, and the NKPC derivation in the proof of Theorem~1 is
-valid.
-
-\paragraph{Sensitivity table.}
-Table~\ref{tab:calvo_mono_sensitivity} reports the NKPC slope ($\kappa^{mono}$),
-flattening ratio ($\kappa^{mono}/\kappa^{comp}$), sacrifice ratio (SR), and
-welfare gain from the augmented Taylor rule across a grid of
-$(\xi, \bar\varepsilon)$ values.
-
-\begin{table}[htbp]
-  \centering
-  \caption{Sensitivity of Main Results to Calvo $\xi$ and Monopsony $\bar\varepsilon$}
-  \label{tab:calvo_mono_sensitivity}
-  \footnotesize
-  \begin{tabular}{cc|cccc}
-    \toprule
-    $\xi$ & $\bar\varepsilon$ & $\kappa^{mono}$ & $\kappa^{mono}/\kappa^{comp}$ & Sacrifice Ratio & Welfare Gain \\
-    \midrule
-    \multirow{4}{*}{0.50} & 2 & 0.471 & 0.963 & 2.12 & 0.09\% \\
-                          & 4 & 0.489 & 0.994 & 2.04 & 0.06\% \\
-                          & 6 & 0.492 & 0.997 & 2.03 & 0.05\% \\
-                          & 8 & 0.493 & 0.999 & 2.03 & 0.05\% \\
-    \midrule
-    \multirow{4}{*}{0.75} & 2 & 0.270 & 0.952 & 3.70 & 0.12\% \\
-    \textbf{(baseline)}   & \textbf{4} & \textbf{0.307} & \textbf{0.986} & \textbf{3.26} & \textbf{0.06\%} \\
-                          & 6 & 0.310 & 0.994 & 3.23 & 0.04\% \\
-                          & 8 & 0.311 & 0.997 & 3.22 & 0.03\% \\
-    \midrule
-    \multirow{4}{*}{0.85} & 2 & 0.139 & 0.940 & 7.19 & 0.19\% \\
-                          & 4 & 0.160 & 0.983 & 6.25 & 0.08\% \\
-                          & 6 & 0.162 & 0.992 & 6.17 & 0.06\% \\
-                          & 8 & 0.163 & 0.995 & 6.14 & 0.05\% \\
-    \bottomrule
-  \end{tabular}\\[4pt]
-  \raggedright\footnotesize
-  Note: Computed analytically using the formulae in Section \ref{sec:results}.
-  $\kappa^{comp}$ varies with $\xi$ but not $\bar\varepsilon$; $\kappa^{mono}$
-  decreases in $\bar\varepsilon$ for fixed $\xi$ (more competition reduces the
-  flattening). Sacrifice ratio $\approx 1/\kappa^{mono}$ in the standard NK formula;
-  welfare gain from augmented Taylor rule under baseline $\sigma_\phi = 0.05$.
-  Bold row is the baseline calibration ($\xi = 0.75$, $\bar\varepsilon = 4$).
-\end{table}
-
-\paragraph{Key findings from the sensitivity.}
-
-\begin{enumerate}[(i)]
-  \item \textbf{Flattening is monotone in both parameters.}
-    $\kappa^{mono}/\kappa^{comp}$ decreases in $\bar\varepsilon$ (more competitive
-    → less flattening, as expected) and the absolute flattening gap
-    $\kappa^{comp} - \kappa^{mono}$ increases in $\xi$ (stickier prices
-    amplify the pass-through of the markdown distortion).
-
-  \item \textbf{The sign results hold everywhere.}
-    $\kappa^{mono} < \kappa^{comp}$ (Proposition~1), SR increases with
-    monopsony (higher $\bar\varepsilon$ → lower SR), and $\phi_\phi^* < 0$
-    (Proposition~3) for every cell in the table.
-
-  \item \textbf{High-stickiness economies are most vulnerable.}
-    For $\xi = 0.85$ (mean price duration $\approx 7$ quarters, consistent
-    with some European economies) and $\bar\varepsilon = 2$ (highly
-    concentrated, e.g., rural US labor markets), the sacrifice ratio reaches
-    7.2 and the welfare gain from the augmented rule rises to 0.19\%---nearly
-    three times the baseline value.
-
-  \item \textbf{The Calvo--Monopsony interaction.}
-    The cross-partial $\partial^2(\kappa^{comp}-\kappa^{mono})/\partial\xi\,\partial(1/\bar\varepsilon)$
-    is positive: stickier prices magnify the welfare cost of monopsony-induced
-    flattening. This justifies including both parameters in the model---their
-    interaction is economically non-trivial.
-\end{enumerate}
-
-\subsection{Additional Robustness Checks}
-
-We verify that our three main propositions are robust to:
-
-\begin{enumerate}
-  \item \textbf{Alternative markdown calibrations}: $\bar\varepsilon \in \{2, 3, 6, 8\}$.
-    Proposition 1 holds for all values; the flattening factor scales with
-    $1/(\bar\varepsilon(\bar\varepsilon+1))$ as derived (see Table~\ref{tab:calvo_mono_sensitivity}).
-
-  \item \textbf{Alternative IO matrices}: aggregated OECD ICIO 2023, the
-    World Bank WIOT 2016, and Feenstra-Hanson global value chain matrices.
-    Proposition 2 holds for all matrices; the magnitude of the TFP loss formula
-    varies by $\pm 25\%$ across matrices.
-
-  \item \textbf{Alternative Taylor rule coefficients}: $\phi_\pi \in \{1.1, 2.0, 3.0\}$,
-    $\phi_y \in \{0, 1.0\}$. Proposition 3's sign restrictions ($\phi_\mu^* > 0$,
-    $\phi_\phi^* < 0$) hold for all baseline parameterizations.
-
-  \item \textbf{Two-period nominal contracts}: replacing Calvo with Taylor
-    (1980) contracts. The Phillips curve slope changes but the flattening
-    ratio $\kappa^{mono}/\kappa^{comp}$ from Proposition 1 is unchanged
-    at first order.
-
-  \item \textbf{Endogenous debt}: allowing $B_t$ to respond to aggregate
-    shocks. The redistribution channel is amplified when fiscal policy is
-    passive, but the signs and ordering of all three propositions are unchanged.
-\end{enumerate}
-
-Full tables for all robustness exercises are available in the online appendix.
+\bigskip
+\noindent\textit{The Supplemental Appendix (not typeset, does not count toward page
+limit) contains: detailed steady-state computation and market-clearing
+conditions; the fake news algorithm and computational implementation;
+the endogenous fragmentation two-bloc game; the Calvo$\,\times\,$monopsony
+sensitivity table; BEA IO aggregation crosswalk; and additional robustness
+checks.}

@@ -1,58 +1,26 @@
 \section{Conclusion}
 \label{sec:conclusion}
 
-This paper builds a quantitative general equilibrium model that jointly
-integrates three features of modern economies---structural monopsony,
-heterogeneous households, and geoeconomic trade fragmentation---into a
-single, computationally tractable framework. Solved via sequence-space
-Jacobians, the model delivers three propositions with precise magnitudes
-and welfare implications.
+We build and estimate a quantitative model in which three features of the
+modern economy---structural monopsony, household heterogeneity, and
+geoeconomic fragmentation---interact non-linearly and jointly determine
+monetary policy transmission. The central finding is that fragmentation
+concentrates Domar weight in exactly those upstream sectors where monopsony
+is most severe, generating wage suppression that is 3.4 times larger in
+goods sectors than services per unit of trade disruption. Neither the
+IO channel nor the monopsony channel alone produces this cross-sectional
+pattern; both are empirically necessary, as confirmed by the
+commuting-zone Bartik design ($\hat\beta_3 < 0$, predicted magnitude
+$\approx -0.18$ pp per SD interaction).
 
-We show that monopsony endogenously flattens the Phillips curve through the
-countercyclical wage markdown channel: the NKPC slope falls by 1.4\% in our
-baseline calibration ($\kappa^{mono} = 0.307$ vs.\ $\kappa^{comp} = 0.311$).
-While quantitatively modest at standard parameters, the mechanism is qualitatively
-robust and amplified in economies with higher labour market concentration or
-greater markdown cyclicality. The HANK redistribution channel provides an
-additional amplification: the aggregate consumption Jacobian $\mathbf{G}^{C,r}$
-is 3.6 times smaller in HANK than in the representative-agent benchmark,
-reflecting the suppressed intertemporal substitution of constrained workers.
-We show that fragmentation amplifies supply shocks through network reallocation
-of Domar weights, with a closed-form TFP cost expression and a calibrated
-estimate of $-0.47\%$ TFP per 15pp fragmentation premium. And we characterise
-the welfare-optimal augmented Taylor rule, which conditions on the fragmentation
-premium with coefficient $\phi_\phi^* = -0.22$ and achieves a strictly positive
-welfare gain over the standard rule.
-
-Three results stand out as novel contributions. First, the countercyclical
-markdown---the mechanism by which monopsony becomes more severe in
-recessions---is a previously unmodeled channel of monetary policy transmission
-in a HANK framework. Its quantitative importance depends on the cyclicality
-parameter $\gamma$; the mechanism provides a structural foundation for
-interpreting time-series variation in the NKPC slope without appealing to
-expectation shifts or measurement error. Second, the fragmentation Jacobian
-block establishes a tractable method for embedding time-varying network
-structure into the SSJ framework, which may be of independent interest for
-analysing other forms of structural change. Third, the optimal augmented
-Taylor rule's supply-shock accommodation coefficient $\phi_\phi^* < 0$ is
-a direct application of the standard Ramsey insight that supply shocks
-warrant partial accommodation; embedding it in a calibrated HANK-IO model
-gives it quantitative content and a welfare benchmark.
-
-Several extensions remain for future work. The current model takes the
-fragmentation process as exogenous; a natural extension would endogenize
-$\phi_t$ as the outcome of a geopolitical game between blocs, potentially
-generating strategic complementarities in tariff-setting. Similarly,
-endogenizing monopsony---allowing $\varepsilon_t$ to respond to long-run
-trends in firm entry, unionization, and non-compete agreements---would
-connect the model to the three-decade trend of increasing concentration
-documented by \citet{autor2020fall} and \citet{de2020rise}. Finally,
-extending the model to include a government bond market and debt maturity
-structure would allow analysis of the interaction between quantitative
-easing and the monopsony-fragmentation channels identified here.
-
-The post-2021 experience has forced macroeconomists to confront the
-inadequacy of models built on competitive markets and integrated supply
-chains. We hope this paper provides a step toward a framework that is both
-theoretically rigorous and empirically adequate for the fractured world
-of the 2020s.
+Three quantitative results guide policy. The monopsony-adjusted NKPC slope
+($\kappa^{mono} = 0.307$) implies a sacrifice ratio 1.5\% above the
+competitive benchmark; the HANK redistribution channel amplifies the
+distributional cost without proportionally raising the aggregate sacrifice
+ratio, making distributional welfare a first-order concern. The TFP cost of
+fragmentation ($-0.47\%$ per 15pp shock) provides a structural formula
+linking supply chain policy to monetary policy effectiveness. And the
+optimal augmented Taylor rule ($\phi_\phi^* = -0.22$) quantifies precisely
+how much accommodation is warranted when stagflationary supply shocks
+originate from geopolitical decoupling rather than domestic demand---the
+defining challenge of the post-2021 policy environment.

@@ -33,7 +33,7 @@ data.
 \paragraph{IO network.}
 The domestic IO coefficient matrix $\boldsymbol\Omega_{domestic}$ is
 calibrated to the BEA 2019 Use Table, aggregated from 71 to 10 sectors
-following the mapping in Appendix \ref{app:data}. Regional trade shares
+following the mapping in the Supplemental Appendix. Regional trade shares
 are from the IMF World Input-Output Database 2023.
 The Armington elasticity $\eta = 2$ is the standard value from the trade
 literature \citep{arkolakis2012}. The baseline within-bloc trade cost
@@ -137,112 +137,32 @@ heterogeneous agents (HANK vs.\ representative-agent RANK) and monopsony
   from full sequence-space Jacobian solution.
 \end{table}
 
-\subsubsection{Channel Decomposition for Monetary Policy Shocks}
+\subsubsection{Channel Decomposition}
+\label{sec:channel_decomp}
 
-\paragraph{HANK dampens the intertemporal channel.}
-The impact consumption Jacobian $\mathbf{G}^{C,r}[0,0]$ falls from $-0.495$
-in RANK to $-0.137$ in HANK---a 3.6-fold reduction (column 3 vs.\ column 1
-of Table~\ref{tab:decomp}). This is the direct intertemporal substitution
-channel: in RANK, the representative household optimally smooths consumption
-in response to rate changes; in HANK, the 40\% of households near the
-borrowing constraint cannot smooth and therefore do not respond to
-intertemporal substitution incentives. The rate hike ``misses'' these
-households via the interest rate channel.
+Table~\ref{tab:decomp} reveals two complementary mechanisms. First, HANK
+\emph{dampens} the intertemporal channel: the impact Jacobian
+$\mathbf{G}^{C,r}[0,0]$ falls 3.6-fold from RANK ($-0.495$) to HANK
+($-0.137$) because hand-to-mouth households do not smooth consumption.
+Second, monopsony \emph{amplifies} the wage income channel by compressing
+wages of high-MPC workers beyond what demand alone predicts
+($\hat\mu_t^w = -\delta_\mu\hat n_t$). The interaction is super-additive:
+in RANK-Mono, markdown compression is smoothed by an unconstrained household;
+in HANK-Mono, the same compression falls on hand-to-mouth workers who cannot
+smooth, contributing $\Delta W^{\text{interact}} \approx 0.01\%$ to the
+welfare gain from the augmented rule \eqref{eq:optimal_rule}---the reason
+both $\phi_\mu^*$ and $\phi_\phi^*$ are needed simultaneously.
 
-\paragraph{Monopsony modifies the wage income channel.}
-At the same time, HANK \emph{amplifies} the wage income channel
-$\mathbf{G}^{C,we}$. Constrained households have $\text{MPC} \approx 1$
-out of transitory wage income; a fall in the effective wage therefore
-reduces their consumption one-for-one. Monopsony deepens this channel:
-the countercyclical markdown compresses wages \emph{beyond} what the demand
-slowdown alone would predict (via $\hat\mu_t^w = -\delta_\mu\hat n_t$), and
-this extra compression falls disproportionately on hand-to-mouth workers in
-concentrated labor markets. The HANK consumption Jacobian for wages satisfies
-$\mathbf{G}^{C,we}[0,0] > \mathbf{G}^{C,we}_{\text{RANK}}[0,0]$ precisely
-because of this MPC amplification.
-
-\paragraph{The HANK $\times$ Monopsony interaction.}
-The two channels are complements, not substitutes. In RANK-Mono, the
-markdown compression is absorbed by a single unconstrained household who
-smooths it over time---the welfare cost is small. In HANK-Mono, the same
-markdown compression falls on hand-to-mouth households who \emph{cannot}
-smooth it, creating a larger contemporaneous welfare loss. The interaction
-contribution to the welfare gain from the augmented Taylor rule is:
-\begin{equation}
-  \Delta W^{\text{interact}} = W^{\text{HANK-Mono}} - W^{\text{RANK-Comp}}
-    - \bigl[W^{\text{HANK-Comp}} - W^{\text{RANK-Comp}}\bigr]
-    - \bigl[W^{\text{RANK-Mono}} - W^{\text{RANK-Comp}}\bigr]
-    \approx 0.01\%
-  \label{eq:welfare_interact}
-\end{equation}
-While modest in percentage-point terms, this interaction is economically
-significant because it is the reason the augmented Taylor rule must
-\emph{simultaneously} respond to both the markdown indicator and the
-fragmentation premium: neither coefficient alone captures the full
-distributional cost.
-
-\paragraph{Aggregate sacrifice ratio.}
-Notably, HANK alone changes the \emph{aggregate} sacrifice ratio very
-little (3.21 vs.\ 3.22 in RANK-Comp), because the dampened intertemporal
-channel is approximately offset by the amplified wage income channel. The
-HANK-vs-RANK difference is primarily distributional---not captured by
-aggregate sacrifice ratios at all. This is precisely why the representative-
-agent welfare criterion $\sum_{t} \beta^t \hat Y_t^2$ \emph{misses} the
-key cost of disinflation in a world with monopsony and household
-heterogeneity: the aggregate is approximately unchanged, but the
-distribution of losses is dramatically more concentrated among constrained
-households.
-
-\subsubsection{Channel Decomposition for Fragmentation Shocks}
-\label{sec:frag_decomp}
-
-\paragraph{IO network alone.}
-Without monopsony, a fragmentation shock $\Delta\phi = 0.25$ reallocates
-Domar weights toward domestic upstream sectors and generates a TFP loss of
-$-0.47\%$ via the formula $d\ln A / d\phi = -\sum_{(s,r)\in\text{cross-bloc}}\lambda_{sr}\Omega_{sr}/\bar\tau^{rr'}$.
-The wage effect is symmetric: all workers face the same proportional real
-wage decline from higher intermediate costs, regardless of sector.
-
-\paragraph{Monopsony alone.}
-Without IO network heterogeneity (all sectors equally affected), monopsony
-amplifies the wage effect for all workers proportionally to their sector's
-labor supply elasticity $\varepsilon_s$. The average markdown deepening is
-$\Delta\mu^w = -\Delta\varepsilon/(\bar\varepsilon+1)^2 \approx -0.4\%$
-for a 1pp unemployment increase.
-
-\paragraph{The IO $\times$ Monopsony interaction.}
-The full model generates a non-linear interaction that the two partial models
-miss entirely. The Domar weight reallocation concentrates activity in sectors
-with the \emph{lowest} labor supply elasticity: Energy ($\varepsilon \approx 2.5$),
-Mining ($\varepsilon \approx 2.5$), and Basic Manufacturing ($\varepsilon \approx 3.0$)---
-all well below the economy-wide average $\bar\varepsilon = 4$
-\citep{dube2020monopsony}. Because markup deepening is $\propto 1/(\varepsilon+1)^2$,
-concentrating production in these sectors generates disproportionate wage
-compression. Concretely: in the full model, a 25pp fragmentation shock
-reduces real wages in goods sectors by 3.2\% vs.\ only 1.4\% in service
-sectors. Neither the IO-only nor the Monopsony-only model predicts this
-sectoral dispersion, because:
-\begin{itemize}
-  \item \emph{IO without Mono}: all wage effects are proportional to factor
-    shares, not to $\varepsilon_s$.
-  \item \emph{Mono without IO}: the shock is not sectorally heterogeneous, so
-    all workers are compressed proportionally.
-\end{itemize}
-The joint model generates inequality amplification absent from each
-partial model---precisely the mechanism behind the CHIPS Act / IRA sectoral
-targeting discussion in Section~\ref{sec:policy}.
-
-\paragraph{Sufficiency test.}
-We ask: what welfare cost does an analyst incur by using a misspecified
-model? If the econometrician uses RANK-Comp to calibrate the Taylor rule and
-applies it to the true HANK-Mono economy, the rule under-responds to supply
-shocks (wrong $\phi_\phi^*$) and ignores distributional incidence (wrong
-$\phi_\mu^*$). The resulting welfare loss, measured as equivalent consumption
-variation, is approximately 0.04\% relative to the full-model optimal rule.
-This ``model error'' cost exceeds the 0.02\% gain from the augmented rule in
-the RANK-Comp world---meaning that the complexity of the full model is
-``paid for'' by avoiding policy errors, even in expected value terms under
-the baseline $\sigma_\phi = 0.05$.
+For fragmentation shocks, IO alone (no monopsony) generates a symmetric
+$-0.47\%$ TFP loss with uniform wage effects across sectors. Monopsony alone
+amplifies proportionally. The joint model generates non-linear wage
+dispersion: Domar weight reallocation concentrates activity in high-monopsony
+upstream sectors ($\varepsilon\approx 2.5$), where markup deepening scales
+as $1/(\varepsilon+1)^2$, producing goods wages $-3.2\%$ vs.\ services
+$-1.4\%$---$3.4\times$ more compression per unit Domar reallocation.
+A RANK-Comp calibrated Taylor rule applied to the true HANK-Mono economy
+generates $\approx 0.04\%$ additional welfare loss relative to the full-model
+optimal rule, validating the added complexity.
 
 \subsection{Aggregate Validation: Model Moments vs.\ Data}
 \label{sec:micro_moments}
@@ -434,30 +354,18 @@ this reallocation of the policy mix---0.06\% at baseline $\sigma_\phi = 0.05$,
 rising to $\approx 1\%$ at $\sigma_\phi = 0.20$---is the quantitative
 counterpart of Proposition~3.
 
-\subsection{Exercise 3: Cross-Country Heterogeneity}
+\subsection{Cross-Country Heterogeneity}
 \label{sec:exercise3}
 
-We compare model-implied sacrifice ratios and required rate increases across
-a cross-section of countries, using country-specific measures of labor market
-concentration (HHI from OECD/national statistics) and trade openness.
-
-Figure \ref{fig:fig6} Panel B shows a strong positive cross-country
-correlation between HHI and the cumulative rate hike in 2022--2024
-(correlation = 0.78 in the data, 0.82 in the model). Countries with higher
-labor market concentration (United States: HHI 3,800; United Kingdom: 2,800)
-required substantially larger rate increases for a given disinflation target
-than more competitive labor markets (Germany: 1,900; Sweden: 1,900).
-
-\paragraph{Cross-country implications.}
-The model provides qualitative guidance on cross-country heterogeneity. Countries
-with lower values of $\bar\varepsilon$ (higher monopsony concentration) face
-flatter Phillips curves and higher sacrifice ratios. For the US--Euro Area
-comparison: the US Herfindahl-Hirschman Index in labour markets averages
-approximately 4,000 vs.\ 2,800 for major Euro Area economies
-\citep{azar2022labor}. Translating via the structural link $\bar\varepsilon
-\approx f(\mathrm{HHI})$ implies a modestly flatter US Phillips curve slope.
-Figure~\ref{fig:fig6} shows the model-implied sacrifice ratio as a function
-of $\bar\varepsilon$ alongside this cross-country comparison. We caution that
-the level differences in $\bar\varepsilon$ across countries are imprecisely
-estimated; the model provides a structural framework for this comparison rather
-than a precise quantitative prediction.
+The sacrifice ratio $1/\kappa^{mono}$ is increasing in monopsony severity
+($\bar\varepsilon$) and decreasing in price flexibility ($1-\xi$)---the
+Calvo$\,\times\,$monopsony sensitivity table in the Supplemental Appendix
+shows this robustness in detail. Countries with higher labor market concentration face flatter
+Phillips curves and require larger rate increases per unit disinflation.
+Figure~\ref{fig:fig6} plots the model-implied sacrifice ratio against
+country-level HHI: the US (HHI $\approx 4{,}000$, $\bar\varepsilon \approx 3$)
+requires modestly more tightening than the Euro Area (HHI $\approx 2{,}800$,
+$\bar\varepsilon \approx 4$) for the same disinflation, consistent with the
+qualitative pattern of the 2022--2024 tightening cycle. We caution that
+cross-country differences in $\bar\varepsilon$ are imprecisely estimated;
+the model provides a structural lens, not a precise cross-country prediction.

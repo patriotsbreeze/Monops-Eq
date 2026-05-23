@@ -38,69 +38,19 @@ labour cost share.
   further when unemployment exceeds its steady-state value.
 \end{theorem}
 
-\begin{proof}
-  Real marginal cost in the monopsonistic economy is:
-  \begin{equation}
-    mc_t = \frac{w_t}{\mu_t^w \cdot z_t \cdot f_n(n_t)}
-    \label{eq:mc_def}
-  \end{equation}
-  where $w_t$ is the nominal wage, $\mu_t^w = \varepsilon_t/(\varepsilon_t+1)$
-  is the wage markdown, $z_t$ is TFP, and $f_n$ is the marginal product of labour.
-  Log-linearising around the non-stochastic steady state (where $mc = 1$ and
-  hats denote log-deviations):
-  \begin{equation}
-    \hat{mc}_t = \hat{w}_t - \hat{\mu}_t^w - \hat{z}_t - \widehat{f_n}_t
-    \label{eq:mc_loglin}
-  \end{equation}
-
-  \paragraph{Markdown deviation.}
-  The markdown satisfies $\mu^w = \varepsilon/(\varepsilon+1)$, so
-  $\partial\mu^w/\partial\varepsilon = 1/(\varepsilon+1)^2 > 0$.
-  With $\partial\varepsilon/\partial u = -\gamma$ and using the approximation
-  $\hat u_t \approx -(1-\bar u)^{-1}\hat n_t$:
-  \begin{equation}
-    \hat\mu_t^w = \frac{1}{(\bar\varepsilon+1)^2}\,\partial\varepsilon/\partial u\cdot
-      \hat u_t = \frac{\gamma}{(\bar\varepsilon+1)^2(1-\bar u)}\,\hat n_t
-    \label{eq:mu_loglin}
-  \end{equation}
-  When employment rises ($\hat n_t > 0$), $\hat\mu_t^w > 0$ (workers gain
-  bargaining power) and the markdown falls.
-
-  \paragraph{Marginal product.}
-  From Cobb-Douglas $f(n) = n^{\alpha_n}$:
-  $\widehat{f_n}_t = (\alpha_n - 1)\hat n_t$.
-  Aggregate output satisfies $\hat y_t = \alpha_n \hat n_t + \hat z_t$, so
-  $\hat n_t = (\hat y_t - \hat z_t)/\alpha_n$ and
-  $\widehat{f_n}_t = -[(1-\alpha_n)/\alpha_n](\hat y_t - \hat z_t)$.
-
-  \paragraph{Wage.}
-  The household labour supply FOC gives the competitive wage:
-  $\hat w_t^{comp} = \sigma^{-1}\hat c_t + \varphi\hat n_t$.
-  With market clearing $\hat c_t = \hat y_t$ and $\hat n_t = \hat y_t/\alpha_n$
-  (at $\hat z_t = 0$ for exposition):
-  $\hat w_t = (\sigma^{-1} + \varphi/\alpha_n)\hat y_t$.
-
-  \paragraph{Combining.}
-  Substituting into \eqref{eq:mc_loglin} and collecting terms in $\hat y_t$:
-  \begin{align}
-    \hat{mc}_t &= \underbrace{\left(\frac{1}{\sigma} + \frac{\varphi}{\alpha_n}\right)}_{\text{standard}}
-      \hat y_t
-      - \underbrace{\frac{\gamma}{(\bar\varepsilon+1)^2(1-\bar u)\,\alpha_n}}_{\delta_\mu}\hat y_t
-      \notag\\[4pt]
-    &= \left(\frac{1}{\sigma} + \frac{\varphi}{\alpha_n} - \delta_\mu\right)\hat y_t
-    \label{eq:mc_adjusted}
-  \end{align}
-  Multiplying by $\kappa_{mc}$ and substituting into the standard Calvo pricing
-  condition $\pi_t = \beta\mathbb{E}_t\pi_{t+1} + \kappa_{mc}\hat{mc}_t$
-  yields \eqref{eq:kappa_mono}.
-
-  Strict inequality holds because $\delta_\mu > 0$ for all $\gamma > 0$,
-  $\bar\varepsilon > 0$, $\bar u \in (0,1)$, $\alpha_n \in (0,1)$.
-
-  State-dependence: $\kappa^{mono}$ falls as $\bar u$ rises (more recession),
-  since $\partial\delta_\mu/\partial\bar u > 0$ reduces the effective
-  slope further. This is because higher unemployment compresses markdowns more
-  aggressively, increasing the dampening of MC responses.
+\begin{proof}[Proof Sketch]
+  Log-linearize real marginal cost $mc_t = w_t/(\mu_t^w z_t f_n)$ around the
+  non-stochastic steady state. The markdown deviation is
+  $\hat\mu_t^w = [\gamma/(\bar\varepsilon+1)^2(1-\bar u)]\hat n_t > 0$ when
+  employment rises (using $\partial\varepsilon_t/\partial u = -\gamma$ and
+  $\hat u \approx -(1-\bar u)^{-1}\hat n_t$). Substituting the household
+  labour supply FOC, the Cobb-Douglas marginal product, and market clearing
+  into $\hat{mc}_t$ and collecting terms in $\hat y_t$ yields
+  $\hat{mc}_t = (1/\sigma + \varphi/\alpha_n - \delta_\mu)\hat y_t$.
+  Multiplying by $\kappa_{mc}$ and applying the Calvo pricing condition gives
+  \eqref{eq:kappa_mono}. Strict inequality holds because $\delta_\mu > 0$
+  for all $\gamma, \bar\varepsilon, \bar u, \alpha_n > 0$.
+  Full derivation in Supplemental Appendix A.
 \end{proof}
 
 \begin{corollary}[Sacrifice Ratio]
@@ -165,46 +115,23 @@ tightening toward constrained workers.
   $\theta < \eta$.
 \end{theorem}
 
-\begin{proof}
-  Part (i): \citet{hulten1978} theorem extended to the multi-sector CES
-  environment of \citet{baqaee2019}. The Hulten result states that, to a first
-  order, the GDP impact of a sectoral TFP shock equals that sector's Domar
-  weight $\lambda_{sr} = P_{sr}X_{sr}/(P\cdot\mathrm{GDP})$.
-
-  Part (ii): Differentiate the Leontief inverse with respect to $\phi$ using
-  the matrix identity
-  $d\mathbf{L}/d\phi = \mathbf{L}\,(d\boldsymbol\Omega^\top/d\phi)\,\mathbf{L}$.
-  From the Armington CES structure, a rise in $\phi$ raises the iceberg cost
-  on cross-bloc links, so
-  $\partial\Omega_{(s,r)(s',r')}/\partial\phi < 0$ for cross-bloc pairs. This
-  redirects final demand toward domestic suppliers, increasing their row-sum
-  in $\mathbf{L}$ and thus their Domar weight. For upstream sectors that
-  supply intermediate goods across blocs, this reallocation is large; for
-  downstream service sectors, it is negligible. See Appendix~\ref{app:proofs}
-  for the full matrix derivation.
-
-  Part (iii): Apply the envelope theorem to the CES cost function. For a
-  marginal increase $d\phi$ in the cross-bloc trade cost:
-  \begin{equation*}
-    dm^{rr'}_{ss'} = -\frac{m^{rr'}_{ss'}}{\tau^{rr'}}\,d\phi
-    \quad \Rightarrow \quad
-    d\log Y = -\!\!\!\sum_{\text{cross-bloc}}\frac{\lambda_{sr}\,\Omega_{(s,r)(s',r')}}
-    {\tau^{rr'}}\,d\phi
-  \end{equation*}
-  which gives \eqref{eq:tfp_loss} after dividing by $d\phi$. Strict negativity
-  holds because all summands are non-negative.
-
-  Part (iv): Under global integration, a cost shock is absorbed by substituting
-  toward cross-bloc suppliers at the Armington elasticity $\eta$. Under
-  fragmentation, this margin is blocked, confining adjustment to domestic
-  suppliers at the lower within-sector elasticity $\theta < \eta$. Shock
-  persistence therefore scales with $\eta/\theta > 1$. See
-  Appendix~\ref{app:proofs}.
+\begin{proof}[Proof Sketch]
+  Part (i) is the Hulten (1978) theorem: first-order GDP impact of a sectoral
+  shock equals the sector's sales share. Part (ii) follows from differentiating
+  the Leontief inverse via $d\mathbf{L}/d\phi =
+  \mathbf{L}(d\boldsymbol\Omega^\top/d\phi)\mathbf{L}$ and noting that
+  $\partial\Omega_{(s,r)(s',r')}/\partial\phi < 0$ for cross-bloc pairs
+  (first-order Armington), which redirects expenditure to domestic upstream
+  suppliers. Part (iii) applies the envelope theorem to the CES cost function:
+  $d\log Y = -\sum_{\text{cross-bloc}}\lambda_{sr}\Omega_{(s,r)(s',r')}
+  \tau^{rr'{}^{-1}}d\phi$, yielding \eqref{eq:tfp_loss}. Part (iv) follows
+  from substitution elasticity ranking $\theta < \eta$.
+  Full derivation in Supplemental Appendix A.
 \end{proof}
 
 \paragraph{Magnitudes.}
 Using the BEA 2019 Benchmark Input-Output Table aggregated to 10 sectors and
-5 regions (Appendix~\ref{app:data}), the calibrated formula \eqref{eq:tfp_loss}
+5 regions (Supplemental Appendix), the calibrated formula \eqref{eq:tfp_loss}
 gives $d\log\mathrm{TFP}/d\phi = -0.032$. A 15pp increase in $\phi$ thus
 reduces aggregate TFP by 0.47\%. Upstream Domar weights (Energy, Mining,
 Basic Manufacturing) increase by 15--25\% relative to baseline following such
@@ -239,61 +166,20 @@ the supply-side inflation, worsening the welfare outcome.
   with $\phi_\pi^* > \phi_\pi^{std}$ and $\phi_\phi^* < 0$.
 \end{theorem}
 
-\begin{proof}
-  The welfare loss function \eqref{eq:welfare_criterion} has two additional
-  terms relative to the standard \citet{woodford2003} loss:
-  \begin{enumerate}[(i)]
-    \item The \emph{labour wedge term}
-      $(1/\varepsilon_w\bar\mu^w)\mathrm{Var}[\hat\mu_t^w]$: welfare is directly
-      lowered by fluctuations in the wage markdown because households value
-      the consumption-leisure margin and are not compensated for the
-      productivity-wage gap.
-    \item The \emph{fragmentation term}
-      $(\alpha_m/\eta\bar\tau)\mathrm{Var}[\hat\phi_t]$: trade cost fluctuations
-      impose deadweight losses proportional to the intermediate input share
-      and inversely proportional to the Armington elasticity.
-  \end{enumerate}
-
-  \paragraph{Ramsey first-order conditions.}
-  The planner chooses $(\phi_\pi, \phi_y, \phi_\mu, \phi_\phi)$ to minimise
-  $\mathcal{L}$ subject to the reduced-form law of motion from combining the
-  NKPC \eqref{eq:NKPC_comp} and aggregate demand equation. Let
-  $\rho = \rho_\phi$ denote the AR(1) persistence of the fragmentation shock
-  and $\psi_{mc}$ the cost-push pass-through coefficient. The reduced-form
-  output and inflation responses per unit fragmentation shock are:
-  \begin{align}
-    \Phi_y(\boldsymbol\phi)   &= \frac{-\sigma^{-1}\phi_\phi - \psi_z}
-      {(1-\rho) + \sigma^{-1}\phi_y + \sigma^{-1}(\phi_\pi-\rho)\kappa^{mono}\alpha_n^{-1}/(1-\beta\rho)}
-    \label{eq:Phi_y}\\[4pt]
-    \Phi_\pi(\boldsymbol\phi) &= \frac{\kappa^{mono}}{\alpha_n(1-\beta\rho)}\Phi_y
-      + \frac{\kappa^{mono}\psi_{mc}}{1-\beta\rho}
-    \label{eq:Phi_pi}
-  \end{align}
-  where $\psi_z = |d\log\mathrm{TFP}/d\phi|$ is the TFP sensitivity from
-  Proposition~2. The welfare loss is $\mathcal{L} = \Phi_\pi^2 V_\phi + \lambda_y
-  \Phi_y^2 V_\phi + \cdots$ where $V_\phi = \sigma_\phi^2/(1-\rho^2)$.
-
-  \paragraph{Sign of $\phi_\phi^*$.}
-  From \eqref{eq:Phi_y}--\eqref{eq:Phi_pi}: $\partial\Phi_y/\partial\phi_\phi > 0$
-  (less negative $\phi_\phi$ deepens the output trough) and
-  $\partial\Phi_\pi/\partial\phi_\phi < 0$ (more accommodation reduces inflation).
-  The FOC $\partial\mathcal{L}/\partial\phi_\phi = 0$ sets the inflation-output
-  trade-off at the social optimum. Since a fragmentation shock is a supply shock
-  (both $\Phi_y < 0$ and $\Phi_\pi > 0$, unlike a demand shock where both
-  move together), it generates an inflation-output tradeoff under the standard
-  rule. The planner resolves this by choosing $\phi_\phi^* < 0$, partially
-  accommodating the cost-push component to avoid excessive output sacrifice.
-  The optimal magnitude $|\phi_\phi^*|$ is increasing in the welfare weight
-  $\lambda_\phi = \alpha_m/(\eta\bar\tau)$ on fragmentation variance and in
-  the TFP sensitivity $\psi_z$.
-
-  \paragraph{Sign of $\phi_\pi^*$.}
-  Because monopsony flattens the NKPC ($\kappa^{mono} < \kappa^{comp}$), the
-  planner must use a larger $\phi_\pi^*$ to achieve the same inflation
-  stabilisation.  The optimal augmented rule tilts the inflation-output frontier
-  inward relative to the standard rule; a larger $\phi_\pi^*$ is part of
-  reaching the efficient point. See Appendix~\ref{app:proofs} for the
-  complete Ramsey derivation.
+\begin{proof}[Proof Sketch]
+  The welfare criterion \eqref{eq:welfare_criterion} adds two terms to
+  \citet{woodford2003}: a labour-wedge term $(1/\varepsilon_w\bar\mu^w)\mathrm{Var}[\hat\mu^w_t]$
+  and a trade-cost term $(\alpha_m/\eta\bar\tau)\mathrm{Var}[\hat\phi_t]$.
+  The Ramsey planner minimizes $\mathcal{L}$ subject to the
+  NKPC--IS system. A fragmentation shock is stagflationary ($\Phi_y < 0$,
+  $\Phi_\pi > 0$), so the standard rule---which responds only to $\pi_t$ and
+  $\tilde y_t$---overtightens into the output loss. The FOC
+  $\partial\mathcal{L}/\partial\phi_\phi = 0$ yields $\phi_\phi^* < 0$:
+  partial accommodation trades a modest inflation overshoot for substantially
+  less output sacrifice. Because monopsony flattens the NKPC, the Ramsey
+  planner also sets $\phi_\pi^* > \phi_\pi^{std}$ to maintain price stability.
+  Full Ramsey derivation in Supplemental Appendix A; the appendix below
+  provides the closed-form sign condition.
 \end{proof}
 
 \begin{corollary}[Welfare Gain from Augmented Rule]

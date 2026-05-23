@@ -1,123 +1,49 @@
 \section{Policy Implications}
 \label{sec:policy}
 
-The model delivers concrete, actionable implications for three areas of
-economic policy.
+\subsection{The Augmented Taylor Rule: Operational Implementation}
 
-\subsection{Monetary Policy}
+Proposition~3 prescribes two additions to the standard Taylor rule.
 
-\subsubsection{Augment the Taylor Rule}
+\paragraph{Accommodate the fragmentation premium ($\phi_\phi^* = -0.22$).}
+When $\hat\phi_t > 0$, the economy faces a supply-side cost-push shock.
+The standard rule tightens in response to inflation, further depressing
+output without addressing the supply origin. The augmented rule partially
+accommodates, trading a modest inflation overshoot ($+0.3$pp peak) for a
+substantially smaller output trough ($-0.8$pp vs.\ $-1.4$pp). Operationally,
+this coefficient can be conditioned on cross-bloc trade flow divergence,
+shipping cost indices, or the composite fragmentation index $F_t$ from
+Section~\ref{sec:data}. The welfare gain is 0.06\% at baseline
+$\sigma_\phi = 0.05$, rising to $\approx 1\%$ at $\sigma_\phi = 0.20$.
 
-The central result---Proposition 3---prescribes augmenting the standard
-Taylor rule with two additional terms:
+\paragraph{Respond to the wage markdown indicator ($\phi_\mu^* \geq 0$).}
+Markdown deepening in recession compresses incomes of hand-to-mouth
+households, implying the central bank should ease more aggressively during
+concentrated-market downturns. At baseline $\gamma = 0.8$, $\phi_\mu^*
+\approx 0$; it rises to economically significant magnitudes as markdown
+cyclicality or the HtM share increase. Conditioned on HHI data from
+\citet{azar2020}, this provides a real-time operational handle on
+distributional monetary policy.
 
-\begin{enumerate}
-  \item \textbf{Labor market concentration indicator} ($\phi_\mu^* > 0$):
-    Central banks should ease more aggressively when real-time measures
-    of labor market concentration indicate deepening monopsony. Operationally,
-    this could be implemented using quarterly HHI data from online job
-    postings \citep{azar2020} or administrative employment records.
-    Our baseline calibration finds $\phi_\mu^* \approx 0$ for $\sigma_\phi = 0.05$,
-    rising as fragmentation variance and monopsony cyclicality increase;
-    the sign is positive whenever $\gamma > 0$.
-
-  \item \textbf{Supply chain fragmentation index} ($\phi_\phi^* < 0$):
-    Central banks should tighten less aggressively when fragmentation shocks
-    drive inflation, as these are supply-side phenomena that rate hikes cannot
-    efficiently address. Operationally, this could condition on indices of
-    trade policy uncertainty, cross-bloc trade flow divergence, or the
-    shipping cost indices that proved to be leading indicators of supply
-    disruptions in 2021.
-\end{enumerate}
-
-\subsubsection{Revise the Natural Rate Concept}
-
-The model implies that the ``natural rate of unemployment''---the rate
-consistent with stable inflation---is not structural but depends on current
-market structure. Under monopsony, the unemployment rate consistent with
-wage stability (the wage-consistent NAIRU) is lower than the rate consistent
-with price stability (the inflation-consistent NAIRU). These two concepts
-diverge by:
+\paragraph{Revising the NAIRU.}
+The wage-consistent NAIRU lies below the inflation-consistent NAIRU by:
 \begin{equation}
-  u^*_{price} - u^*_{wage} = \frac{\bar\mu^w}{\gamma}\left[\frac{1}{\varepsilon_p} -
-  \frac{1}{\varepsilon_w}\right]
+  u^*_{\text{price}} - u^*_{\text{wage}} = \frac{\bar\mu^w}{\gamma}
+  \left[\frac{1}{\varepsilon_p} - \frac{1}{\varepsilon_w}\right] \approx 0.4\;\text{pp}
   \label{eq:nairu_gap}
 \end{equation}
-In our calibration, this gap is approximately 0.4 percentage points. Central
-banks using wage-consistent NAIRU estimates (as in the \citet{phillips2021}
-wage-price spiral literature) may systematically overtighten relative to
-price stability, at the cost of unnecessary unemployment.
+Central banks using wage-consistent NAIRU estimates may systematically
+overtighten, generating unnecessary unemployment.
 
-\subsubsection{Forward Guidance Under Monopsony}
+\subsection{Complementarity with Structural Policy}
 
-The model implies that the sacrifice ratio is state-dependent and higher
-in recessions (when monopsony deepens). This has implications for forward
-guidance: promises of future accommodation should be calibrated more
-aggressively in recessions than standard models suggest, because the
-output cost of premature tightening is larger. Conversely, the benefit of
-credible inflation anchoring is amplified: if households believe inflation
-will revert, real wages are not compressed by the markdown channel, partially
-offsetting the welfare cost of the monetary contraction.
-
-\subsection{Antitrust and Labor Market Policy}
-
-A novel finding of the model is that \emph{antitrust policy is
-macroeconomic policy}. Reducing labor market concentration by enforcing
-competitive labor markets raises $\bar\varepsilon$, which:
-\begin{enumerate}[(i)]
-  \item Steepens the Phillips curve (Proposition 1), making monetary policy
-    more effective;
-  \item Reduces the countercyclical variation in $\mu_t^w$, stabilizing
-    real wages and aggregate demand over the cycle;
-  \item Raises the labor share and aggregate welfare directly.
-\end{enumerate}
-A policy that raises $\bar\varepsilon$ from 4 to 8 (moving from the median
-U.S.\ labour market to a more competitive benchmark) would reduce $\delta_\mu$
-by half and steepen $\kappa^{mono}$ toward $\kappa^{comp}$, lowering the
-model-implied sacrifice ratio accordingly. The precise welfare gain requires
-knowledge of the counterfactual disinflation path; what the model delivers is
-a structural formula linking concentration ($\bar\varepsilon$) to monetary
-policy effectiveness ($\kappa^{mono}$).
-
-\subsection{Industrial and Trade Policy}
-
-\subsubsection{Managed Reshoring vs.\ Abrupt Decoupling}
-
-The fragmentation TFP loss formula \eqref{eq:tfp_loss} provides a precise
-cost function for trade policy design. Key implications:
-
-\begin{enumerate}
-  \item \textbf{The speed of decoupling matters.} A gradual increase in
-    $\phi_t$ allows firms to build domestic substitutes before cross-bloc
-    links are severed, reducing peak Domar weight reallocation. Our model
-    quantifies the annual TFP cost of abrupt decoupling at 1.2\% vs.\ 0.4\%
-    for a ten-year managed transition---a 3:1 cost ratio.
-
-  \item \textbf{Sector-specific intervention is more efficient than uniform tariffs.}
-    Sectors with high upstream Domar weights and limited domestic substitution
-    capacity (Energy, Semiconductors, Critical Minerals) are the
-    highest-priority targets for supply-chain resilience investment. Uniform
-    tariffs that raise $\phi_t$ across all sectors impose disproportionate
-    costs through these concentrated upstream nodes.
-
-  \item \textbf{Strategic buffer stocks are welfare-improving.}
-    In a fragmented world, maintaining inventories of inputs with high cross-bloc
-    Domar weights effectively reduces the volatility of $\phi_t$ from the
-    perspective of domestic producers. Our model provides a formula for the
-    optimal inventory level: it should equal the expected peak TFP loss during
-    a fragmentation episode divided by the cost of carry. This provides a
-    formal justification for the CHIPS and Science Act's semiconductor
-    stockpile provisions and the IRA's critical minerals investments.
-\end{enumerate}
-
-\subsubsection{Complementarity Between Monetary and Industrial Policy}
-
-A broader insight is that monetary and industrial policy are
-\emph{complements}, not substitutes, in the fragmented-monopsonistic world
-we model. Monetary policy can smooth the business cycle; it cannot change
-the underlying structure of labor markets or supply chains. Industrial
-policy can reduce $\bar\phi$ (by building domestic capacity) and raise
-$\bar\varepsilon$ (by fostering competition); it operates at the wrong
-frequency to smooth short-run fluctuations. The welfare optimum requires both
-instruments working in tandem, with the central bank conditioning on the
-current state of structural policy through the augmented Taylor rule.
+The augmented Taylor rule is a second-best instrument. Antitrust enforcement
+that raises $\bar\varepsilon$ steepens $\kappa^{mono}$ toward $\kappa^{comp}$,
+making each rate hike more effective and reducing the sacrifice ratio.
+Industrial policy that builds domestic upstream capacity lowers $\bar\phi$
+and reduces the variance of fragmentation shocks the central bank must
+absorb. The welfare optimum requires both: the central bank conditioning on
+the current structural state through the augmented rule, and structural
+policy investing at the frequency of long-run supply chain realignment.
+Detailed welfare quantification of these complementarities is in the
+Supplemental Appendix.

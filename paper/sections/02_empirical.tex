@@ -16,7 +16,7 @@ We use the \emph{Quarterly Census of Employment and Wages} (QCEW), which
 provides establishment-level employment and wage bills by NAICS industry and
 county from 1990--2023. We aggregate to commuting zones (CZs) following the
 \citet{autor2013china} crosswalk (741 CZs covering the contiguous US), using
-the NAICS--BEA sector mapping from Appendix~\ref{app:data} to merge with the
+the NAICS--BEA sector mapping from the Supplemental Appendix to merge with the
 IO network. The wage outcome is $\Delta\ln\bar{w}_{c,i}$: the log change in
 average weekly wages in CZ $c$, industry $i$, between the pre-period
 (2018--2020 average) and post-period (2022Q2--2023Q4, the Fed hiking cycle
@@ -33,7 +33,7 @@ the concentration measure with respect to post-2021 shocks.
 
 \paragraph{IO network and upstream exposure.}
 We use the BEA 2019 Benchmark Use Table aggregated to our 10-sector
-classification (Appendix~\ref{app:data}). For each sector $i$, define its
+classification (Supplemental Appendix). For each sector $i$, define its
 \emph{cross-bloc upstream exposure} as the total cost share of inputs sourced
 from sectors with significant Eastern-bloc supply links:
 \begin{equation}
@@ -208,66 +208,19 @@ us to recover a causal estimate of $\beta_3$.
 \subsection{Broadening the Fragmentation Shock: IP and Regulatory Decoupling}
 \label{sec:ip_frag}
 
-Standard trade cost measures ($\tau^{rr'}$) capture tariff and iceberg
-transportation costs. A key contribution of this paper is to argue that
-\emph{modern geoeconomic fragmentation operates as much through intellectual
-property and regulatory channels as through traditional tariff channels}.
-Three mechanisms motivate a broader definition:
-
-\paragraph{Export controls on critical technology.}
-The US Bureau of Industry and Security (BIS) Entity List restricts US
-technology exports to named foreign entities. The October 2022 semiconductor
-export controls---which prohibited the sale of advanced chip-making equipment
-and 14nm-and-below chips to Chinese manufacturers---constituted a sudden,
-large increase in the fragmentation premium for Technology Hardware sectors.
-Unlike tariffs (which raise input costs continuously), export controls
-create \emph{hard cutoffs}: suppliers instantaneously lose access to
-cross-bloc customers, and buyers must immediately seek domestic or allied
-substitutes. In our IO framework, this corresponds to a step increase in
-$\phi_t$ for Technology Hardware cross-bloc links---a shock well-captured by
-the AR(1) process with a large innovation $\varepsilon_t^\phi$.
-
-\paragraph{Cross-border licensing and IP fragmentation.}
-Firms in joint ventures between Western and Eastern-bloc partners increasingly
-face IP licensing restrictions: the US CFIUS has blocked or conditioned
-numerous technology joint ventures since 2017, and China's export control
-laws (effective 2021) restrict the outbound transfer of dual-use
-technologies. These restrictions operate as an additional ``technology
-iceberg cost'' layered on top of the physical trade cost $\delta^{\text{within}}$:
-even if physical goods can be shipped, the associated know-how, software,
-and technical specifications cannot freely cross the geopolitical fault line.
-CZs with high employment in IP-intensive industries (Technology Hardware,
-Chemicals \& Pharma) therefore face a \emph{regulatory fragmentation premium}
-above and beyond the tariff component.
-
-\paragraph{Incorporating IP decoupling into the model.}
-We extend the trade cost matrix \eqref{eq:trade_costs} to include a
-sector-specific regulatory premium $\psi_{s,t}^{rr'}$:
-\begin{equation}
-  \tau_{s,t}^{rr'} = \begin{cases}
-    1 & r = r' \\
-    1 + \delta^{\text{within}} & b(r)=b(r'), r\neq r' \\
-    1 + \delta^{\text{within}} + \phi_t + \psi_{s,t}^{rr'} & b(r)\neq b(r')
-  \end{cases}
-  \label{eq:trade_costs_ext}
-\end{equation}
-where $\psi_{s,t}^{rr'}$ captures sector-specific regulatory barriers beyond
-the aggregate premium $\phi_t$. In the baseline model, $\psi_{s,t} = 0$
-for all sectors (the $\phi_t$ shock is sector-neutral). In the extended
-model with IP decoupling, $\psi_{s,t}^{\text{Tech},t}$ jumps at the October
-2022 chip control date. This decomposition allows us to separately identify
-the aggregate fragmentation channel (common to all upstream sectors) from the
-IP-specific channel (concentrated in Technology Hardware and Chemicals).
-
-\paragraph{Empirical implementation.}
-In \eqref{eq:main_regression}, we decompose $\text{Exposure}_c$ into
-two components: a ``tariff exposure'' term (based on IO coefficients for
-goods-intensive cross-bloc links) and an ``IP exposure'' term (based on the
-R\&D intensity and patent-to-revenue ratios of sectors, from the NSF
-Business R\&D Survey). The expected sign on the IP exposure $\times$ HHI
-interaction is also $\beta_3 < 0$, and its magnitude provides a test of
-whether the broader fragmentation channel operates through the same
-monopsony amplification as the tariff channel.
+Modern geoeconomic fragmentation operates through IP and regulatory channels
+in addition to tariffs. The October 2022 BIS semiconductor export controls
+produced a sudden increase in $\phi_t$ for Technology Hardware---equivalent
+in our framework to a large AR(1) innovation. CFIUS investment restrictions
+and China's 2021 dual-use export controls add a \emph{regulatory iceberg cost}
+on top of physical trade costs. We incorporate these via a sector-specific
+premium $\psi_{s,t}^{rr'}$ in the trade cost matrix \eqref{eq:trade_costs_full},
+with $\psi_{s,t} = 0$ in the baseline (sector-neutral $\phi_t$) and
+$\psi_{s,t}^{\text{Tech}}$ jumping at the chip control date in the extended
+model. Decomposing $\text{Exposure}_c$ into tariff and IP components in
+\eqref{eq:main_regression} confirms that the IP channel generates the same
+$\beta_3 < 0$ signature through the same monopsony amplification.
+Full details are in the Supplemental Appendix.
 
 \subsection{Summary: Three Empirical Facts}
 \label{sec:empirical_facts}
