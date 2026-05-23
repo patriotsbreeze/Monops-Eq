@@ -3,16 +3,26 @@
 %% A Unified HANK-IO Framework with Structural Monopsony
 %% and Geoeconomic Fragmentation
 %%
-%% Target: American Economic Review / Journal of Political Economy
+%% Target: American Economic Review
 %% Compile: latexmk -pdf main.tex
 %% ============================================================
 
-\documentclass[12pt]{article}
+\documentclass[AER,draftmode]{AEA}
 
-%% ── Packages ─────────────────────────────────────────────────
-\usepackage[margin=1in]{geometry}
-\usepackage{amsmath, amssymb, amsthm}
+%% ── AEA Draft Spacing (1.5 = "double" for review) ───────────
+\draftSpacing{1.5}
+
+%% ── Natbib (per AEA template instructions) ───────────────────
+\usepackage{natbib}
+
+%% ── Math (AEA.cls loads amsmath[leqno]; add extra symbols) ──
+%% AEA.cls defines its own proof env; clear it so amsthm can define the standard one
+\let\proof\relax
+\let\endproof\relax
+\usepackage{amssymb, amsthm}
 \usepackage{mathtools}
+
+%% ── Graphics and Tables ──────────────────────────────────────
 \usepackage{graphicx}
 \usepackage{booktabs}
 \usepackage{tabularx}
@@ -20,26 +30,31 @@
 \usepackage{multirow}
 \usepackage[font=small,labelfont=bf,labelsep=period]{caption}
 \usepackage{subcaption}
+
+%% ── Lists ────────────────────────────────────────────────────
 \usepackage{enumerate}
 \usepackage[shortlabels]{enumitem}
-\usepackage{natbib}
+
+%% ── Typography ───────────────────────────────────────────────
+\usepackage[protrusion=true,expansion=false]{microtype}
+\usepackage{xcolor}
+
+%% ── Math fonts ───────────────────────────────────────────────
+\usepackage{bm}
+\usepackage{dsfont}
+
+%% ── Hyperlinks ───────────────────────────────────────────────
 \usepackage[hidelinks,
             colorlinks=true,
             citecolor=blue!70!black,
             linkcolor=blue!70!black,
             urlcolor=blue!70!black]{hyperref}
-\usepackage[protrusion=true,expansion=false]{microtype}
-\usepackage{setspace}
-\usepackage{titlesec}
-\usepackage{abstract}
+
+%% ── Footnotes ────────────────────────────────────────────────
 \usepackage{footnote}
-\usepackage{xcolor}
-\usepackage{appendix}
-\usepackage{bm}
-\usepackage{dsfont}
 
 %% ── Bibliography Style ───────────────────────────────────────
-\bibliographystyle{aer}
+\bibliographystyle{aea}
 
 %% ── Theorem Environments ─────────────────────────────────────
 \theoremstyle{plain}
@@ -54,16 +69,6 @@
 
 \theoremstyle{remark}
 \newtheorem{remark}[theorem]{Remark}
-
-%% ── Typography ───────────────────────────────────────────────
-\setstretch{1.5}           % AER-required 1.5 line spacing
-\setlength{\parindent}{2em}
-\setlength{\parskip}{0pt}
-
-%% Title section spacing
-\titleformat{\section}{\normalfont\large\bfseries}{\thesection.}{0.5em}{}
-\titleformat{\subsection}{\normalfont\normalsize\bfseries}{\thesubsection.}{0.5em}{}
-\titleformat{\subsubsection}{\normalfont\normalsize\itshape}{\thesubsubsection.}{0.5em}{}
 
 %% ── Custom Commands ──────────────────────────────────────────
 \newcommand{\E}{\mathbb{E}}
@@ -84,36 +89,36 @@
 \newcommand{\muw}{\mu^w}
 \newcommand{\muws}{\bar\mu^w}
 
-%% Figure reference shorthand
+%% Figure/table reference shorthand
 \newcommand{\figref}[1]{Figure~\ref{#1}}
 \newcommand{\tabref}[1]{Table~\ref{#1}}
-
-%% ── Title Page ───────────────────────────────────────────────
-\title{\textbf{Monetary Policy in Fractured Markets:} \\[6pt]
-       A Unified {HANK-IO} Framework with Structural Monopsony \\
-       and Geoeconomic Fragmentation}
-
-\author{Brendan Lo\thanks{%
-  Department of Economics, University of Chicago.
-  Email: \href{mailto:brendanlo@uchicago.edu}{brendanlo@uchicago.edu}.}}
-
-\date{May 2025 \\ \medskip {\small \textit{Working Paper}}}
 
 %% ─────────────────────────────────────────────────────────────
 \begin{document}
 %% ─────────────────────────────────────────────────────────────
 
-\maketitle
-\thispagestyle{empty}
+%% ── Title Block (inside document per AEA format) ─────────────
+\title{Monetary Policy in Fractured Markets: A Unified HANK-IO
+       Framework with Structural Monopsony and Geoeconomic
+       Fragmentation}
 
-%% ── Abstract ─────────────────────────────────────────────────
+\shortTitle{Monetary Policy in Fractured Markets}
+
+\author{Brendan Lo\thanks{%
+  Department of Economics, University of Chicago.
+  Email: \href{mailto:brendanlo@uchicago.edu}{brendanlo@uchicago.edu}.}}
+
+\date{May 2025}
+
+%% ── JEL Classification ───────────────────────────────────────
+\JEL{E12, E24, E52, F41, J42}
+
+%% ── Abstract (before \maketitle per AEA format) ─────────────
 \begin{abstract}
-  \noindent
   \input{sections/abstract}
 \end{abstract}
 
-\clearpage
-\setcounter{page}{1}
+\maketitle
 
 %% ── Body ─────────────────────────────────────────────────────
 \input{sections/01_introduction}
